@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🀄 ฝึกพินอิน (拼音) ภาษาจีนกลาง</title>
+<style>
+  :root {
+    --red:    #e63946;
+    --gold:   #f4a261;
+    --green:  #2a9d8f;
+    --dark:   #1d3557;
+    --light:  #f1faee;
+    --card-bg:#ffffff;
+    --shadow: 0 4px 20px rgba(0,0,0,0.12);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', 'Noto Sans Thai', Arial, sans-serif;
+    background: linear-gradient(135deg, #1d3557 0%, #457b9d 100%);
+    min-height: 100vh;
+    color: #333;
+  }
+
+  /* ===== HEADER ===== */
+  header {
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+  }
+  header h1 { color: #fff; font-size: 1.5rem; }
+  header p  { color: rgba(255,255,255,0.8); font-size: 0.85rem; }
+  .score-badge {
+    background: var(--gold);
+    color: #fff;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 1rem;
+  }
+
+  /* ===== NAV TABS ===== */
+  nav {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px;
+    flex-wrap: wrap;
+  }
+  nav button {
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+    border: 2px solid rgba(255,255,255,0.3);
+    padding: 10px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+  }
+  nav button:hover, nav button.active {
+    background: #fff;
+    color: var(--dark);
+    border-color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+
+  /* ===== MAIN CONTENT ===== */
+  main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 16px;
+  }
+
+  .section { display: none; }
+  .section.active { display: block; }
+
+  /* ===== CARDS / TABLE ===== */
+  .card {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: var(--shadow);
+  }
+  .card h2 {
+    color: var(--dark);
+    margin-bottom: 16px;
+    font-size: 1.2rem;
+    border-left: 4px solid var(--red);
+    padding-left: 10px;
+  }
+  .card h3 {
+    color: var(--green);
+    margin: 16px 0 10px;
+    font-size: 1rem;
+  }
+
+  /* Pinyin Grid */
+  .pinyin-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .pinyin-item {
+    background: var(--light);
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    padding: 10px 14px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    min-width: 70px;
+  }
+  .pinyin-item:hover {
+    border-color: var(--red);
+    background: #fff0f0;
+    transform: scale(1.05);
+  }
+  .pinyin-item .py  { font-size: 1.2rem; font-weight: bold; color: var(--red); }
+  .pinyin-item .zhuyin { font-size: 0.85rem; color: #888; }
+  .pinyin-item .thai { font-size: 0.75rem; color: #555; margin-top: 2px; }
+
+  /* Tone display */
+  .tone-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 12px 0;
+  }
+  .tone-box {
+    background: var(--light);
+    border-radius: 12px;
+    padding: 16px 24px;
+    text-align: center;
+    min-width: 120px;
+    border: 2px solid #eee;
+  }
+  .tone-box .mark { font-size: 2rem; color: var(--red); }
+  .tone-box .name { font-size: 0.85rem; color: #555; }
+  .tone-box .thai { font-size: 0.8rem; color: var(--green); }
+  .tone-box .example { font-size: 1rem; font-weight: bold; margin-top: 6px; color: var(--dark); }
+
+  /* ===== FLASHCARD MODE ===== */
+  .flashcard-container {
+    perspective: 1000px;
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto 20px;
+    height: 220px;
+    cursor: pointer;
+  }
+  .flashcard {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.5s;
+    border-radius: 20px;
+  }
+  .flashcard.flipped { transform: rotateY(180deg); }
+  .flashcard-front, .flashcard-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow);
+    padding: 20px;
+    text-align: center;
+  }
+  .flashcard-front { background: var(--dark); color: #fff; }
+  .flashcard-back  { background: var(--card-bg); transform: rotateY(180deg); }
+  .flashcard-front .big { font-size: 3.5rem; font-weight: bold; color: var(--gold); }
+  .flashcard-back  .big { font-size: 2.5rem; font-weight: bold; color: var(--red); }
+  .flashcard-front .sub { font-size: 0.9rem; opacity: 0.7; margin-top: 8px; }
+  .flashcard-back  .detail { font-size: 1rem; color: #555; margin-top: 8px; line-height: 1.6; }
+
+  .fc-controls {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+  .fc-controls button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 30px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.2s;
+  }
+  .btn-flip { background: var(--dark); color: #fff; }
+  .btn-prev { background: #eee; color: #333; }
+  .btn-next { background: var(--red); color: #fff; }
+  .btn-shuffle { background: var(--green); color: #fff; }
+  .fc-controls button:hover { opacity: 0.85; transform: translateY(-2px); }
+
+  .fc-progress {
+    text-align: center;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+  }
+  .fc-category {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 16px;
+  }
+  .fc-category button {
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 6px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.2s;
+  }
+  .fc-category button.active {
+    background: var(--gold);
+    border-color: var(--gold);
+  }
+
+  /* ===== TYPING QUIZ ===== */
+  .quiz-box {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    margin-bottom: 20px;
+  }
+  .quiz-prompt { font-size: 0.9rem; color: #888; margin-bottom: 8px; }
+  .quiz-char   { font-size: 2rem; font-weight: bold; color: var(--dark); margin-bottom: 6px; }
+  .quiz-hint   { font-size: 0.85rem; color: #aaa; margin-bottom: 20px; }
+  .quiz-input  {
+    font-size: 1.5rem;
+    text-align: center;
+    width: 100%;
+    max-width: 280px;
+    padding: 12px 20px;
+    border: 3px solid #ddd;
+    border-radius: 12px;
+    outline: none;
+    transition: border 0.2s;
+    font-family: monospace;
+  }
+  .quiz-input:focus { border-color: var(--dark); }
+  .quiz-input.correct { border-color: var(--green); background: #e8f8f5; }
+  .quiz-input.wrong   { border-color: var(--red);   background: #fdecea; }
+
+  .quiz-feedback {
+    margin-top: 14px;
+    font-size: 1rem;
+    font-weight: bold;
+    min-height: 28px;
+  }
+  .quiz-feedback.ok  { color: var(--green); }
+  .quiz-feedback.err { color: var(--red); }
+
+  .quiz-btn {
+    margin-top: 16px;
+    background: var(--dark);
+    color: #fff;
+    border: none;
+    padding: 12px 32px;
+    border-radius: 30px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .quiz-btn:hover { background: var(--red); transform: translateY(-2px); }
+
+  .quiz-stats {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+  }
+  .stat-chip {
+    background: rgba(255,255,255,0.15);
+    color: #fff;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+  }
+
+  /* ===== TONE QUIZ ===== */
+  .tone-options {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 16px;
+  }
+  .tone-opt {
+    background: var(--card-bg);
+    border: 3px solid #ddd;
+    padding: 14px 20px;
+    border-radius: 12px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    min-width: 80px;
+  }
+  .tone-opt:hover      { border-color: var(--dark); }
+  .tone-opt.correct-a  { border-color: var(--green); background: #e8f8f5; }
+  .tone-opt.wrong-a    { border-color: var(--red);   background: #fdecea; }
+
+  /* ===== RESPONSIVE ===== */
+  @media(max-width:600px) {
+    header h1 { font-size: 1.1rem; }
+    .flashcard-container { height: 200px; }
+    .flashcard-front .big { font-size: 2.8rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>🀄 ฝึกพินอิน (拼音) ภาษาจีนกลาง</h1>
+    <p>บทเรียนที่ 1 · พยัญชนะ สระ วรรณยุกต์</p>
+  </div>
+  <div class="score-badge">⭐ คะแนน: <span id="totalScore">0</span></div>
+</header>
+
+<nav>
+  <button class="active" onclick="showSection('reference')">📖 อ้างอิง</button>
+  <button onclick="showSection('flashcard')">🃏 Flashcard</button>
+  <button onclick="showSection('typing')">⌨️ ฝึกพิมพ์</button>
+  <button onclick="showSection('toneQuiz')">🎵 ฝึกวรรณยุกต์</button>
+</nav>
+
+<main>
+
+<!-- ===================== REFERENCE ===================== -->
+<div id="reference" class="section active">
+
+  <div class="card">
+    <h2>声母 · พยัญชนะ (21 ตัว)</h2>
+    <div class="pinyin-grid" id="consonantGrid"></div>
+  </div>
+
+  <div class="card">
+    <h2>韵母 · สระเดี่ยว (6 เสียง)</h2>
+    <div class="pinyin-grid" id="simpleVowelGrid"></div>
+  </div>
+
+  <div class="card">
+    <h2>韵母 · สระผสม</h2>
+    <h3>▸ สระผสม 2 เสียง (9 เสียง)</h3>
+    <div class="pinyin-grid" id="diphthongGrid"></div>
+    <h3>▸ สระผสม 3 เสียง (4 เสียง)</h3>
+    <div class="pinyin-grid" id="triphthongGrid"></div>
+    <h3>▸ สระผสมนาสิก (16 เสียง)</h3>
+    <div class="pinyin-grid" id="nasalGrid"></div>
+  </div>
+
+  <div class="card">
+    <h2>声调 · วรรณยุกต์ 4 เสียง</h2>
+    <div class="tone-row">
+      <div class="tone-box">
+        <div class="mark">ā</div>
+        <div class="name">เสียงที่ 1 (ˉ)</div>
+        <div class="thai">เทียบกับ สามัญ/ตรี</div>
+        <div class="example">māma (妈妈)</div>
+      </div>
+      <div class="tone-box">
+        <div class="mark">á</div>
+        <div class="name">เสียงที่ 2 (ˊ)</div>
+        <div class="thai">เทียบกับ จัตวา</div>
+        <div class="example">máma (麻麻)</div>
+      </div>
+      <div class="tone-box">
+        <div class="mark">ǎ</div>
+        <div class="name">เสียงที่ 3 (ˇ)</div>
+        <div class="thai">คล้ายเสียงเอก</div>
+        <div class="example">mǎma (马马)</div>
+      </div>
+      <div class="tone-box">
+        <div class="mark">à</div>
+        <div class="name">เสียงที่ 4 (ˋ)</div>
+        <div class="thai">เทียบกับ โท</div>
+        <div class="example">màma (骂妈)</div>
+      </div>
+    </div>
+    <p style="text-align:center;color:#888;font-size:0.85rem;margin-top:12px;">
+      💡 ในการพิมพ์คอมพิวเตอร์ใช้ตัวเลขแทนได้: 1=ˉ  2=ˊ  3=ˇ  4=ˋ  5=เสียงเบา
+    </p>
+  </div>
+
+</div><!-- /reference -->
+
+<!-- ===================== FLASHCARD ===================== -->
+<div id="flashcard" class="section">
+  <div class="fc-category">
+    <button class="active" onclick="setFCCategory('all',this)">ทั้งหมด</button>
+    <button onclick="setFCCategory('consonant',this)">พยัญชนะ</button>
+    <button onclick="setFCCategory('vowel',this)">สระ</button>
+    <button onclick="setFCCategory('nasal',this)">สระนาสิก</button>
+  </div>
+
+  <div class="fc-progress" id="fcProgress">บัตรที่ 1 / 50</div>
+
+  <div class="flashcard-container" onclick="flipCard()">
+    <div class="flashcard" id="flashcard">
+      <div class="flashcard-front">
+        <div class="big" id="fcFront">b</div>
+        <div class="sub">แตะเพื่อดูคำตอบ</div>
+      </div>
+      <div class="flashcard-back">
+        <div class="big" id="fcBack">ป</div>
+        <div class="detail" id="fcDetail">ㄅ · เทียบกับ "ป" ในภาษาไทย</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="fc-controls">
+    <button class="btn-prev" onclick="prevCard()">◀ ก่อนหน้า</button>
+    <button class="btn-flip" onclick="flipCard()">🔄 พลิก</button>
+    <button class="btn-next" onclick="nextCard()">ถัดไป ▶</button>
+    <button class="btn-shuffle" onclick="shuffleCards()">🔀 สุ่ม</button>
+  </div>
+</div><!-- /flashcard -->
+
+<!-- ===================== TYPING QUIZ ===================== -->
+<div id="typing" class="section">
+  <div class="quiz-stats">
+    <div class="stat-chip">✅ ถูก: <span id="correctCount">0</span></div>
+    <div class="stat-chip">❌ ผิด: <span id="wrongCount">0</span></div>
+    <div class="stat-chip">📝 ข้อที่: <span id="questionNum">0</span></div>
+  </div>
+
+  <div class="quiz-box">
+    <div class="quiz-prompt">พิมพ์พินอินของ:</div>
+    <div class="quiz-char" id="quizChar">ㄅ</div>
+    <div class="quiz-hint" id="quizHint">เทียบกับ "ป" ในภาษาไทย</div>
+    <input class="quiz-input" id="quizInput" type="text"
+           placeholder="พิมพ์พินอิน..." autocomplete="off" autocorrect="off"
+           onkeydown="handleQuizKey(event)" />
+    <div class="quiz-feedback" id="quizFeedback"></div>
+    <button class="quiz-btn" onclick="checkAnswer()">ตรวจคำตอบ (Enter)</button>
+    <button class="quiz-btn" style="background:var(--gold);margin-left:8px" onclick="skipQuestion()">ข้าม ⏭</button>
+  </div>
+</div><!-- /typing -->
+
+<!-- ===================== TONE QUIZ ===================== -->
+<div id="toneQuiz" class="section">
+  <div class="quiz-stats">
+    <div class="stat-chip">✅ ถูก: <span id="tCorrect">0</span></div>
+    <div class="stat-chip">❌ ผิด: <span id="tWrong">0</span></div>
+  </div>
+
+  <div class="quiz-box">
+    <div class="quiz-prompt">วรรณยุกต์ใดตรงกับคำอธิบาย?</div>
+    <div class="quiz-char" id="toneQuestion">เสียงที่ 1 – ระดับเดียวสูง (สามัญ/ตรี)</div>
+    <div class="tone-options" id="toneOptions"></div>
+    <div class="quiz-feedback" id="toneFeedback"></div>
+    <button class="quiz-btn" style="margin-top:20px" onclick="nextToneQ()">ถัดไป ▶</button>
+  </div>
+</div><!-- /toneQuiz -->
+
+</main>
+
+<script>
+// ===================== DATA =====================
+const consonants = [
+  { py:"b",  zhuyin:"ㄅ", thai:"ป" },
+  { py:"p",  zhuyin:"ㄆ", thai:"พ" },
+  { py:"m",  zhuyin:"ㄇ", thai:"ม" },
+  { py:"f",  zhuyin:"ㄈ", thai:"ฟ" },
+  { py:"d",  zhuyin:"ㄉ", thai:"ต" },
+  { py:"t",  zhuyin:"ㄊ", thai:"ท/ธ" },
+  { py:"n",  zhuyin:"ㄋ", thai:"น" },
+  { py:"l",  zhuyin:"ㄌ", thai:"ล" },
+  { py:"g",  zhuyin:"ㄍ", thai:"ก" },
+  { py:"k",  zhuyin:"ㄎ", thai:"ค" },
+  { py:"h",  zhuyin:"ㄏ", thai:"ฮ" },
+  { py:"j",  zhuyin:"ㄐ", thai:"จ" },
+  { py:"q",  zhuyin:"ㄑ", thai:"ช" },
+  { py:"x",  zhuyin:"ㄒ", thai:"ซ" },
+  { py:"zh", zhuyin:"ㄓ", thai:"จร" },
+  { py:"ch", zhuyin:"ㄔ", thai:"ชร" },
+  { py:"sh", zhuyin:"ㄕ", thai:"ซร" },
+  { py:"r",  zhuyin:"ㄖ", thai:"ยืร์" },
+  { py:"z",  zhuyin:"ㄗ", thai:"จือ" },
+  { py:"c",  zhuyin:"ㄘ", thai:"ชือ" },
+  { py:"s",  zhuyin:"ㄙ", thai:"ซือ" },
+];
+
+const simpleVowels = [
+  { py:"a", zhuyin:"ㄚ", thai:"อา" },
+  { py:"o", zhuyin:"ㄛ", thai:"โอ" },
+  { py:"e", zhuyin:"ㄜ", thai:"เออ" },
+  { py:"i", zhuyin:"一", thai:"อี" },
+  { py:"u", zhuyin:"ㄨ", thai:"อู" },
+  { py:"ü", zhuyin:"ㄩ", thai:"อวี" },
+];
+
+const diphthongs = [
+  { py:"ai", zhuyin:"ㄞ", thai:"ไอ" },
+  { py:"ei", zhuyin:"ㄟ", thai:"เอย" },
+  { py:"ao", zhuyin:"ㄠ", thai:"อาว" },
+  { py:"ou", zhuyin:"ㄡ", thai:"โอว" },
+  { py:"ia", zhuyin:"ㄧㄚ", thai:"เอีย" },
+  { py:"ie", zhuyin:"ㄧㄝ", thai:"เอีย(เอะ)" },
+  { py:"ua", zhuyin:"ㄨㄚ", thai:"อวา" },
+  { py:"uo", zhuyin:"ㄨㄛ", thai:"อัว" },
+  { py:"ue", zhuyin:"ㄩㄝ", thai:"เอว์" },
+];
+
+const triphthongs = [
+  { py:"iao", zhuyin:"ㄧㄠ", thai:"เอียว" },
+  { py:"iu",  zhuyin:"ㄧㄡ", thai:"อิว" },
+  { py:"uai", zhuyin:"ㄨㄞ", thai:"ไอว" },
+  { py:"ui",  zhuyin:"ㄨㄟ", thai:"อุย" },
+];
+
+const nasals = [
+  { py:"an",   zhuyin:"ㄢ", thai:"อัน" },
+  { py:"ang",  zhuyin:"ㄤ", thai:"อาง" },
+  { py:"ong",  zhuyin:"ㄨㄥ", thai:"อง" },
+  { py:"en",   zhuyin:"ㄣ", thai:"เอิน" },
+  { py:"eng",  zhuyin:"ㄥ", thai:"เอิง" },
+  { py:"ian",  zhuyin:"ㄧㄢ", thai:"เอียน" },
+  { py:"in",   zhuyin:"ㄧㄣ", thai:"อิน" },
+  { py:"iang", zhuyin:"ㄧㄤ", thai:"เอียง" },
+  { py:"ing",  zhuyin:"ㄧㄥ", thai:"อิง" },
+  { py:"iong", zhuyin:"ㄩㄥ", thai:"อี+อง" },
+  { py:"uan",  zhuyin:"ㄨㄢ", thai:"อวน" },
+  { py:"un",   zhuyin:"ㄨㄣ", thai:"อุน" },
+  { py:"uang", zhuyin:"ㄨㄤ", thai:"อวาง" },
+  { py:"ueng", zhuyin:"ㄨㄥ", thai:"เอวิง" },
+  { py:"üan",  zhuyin:"ㄩㄢ", thai:"อวาน" },
+  { py:"ün",   zhuyin:"ㄩㄣ", thai:"อวุน" },
+];
+
+const tones = [
+  { mark:"ā/ē/ī/ō/ū", num:1, desc:"เสียงที่ 1 – ระดับสูง คงที่ (สามัญ/ตรี)", example:"māma 妈 (แม่)" },
+  { mark:"á/é/í/ó/ú", num:2, desc:"เสียงที่ 2 – เสียงขึ้น (จัตวา)", example:"máma 麻 (งา)" },
+  { mark:"ǎ/ě/ǐ/ǒ/ǔ", num:3, desc:"เสียงที่ 3 – ลงแล้วขึ้น (คล้ายเอก)", example:"mǎma 马 (ม้า)" },
+  { mark:"à/è/ì/ò/ù", num:4, desc:"เสียงที่ 4 – เสียงลงแรง (โท)", example:"màma 骂 (ด่า)" },
+];
+
+// ===================== REFERENCE RENDER =====================
+function makeGrid(container, items) {
+  const el = document.getElementById(container);
+  items.forEach(item => {
+    el.innerHTML += `<div class="pinyin-item">
+      <div class="py">${item.py}</div>
+      <div class="zhuyin">${item.zhuyin}</div>
+      <div class="thai">${item.thai}</div>
+    </div>`;
+  });
+}
+makeGrid('consonantGrid',    consonants);
+makeGrid('simpleVowelGrid',  simpleVowels);
+makeGrid('diphthongGrid',    diphthongs);
+makeGrid('triphthongGrid',   triphthongs);
+makeGrid('nasalGrid',        nasals);
+
+// ===================== SECTION SWITCH =====================
+function showSection(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  if (id === 'typing')   initTypingQuiz();
+  if (id === 'toneQuiz') initToneQuiz();
+  if (id === 'flashcard') initFlashcards();
+}
+
+// ===================== FLASHCARD =====================
+let fcCards = [], fcIdx = 0, fcCat = 'all', fcFlipped = false;
+
+const allCards = [
+  ...consonants.map(c => ({ front:c.py, back:c.thai, detail:`${c.zhuyin} · เทียบกับ "${c.thai}" ในภาษาไทย`, cat:'consonant' })),
+  ...simpleVowels.map(v => ({ front:v.py, back:v.thai, detail:`${v.zhuyin} · เสียง "${v.thai}"`, cat:'vowel' })),
+  ...diphthongs.map(v => ({ front:v.py, back:v.thai, detail:`${v.zhuyin} · เสียง "${v.thai}"`, cat:'vowel' })),
+  ...triphthongs.map(v => ({ front:v.py, back:v.thai, detail:`${v.zhuyin} · เสียง "${v.thai}"`, cat:'vowel' })),
+  ...nasals.map(v => ({ front:v.py, back:v.thai, detail:`${v.zhuyin} · เสียง "${v.thai}"`, cat:'nasal' })),
+];
+
+function setFCCategory(cat, btn) {
+  fcCat = cat;
+  document.querySelectorAll('.fc-category button').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  initFlashcards();
+}
+
+function initFlashcards() {
+  fcCards = fcCat === 'all' ? [...allCards]
+          : allCards.filter(c => c.cat === fcCat);
+  fcIdx = 0;
+  renderCard();
+}
+
+function renderCard() {
+  const c = fcCards[fcIdx];
+  document.getElementById('fcFront').textContent = c.front;
+  document.getElementById('fcBack').textContent   = c.back;
+  document.getElementById('fcDetail').textContent = c.detail;
+  document.getElementById('fcProgress').textContent = `บัตรที่ ${fcIdx+1} / ${fcCards.length}`;
+  // reset flip
+  fcFlipped = false;
+  document.getElementById('flashcard').classList.remove('flipped');
+}
+
+function flipCard() {
+  fcFlipped = !fcFlipped;
+  document.getElementById('flashcard').classList.toggle('flipped', fcFlipped);
+}
+function nextCard() {
+  fcIdx = (fcIdx + 1) % fcCards.length;
+  renderCard();
+}
+function prevCard() {
+  fcIdx = (fcIdx - 1 + fcCards.length) % fcCards.length;
+  renderCard();
+}
+function shuffleCards() {
+  for (let i = fcCards.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [fcCards[i], fcCards[j]] = [fcCards[j], fcCards[i]];
+  }
+  fcIdx = 0;
+  renderCard();
+}
+
+// ===================== TYPING QUIZ =====================
+const quizPool = [
+  ...consonants.map(c => ({ display:c.zhuyin, hint:`เทียบกับ "${c.thai}"`, answer:c.py })),
+  ...simpleVowels.map(v => ({ display:v.zhuyin, hint:`เสียง "${v.thai}"`, answer:v.py })),
+  ...diphthongs.map(v => ({ display:v.zhuyin, hint:`เสียง "${v.thai}"`, answer:v.py })),
+  ...nasals.map(v => ({ display:v.zhuyin, hint:`เสียง "${v.thai}"`, answer:v.py })),
+];
+
+let qPool = [], qIdx = 0, qCorrect = 0, qWrong = 0, qTotal = 0, answered = false, totalScore = 0;
+
+function initTypingQuiz() {
+  qPool = [...quizPool];
+  shuffleArr(qPool);
+  qIdx = 0; qCorrect = 0; qWrong = 0; qTotal = 0; answered = false;
+  updateQuizStats();
+  renderQuizQ();
+}
+
+function shuffleArr(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i+1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+}
+
+function renderQuizQ() {
+  if (qIdx >= qPool.length) { qPool = [...quizPool]; shuffleArr(qPool); qIdx = 0; }
+  const q = qPool[qIdx];
+  document.getElementById('quizChar').textContent = q.display;
+  document.getElementById('quizHint').textContent = q.hint;
+  const inp = document.getElementById('quizInput');
+  inp.value = '';
+  inp.className = 'quiz-input';
+  inp.focus();
+  document.getElementById('quizFeedback').textContent = '';
+  document.getElementById('quizFeedback').className = 'quiz-feedback';
+  answered = false;
+}
+
+function checkAnswer() {
+  if (answered) { nextQuestion(); return; }
+  const inp = document.getElementById('quizInput');
+  const val = inp.value.trim().toLowerCase();
+  const ans = qPool[qIdx].answer.toLowerCase();
+  const fb  = document.getElementById('quizFeedback');
+  answered = true; qTotal++;
+  if (val === ans) {
+    inp.className = 'quiz-input correct';
+    fb.textContent = '✅ ถูกต้อง! ยอดเยี่ยม 🎉';
+    fb.className = 'quiz-feedback ok';
+    qCorrect++; totalScore += 10;
+    document.getElementById('totalScore').textContent = totalScore;
+  } else {
+    inp.className = 'quiz-input wrong';
+    fb.textContent = `❌ คำตอบที่ถูกต้องคือ: ${qPool[qIdx].answer}`;
+    fb.className = 'quiz-feedback err';
+    qWrong++;
+  }
+  updateQuizStats();
+}
+
+function skipQuestion() {
+  const fb = document.getElementById('quizFeedback');
+  fb.textContent = `📌 คำตอบ: ${qPool[qIdx].answer}`;
+  fb.className = 'quiz-feedback err';
+  answered = true; qTotal++; qWrong++;
+  updateQuizStats();
+}
+
+function nextQuestion() {
+  qIdx++;
+  renderQuizQ();
+}
+
+function handleQuizKey(e) {
+  if (e.key === 'Enter') checkAnswer();
+}
+
+function updateQuizStats() {
+  document.getElementById('correctCount').textContent = qCorrect;
+  document.getElementById('wrongCount').textContent   = qWrong;
+  document.getElementById('questionNum').textContent  = qTotal;
+}
+
+// ===================== TONE QUIZ =====================
+const toneQuizItems = [
+  { question:"เสียงที่ 1 – ระดับสูง คงที่ (สามัญ/ตรี)", answer:"ā", options:["ā","á","ǎ","à"] },
+  { question:"เสียงที่ 2 – เสียงขึ้น (จัตวา)", answer:"á", options:["ā","á","ǎ","à"] },
+  { question:"เสียงที่ 3 – ลง-แล้ว-ขึ้น (คล้ายเอก)", answer:"ǎ", options:["ā","á","ǎ","à"] },
+  { question:"เสียงที่ 4 – เสียงลงแรง (โท)", answer:"à", options:["ā","á","ǎ","à"] },
+  { question:"สัญลักษณ์ ā หมายถึงเสียงใด?", answer:"เสียงที่ 1", options:["เสียงที่ 1","เสียงที่ 2","เสียงที่ 3","เสียงที่ 4"] },
+  { question:"สัญลักษณ์ á หมายถึงเสียงใด?", answer:"เสียงที่ 2", options:["เสียงที่ 1","เสียงที่ 2","เสียงที่ 3","เสียงที่ 4"] },
+  { question:"สัญลักษณ์ ǎ หมายถึงเสียงใด?", answer:"เสียงที่ 3", options:["เสียงที่ 1","เสียงที่ 2","เสียงที่ 3","เสียงที่ 4"] },
+  { question:"สัญลักษณ์ à หมายถึงเสียงใด?", answer:"เสียงที่ 4", options:["เสียงที่ 1","เสียงที่ 2","เสียงที่ 3","เสียงที่ 4"] },
+  { question:"妈 māma ใช้วรรณยุกต์ใด?", answer:"ā (เสียงที่ 1)", options:["ā (เสียงที่ 1)","á (เสียงที่ 2)","ǎ (เสียงที่ 3)","à (เสียงที่ 4)"] },
+  { question:"马 mǎ ใช้วรรณยุกต์ใด?", answer:"ǎ (เสียงที่ 3)", options:["ā (เสียงที่ 1)","á (เสียงที่ 2)","ǎ (เสียงที่ 3)","à (เสียงที่ 4)"] },
+];
+
+let tPool = [], tIdx = 0, tCorrect = 0, tWrong = 0, tAnswered = false;
+
+function initToneQuiz() {
+  tPool = [...toneQuizItems];
+  shuffleArr(tPool);
+  tIdx = 0; tCorrect = 0; tWrong = 0; tAnswered = false;
+  renderToneQ();
+  updateToneStats();
+}
+
+function renderToneQ() {
+  if (tIdx >= tPool.length) { tPool = [...toneQuizItems]; shuffleArr(tPool); tIdx = 0; }
+  const q = tPool[tIdx];
+  document.getElementById('toneQuestion').textContent = q.question;
+  const opts = document.getElementById('toneOptions');
+  opts.innerHTML = '';
+  q.options.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'tone-opt';
+    btn.textContent = opt;
+    btn.onclick = () => selectTone(opt, btn);
+    opts.appendChild(btn);
+  });
+  document.getElementById('toneFeedback').textContent = '';
+  tAnswered = false;
+}
+
+function selectTone(opt, btn) {
+  if (tAnswered) return;
+  tAnswered = true;
+  const ans = tPool[tIdx].answer;
+  const fb = document.getElementById('toneFeedback');
+  if (opt === ans) {
+    btn.classList.add('correct-a');
+    fb.textContent = '✅ ถูกต้อง!';
+    fb.className = 'quiz-feedback ok';
+    tCorrect++; totalScore += 5;
+    document.getElementById('totalScore').textContent = totalScore;
+  } else {
+    btn.classList.add('wrong-a');
+    // highlight correct
+    document.querySelectorAll('.tone-opt').forEach(b => {
+      if (b.textContent === ans) b.classList.add('correct-a');
+    });
+    fb.textContent = `❌ คำตอบที่ถูกต้องคือ: ${ans}`;
+    fb.className = 'quiz-feedback err';
+    tWrong++;
+  }
+  updateToneStats();
+}
+
+function nextToneQ() { tIdx++; renderToneQ(); }
+function updateToneStats() {
+  document.getElementById('tCorrect').textContent = tCorrect;
+  document.getElementById('tWrong').textContent   = tWrong;
+}
+
+// ===================== INIT =====================
+initFlashcards();
+</script>
+</body>
+</html>
