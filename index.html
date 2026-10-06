@@ -668,6 +668,158 @@
   .fc-back .sub { font-size: 1.1rem; color: var(--secondary); font-weight: 600; margin-top: 6px; }
   .fc-back .thai { font-size: 0.95rem; color: var(--text-muted); margin-top: 6px; }
 
+  
+  /* ===== HANDWRITING / DRAWING PAD ===== */
+  .pad-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  .pad-char-bar {
+    width: 100%;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    scrollbar-width: thin;
+  }
+  .pad-char-btn {
+    background: #fff;
+    border: 2px solid var(--border);
+    padding: 6px 14px;
+    border-radius: 12px;
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--primary);
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  body.dark-mode .pad-char-btn { background: #1e293b; border-color: #334155; color: #f1f5f9; }
+  .pad-char-btn.active, .pad-char-btn:hover {
+    border-color: var(--secondary);
+    background: #eff6ff;
+    color: var(--secondary);
+    transform: translateY(-2px);
+  }
+  body.dark-mode .pad-char-btn.active {
+    background: #1e3a8a;
+    border-color: #60a5fa;
+    color: #fff;
+  }
+  .pad-canvas-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    height: 380px;
+    border: 3px solid var(--border);
+    border-radius: 16px;
+    background: #ffffff;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    overflow: hidden;
+    user-select: none;
+    touch-action: none;
+  }
+  body.dark-mode .pad-canvas-wrapper {
+    background: #0f172a;
+    border-color: #334155;
+  }
+  /* Canvas Background Grid layer */
+  .pad-grid-layer {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .grid-tianzige {
+    width: 100%; height: 100%;
+    background-image: 
+      linear-gradient(to right, rgba(203, 213, 225, 0.4) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(203, 213, 225, 0.4) 1px, transparent 1px),
+      linear-gradient(to right, rgba(226, 232, 240, 0.7) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(226, 232, 240, 0.7) 1px, transparent 1px);
+    background-size: 50% 50%, 50% 50%, 25% 25%, 25% 25%;
+    background-position: center center;
+  }
+  .grid-lined {
+    width: 100%; height: 100%;
+    background-image: linear-gradient(rgba(203, 213, 225, 0.5) 1px, transparent 1px);
+    background-size: 100% 25%;
+  }
+  /* Tracing Watermark Text */
+  .pad-watermark {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 13rem;
+    font-weight: 800;
+    color: rgba(148, 163, 184, 0.28);
+    pointer-events: none;
+    line-height: 1;
+    text-align: center;
+    transition: opacity 0.2s;
+  }
+  body.dark-mode .pad-watermark {
+    color: rgba(148, 163, 184, 0.22);
+  }
+  #drawCanvas {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    cursor: crosshair;
+    touch-action: none;
+    z-index: 10;
+  }
+  /* Pad Toolbar */
+  .pad-toolbar {
+    width: 100%;
+    max-width: 480px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .tool-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #fff;
+    padding: 6px 10px;
+    border-radius: 14px;
+    border: 1px solid var(--border);
+  }
+  body.dark-mode .tool-group { background: #1e293b; border-color: #334155; }
+  .color-dot {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: transform 0.15s, border-color 0.15s;
+  }
+  .color-dot:hover, .color-dot.active {
+    transform: scale(1.15);
+    border-color: #fff;
+    box-shadow: 0 0 0 2px var(--secondary);
+  }
+  .size-btn {
+    padding: 4px 10px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  body.dark-mode .size-btn { background: #0f172a; border-color: #334155; color: #fff; }
+  .size-btn.active {
+    background: var(--secondary);
+    color: #fff;
+    border-color: var(--secondary);
+  }
+
   footer { text-align: center; padding: 24px; font-size: 0.85rem; color: var(--text-muted); background: #fff; border-top: 1px solid var(--border); margin-top: 40px; }
 </style>
 </head>
@@ -705,6 +857,7 @@
 <nav>
   <div class="nav-inner">
     <button class="nav-tab active" onclick="switchTab('alphabet')">🔤 พยัญชนะ สระ & ตัวสะกด</button>
+    <button class="nav-tab" onclick="switchTab('drawpad')">✍️ แผ่นแพดฝึกเขียน & วาดคัดลายมือ</button>
     <button class="nav-tab" onclick="switchTab('numbers')">🔢 ตัวเลข & การบอกเวลา</button>
     <button class="nav-tab" onclick="switchTab('builder')">🧩 ต่อแต่งประโยค (ธรรมดา, ทางการ, อิสระ)</button>
     <button class="nav-tab" onclick="switchTab('dialogues')">💬 บทสนทนาสถานการณ์จริง</button>
@@ -726,6 +879,66 @@
       </div>
       <div class="card-subtitle">แตะที่การ์ดตัวอักษรเพื่อฟังเสียงอ่านสดที่ถูกต้องตามหลักสากล</div>
       <div id="alphaContainer"></div>
+    </div>
+  </div>
+
+  
+  <!-- ================= TAB: HANDWRITING / DRAWING PAD ================= -->
+  <div id="tab-drawpad" class="view-panel">
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <h2>แผ่นแพดฝึกเขียนและวาดคัดลายมือ (Interactive Writing Pad)</h2>
+          <div class="card-subtitle" style="margin-bottom:0;margin-top:2px;">ใช้ปากกา ปลายนิ้วสัมผัส หรือเมาส์ ลากเส้นฝึกคัดลายมือบนแผ่นกระดาษอัจฉริยะ</div>
+        </div>
+        <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap;">
+          <button class="btn btn-secondary" style="padding:5px 12px;font-size:0.8rem;" onclick="speakPadChar()">🔊 ฟังเสียงตัวนี้</button>
+          <button class="btn btn-secondary" style="padding:5px 12px;font-size:0.8rem;" id="toggleGuideBtn" onclick="togglePadWatermark()">👁️ ลายเส้นไกด์: เปิด</button>
+          <button class="btn btn-secondary" style="padding:5px 12px;font-size:0.8rem;" onclick="togglePadGrid()">📏 สลับเส้นตาราง</button>
+        </div>
+      </div>
+
+      <!-- Character selector bar -->
+      <div class="palette-title">เลือกตัวอักษรเพื่อฝึกคัดตาม:</div>
+      <div class="pad-char-bar" id="padCharBar"></div>
+
+      <!-- Canvas Area -->
+      <div class="pad-container" style="margin-top:14px;">
+        <div class="pad-canvas-wrapper" id="canvasWrapper">
+          <div class="pad-grid-layer" id="padGridLayer">
+            <div class="grid-tianzige" id="padGridPattern"></div>
+          </div>
+          <div class="pad-watermark" id="padWatermark">A</div>
+          <canvas id="drawCanvas"></canvas>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="pad-toolbar">
+          <div class="tool-group">
+            <span style="font-size:0.75rem;font-weight:700;color:var(--text-muted);">สีหมึก:</span>
+            <div class="color-dot active" style="background:#0f172a;" onclick="setPenColor('#0f172a', this)"></div>
+            <div class="color-dot" style="background:#2563eb;" onclick="setPenColor('#2563eb', this)"></div>
+            <div class="color-dot" style="background:#dc2626;" onclick="setPenColor('#dc2626', this)"></div>
+            <div class="color-dot" style="background:#16a34a;" onclick="setPenColor('#16a34a', this)"></div>
+            <div class="color-dot" style="background:#d97706;" onclick="setPenColor('#d97706', this)"></div>
+          </div>
+
+          <div class="tool-group">
+            <span style="font-size:0.75rem;font-weight:700;color:var(--text-muted);">ขนาดหัวปากกา:</span>
+            <button class="size-btn" onclick="setPenSize(3, this)">บาง (3px)</button>
+            <button class="size-btn active" onclick="setPenSize(7, this)">กลาง (7px)</button>
+            <button class="size-btn" onclick="setPenSize(14, this)">หนา (14px)</button>
+            <button class="size-btn" onclick="setPenSize(22, this)">พู่กัน (22px)</button>
+          </div>
+
+          <div class="tool-group" style="margin-left:auto;">
+            <button class="btn btn-secondary" style="padding:6px 12px;font-size:0.82rem;" onclick="undoCanvas()">↩️ ย้อนกลับ</button>
+            <button class="btn btn-secondary" style="padding:6px 12px;font-size:0.82rem;" onclick="clearCanvas()">🧹 ล้างกระดาน</button>
+            <button class="btn btn-secondary" style="background:#e0f2fe;color:#0369a1;padding:6px 12px;font-size:0.82rem;" onclick="saveCanvasImage()">💾 บันทึกรูป</button>
+            <button class="btn btn-primary" style="padding:6px 14px;font-size:0.82rem;" onclick="submitPracticePad()">⭐ บันทึกแต้ม (+10)</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -11701,6 +11914,7 @@ function renderLanguageButtons() {
 
 function selectLanguage(id) {
   currentLangId = id;
+  userChosenVoice = null;
   const data = DB[id];
 
   document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
@@ -11780,6 +11994,7 @@ function switchTab(tabId) {
   if (tabId === 'flashcards') initFlashcards();
   if (tabId === 'builder') initSentenceBuilder();
   if (tabId === 'numbers') renderNumbers(DB[currentLangId]);
+  if (tabId === 'drawpad') initDrawingPad();
 }
 
 // ==================== TAB 1: ALPHABET & CHARACTERS ====================
@@ -12293,7 +12508,9 @@ function startFlashcardVoicePractice() {
   }
 }
 
-// ==================== ADVANCED ELASTIC TEXT TO SPEECH ====================
+// ==================== DUAL-ENGINE ELASTIC SPEECH SYSTEM ====================
+let currentAudioElement = null;
+
 function toggleElasticAudio() {
   autoRepeatShort = !autoRepeatShort;
   const btn = document.getElementById('elasticBtn');
@@ -12312,52 +12529,99 @@ function toggleSpeechSpeed() {
 }
 
 function speakTarget(text, isSlow = false, forceRepeat = false) {
-  if (!('speechSynthesis' in window)) {
-    alert("เบราว์เซอร์ของคุณยังไม่รองรับระบบเสียงพูดอัตโนมัติ");
-    return;
-  }
-
-  window.speechSynthesis.cancel();
-
   const cleanText = (text || '').trim();
   if (!cleanText) return;
 
+  const currentLang = DB[currentLangId] || {};
+  const langCode = currentLang.speechCode || 'en-US';
+  const shortLang = langCode.split('-')[0].toLowerCase();
+
+  // Elastic acoustic padding:
   const shouldRepeat = forceRepeat || (autoRepeatShort && cleanText.length <= 4 && !cleanText.includes(' '));
   let phraseToSpeak = cleanText;
   if (shouldRepeat) {
-    phraseToSpeak = cleanText + ' ... , ... ' + cleanText;
+    phraseToSpeak = cleanText + ' , ' + cleanText;
   }
 
-  setTimeout(() => {
+  // Check if browser has a valid native voice for this language
+  const hasNativeVoice = speechVoices && speechVoices.some(v => v.lang.toLowerCase().startsWith(shortLang));
+
+  // If no native voice in browser (very common for Arabic, Russian, Turkish, Vietnamese on Windows):
+  // Or if the language is Arabic (ar), directly use the studio-grade online audio stream!
+  if (!hasNativeVoice || shortLang === 'ar') {
+    playOnlineTTS(phraseToSpeak, shortLang, isSlow);
+    return;
+  }
+
+  // Try browser Web Speech API with automatic fallback
+  if ('speechSynthesis' in window) {
     try {
+      window.speechSynthesis.cancel();
       const utter = new SpeechSynthesisUtterance(phraseToSpeak);
-      const currentLang = DB[currentLangId] || {};
-      const langCode = currentLang.speechCode || 'en-US';
       utter.lang = langCode;
 
-      if (userChosenVoice) {
+      if (userChosenVoice && userChosenVoice.lang.toLowerCase().startsWith(shortLang)) {
         utter.voice = userChosenVoice;
+      } else {
+        const best = findBestVoice(langCode);
+        if (best) utter.voice = best;
       }
 
       let effectiveRate = speechRate;
-      if (isSlow) {
-        effectiveRate = Math.min(speechRate * 0.75, 0.7);
-      } else if (cleanText.length <= 2) {
-        effectiveRate = Math.min(speechRate, 0.85);
-      }
+      if (isSlow) effectiveRate = Math.min(speechRate * 0.75, 0.7);
+      else if (cleanText.length <= 2) effectiveRate = Math.min(speechRate, 0.85);
+
       utter.rate = effectiveRate;
       utter.pitch = 1.0;
       utter.volume = 1.0;
 
+      let started = false;
+      utter.onstart = () => { started = true; };
+      utter.onerror = (e) => {
+        console.warn("SpeechSynthesis error, falling back to online audio:", e);
+        playOnlineTTS(phraseToSpeak, shortLang, isSlow);
+      };
+
       activeUtterance = utter;
       utter.onend = () => { activeUtterance = null; };
-      utter.onerror = () => { activeUtterance = null; };
 
-      window.speechSynthesis.speak(utter);
-    } catch (e) {
-      console.warn("Speech synthesis error:", e);
+      setTimeout(() => {
+        window.speechSynthesis.speak(utter);
+        // Safety net: if speech didn't start within 500ms, use online TTS
+        setTimeout(() => {
+          if (!started && activeUtterance === utter) {
+            console.log("SpeechSynthesis timeout, switching to online audio stream...");
+            playOnlineTTS(phraseToSpeak, shortLang, isSlow);
+          }
+        }, 500);
+      }, 75);
+
+    } catch (err) {
+      console.warn("SpeechSynthesis exception, using fallback:", err);
+      playOnlineTTS(phraseToSpeak, shortLang, isSlow);
     }
-  }, 75);
+  } else {
+    playOnlineTTS(phraseToSpeak, shortLang, isSlow);
+  }
+}
+
+function playOnlineTTS(text, langCode, isSlow) {
+  try {
+    if (currentAudioElement) {
+      currentAudioElement.pause();
+      currentAudioElement = null;
+    }
+    const cleanUrlText = encodeURIComponent(text.replace(/[​-‍﻿]/g, ''));
+    const ttsUrl = 'https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=' + langCode + '&q=' + cleanUrlText;
+    const audio = new Audio(ttsUrl);
+    audio.playbackRate = isSlow ? 0.75 : (speechRate === 0.5 ? 0.6 : (speechRate === 0.75 ? 0.8 : 1.0));
+    currentAudioElement = audio;
+    audio.play().catch(e => {
+      console.warn("Online audio playback fallback warning:", e);
+    });
+  } catch (err) {
+    console.error("Audio error:", err);
+  }
 }
 
 // ==================== AI VOICE COACH (SPEECH RECOGNITION) ====================
@@ -12429,6 +12693,220 @@ function calculateSimilarity(str1, str2) {
   const maxLen = Math.max(m, n);
   const sim = Math.round((1 - d[m][n] / maxLen) * 100);
   return Math.max(0, sim);
+}
+
+
+// ==================== HANDWRITING / DRAWING PAD LOGIC ====================
+let padCanvas = null;
+let padCtx = null;
+let isDrawing = false;
+let currentPenColor = '#0f172a';
+let currentPenSize = 7;
+let padHistory = [];
+let currentPadChar = 'A';
+let currentPadSound = 'A';
+let isGuideVisible = true;
+let currentGridPattern = 'tianzige'; // 'tianzige', 'lined', 'blank'
+
+function initDrawingPad() {
+  padCanvas = document.getElementById('drawCanvas');
+  if (!padCanvas) return;
+  padCtx = padCanvas.getContext('2d');
+
+  // Resize canvas to match display size exactly with High DPI
+  resizePadCanvas();
+  window.addEventListener('resize', resizePadCanvas);
+
+  // Setup pointer events (works for mouse, touch, stylus)
+  padCanvas.removeEventListener('pointerdown', handlePadDown);
+  padCanvas.removeEventListener('pointermove', handlePadMove);
+  padCanvas.removeEventListener('pointerup', handlePadUp);
+  padCanvas.removeEventListener('pointercancel', handlePadUp);
+
+  padCanvas.addEventListener('pointerdown', handlePadDown);
+  padCanvas.addEventListener('pointermove', handlePadMove);
+  padCanvas.addEventListener('pointerup', handlePadUp);
+  padCanvas.addEventListener('pointercancel', handlePadUp);
+
+  renderPadCharacters();
+}
+
+function resizePadCanvas() {
+  const wrapper = document.getElementById('canvasWrapper');
+  if (!wrapper || !padCanvas) return;
+  const rect = wrapper.getBoundingClientRect();
+  const dpr = window.devicePixelRatio || 1;
+
+  padCanvas.width = rect.width * dpr;
+  padCanvas.height = rect.height * dpr;
+  padCtx.scale(dpr, dpr);
+  padCtx.lineCap = 'round';
+  padCtx.lineJoin = 'round';
+  redrawPadHistory();
+}
+
+function renderPadCharacters() {
+  const bar = document.getElementById('padCharBar');
+  if (!bar) return;
+  bar.innerHTML = '';
+
+  const data = DB[currentLangId];
+  const items = [];
+  if (data.alphabetSections) {
+    data.alphabetSections.forEach(s => {
+      s.items.forEach(it => items.push(it));
+    });
+  }
+
+  if (items.length === 0) return;
+
+  items.slice(0, 30).forEach((item, idx) => {
+    const btn = document.createElement('button');
+    btn.className = 'pad-char-btn' + (idx === 0 ? ' active' : '');
+    const displayChar = item.char.split(' ')[0];
+    btn.textContent = displayChar;
+    btn.onclick = () => {
+      document.querySelectorAll('.pad-char-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      setPadCharacter(displayChar, item.sound || displayChar);
+    };
+    bar.appendChild(btn);
+  });
+
+  if (items[0]) {
+    const firstChar = items[0].char.split(' ')[0];
+    setPadCharacter(firstChar, items[0].sound || firstChar);
+  }
+}
+
+function setPadCharacter(char, sound) {
+  currentPadChar = char;
+  currentPadSound = sound;
+  const wm = document.getElementById('padWatermark');
+  if (wm) wm.textContent = char;
+  clearCanvas();
+  speakPadChar();
+}
+
+function speakPadChar() {
+  speakTarget(currentPadSound || currentPadChar, false, true);
+}
+
+function togglePadWatermark() {
+  isGuideVisible = !isGuideVisible;
+  const wm = document.getElementById('padWatermark');
+  const btn = document.getElementById('toggleGuideBtn');
+  if (wm) wm.style.opacity = isGuideVisible ? '1' : '0';
+  if (btn) btn.textContent = isGuideVisible ? '👁️ ลายเส้นไกด์: เปิด' : '👁️ ลายเส้นไกด์: ปิด';
+}
+
+function togglePadGrid() {
+  const pattern = document.getElementById('padGridPattern');
+  if (currentGridPattern === 'tianzige') {
+    currentGridPattern = 'lined';
+    pattern.className = 'grid-lined';
+  } else if (currentGridPattern === 'lined') {
+    currentGridPattern = 'blank';
+    pattern.className = '';
+  } else {
+    currentGridPattern = 'tianzige';
+    pattern.className = 'grid-tianzige';
+  }
+}
+
+function getPadPos(e) {
+  const rect = padCanvas.getBoundingClientRect();
+  return {
+    x: e.clientX - rect.left,
+    y: e.clientY - rect.top
+  };
+}
+
+let currentStroke = [];
+
+function handlePadDown(e) {
+  isDrawing = true;
+  padCanvas.setPointerCapture(e.pointerId);
+  const pos = getPadPos(e);
+  currentStroke = [{ x: pos.x, y: pos.y, color: currentPenColor, size: currentPenSize }];
+  padCtx.beginPath();
+  padCtx.strokeStyle = currentPenColor;
+  padCtx.lineWidth = currentPenSize;
+  padCtx.moveTo(pos.x, pos.y);
+}
+
+function handlePadMove(e) {
+  if (!isDrawing) return;
+  const pos = getPadPos(e);
+  currentStroke.push({ x: pos.x, y: pos.y, color: currentPenColor, size: currentPenSize });
+  padCtx.lineTo(pos.x, pos.y);
+  padCtx.stroke();
+}
+
+function handlePadUp(e) {
+  if (!isDrawing) return;
+  isDrawing = false;
+  try { padCanvas.releasePointerCapture(e.pointerId); } catch(err) {}
+  if (currentStroke.length > 0) {
+    padHistory.push([...currentStroke]);
+    currentStroke = [];
+  }
+}
+
+function clearCanvas() {
+  if (!padCtx || !padCanvas) return;
+  const rect = padCanvas.getBoundingClientRect();
+  padCtx.clearRect(0, 0, rect.width, rect.height);
+  padHistory = [];
+}
+
+function undoCanvas() {
+  if (padHistory.length === 0) return;
+  padHistory.pop();
+  redrawPadHistory();
+}
+
+function redrawPadHistory() {
+  if (!padCtx || !padCanvas) return;
+  const rect = padCanvas.getBoundingClientRect();
+  padCtx.clearRect(0, 0, rect.width, rect.height);
+
+  padHistory.forEach(stroke => {
+    if (stroke.length === 0) return;
+    padCtx.beginPath();
+    padCtx.strokeStyle = stroke[0].color || currentPenColor;
+    padCtx.lineWidth = stroke[0].size || currentPenSize;
+    padCtx.moveTo(stroke[0].x, stroke[0].y);
+    for (let i = 1; i < stroke.length; i++) {
+      padCtx.lineTo(stroke[i].x, stroke[i].y);
+    }
+    padCtx.stroke();
+  });
+}
+
+function setPenColor(color, el) {
+  currentPenColor = color;
+  document.querySelectorAll('.color-dot').forEach(d => d.classList.remove('active'));
+  if (el) el.classList.add('active');
+}
+
+function setPenSize(size, el) {
+  currentPenSize = size;
+  document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+  if (el) el.classList.add('active');
+}
+
+function saveCanvasImage() {
+  if (!padCanvas) return;
+  const link = document.createElement('a');
+  link.download = 'handwriting_' + currentLangId + '_' + currentPadChar + '.png';
+  link.href = padCanvas.toDataURL('image/png');
+  link.click();
+}
+
+function submitPracticePad() {
+  addScore(10);
+  alert('🎉 ยอดเยี่ยมมาก! บันทึกคะแนนฝึกคัดลายมือเรียบร้อย (+10 คะแนน)');
 }
 
 // ==================== SCORING & STORAGE ====================
