@@ -186,38 +186,145 @@
     box-shadow: 0 4px 10px rgba(217, 119, 6, 0.35);
   }
 
-  /* Navigation Tabs */
+  /* Navigation Tabs - Distinct Eye-Friendly Color Coding */
   nav {
-    background: #fff;
-    border-bottom: 1px solid var(--border);
+    background: var(--bg-card, #ffffff);
+    border-bottom: 1px solid var(--border-color, #e2e8f0);
     position: sticky;
     top: 0;
     z-index: 100;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+    padding: 8px 0;
   }
   .nav-inner {
-    max-width: 1200px;
+    max-width: 1240px;
     margin: 0 auto;
     display: flex;
+    gap: 8px;
+    padding: 2px 16px;
     overflow-x: auto;
     scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
   }
+  .nav-inner::-webkit-scrollbar { display: none; }
+
+  /* Base Nav Tab Capsule */
   .nav-tab {
-    padding: 13px 16px;
-    background: none;
-    border: none;
-    border-bottom: 3px solid transparent;
+    padding: 9px 16px;
+    background: #f8fafc;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 9999px;
     cursor: pointer;
-    font-size: 0.86rem;
+    font-size: 0.85rem;
     font-weight: 700;
     color: var(--text-muted);
     white-space: nowrap;
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    gap: 6px;
-    transition: all 0.2s;
+    gap: 7px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+    transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    user-select: none;
   }
-  .nav-tab:hover { color: var(--primary); }
-  .nav-tab.active { color: var(--secondary); border-bottom-color: var(--secondary); }
+  .nav-tab:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+  .nav-tab:active {
+    transform: translateY(0) scale(0.98);
+  }
+
+  /* 1. Alphabet - Sky Blue */
+  .nav-tab.tab-blue { background: #f0f9ff; border-color: #bae6fd; color: #0369a1; }
+  .nav-tab.tab-blue:hover { background: #e0f2fe; border-color: #7dd3fc; color: #0284c7; }
+  .nav-tab.tab-blue.active { background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); border-color: #0284c7; color: #ffffff; box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35); }
+
+  /* 2. Drawing Pad - Warm Amber / Gold */
+  .nav-tab.tab-amber { background: #fffbeb; border-color: #fde68a; color: #b45309; }
+  .nav-tab.tab-amber:hover { background: #fef3c7; border-color: #fcd34d; color: #d97706; }
+  .nav-tab.tab-amber.active { background: linear-gradient(135deg, #d97706 0%, #b45309 100%); border-color: #d97706; color: #ffffff; box-shadow: 0 4px 14px rgba(217, 119, 6, 0.35); }
+
+  /* 3. Numbers & Time - Fresh Emerald */
+  .nav-tab.tab-emerald { background: #f0fdf4; border-color: #bbf7d0; color: #15803d; }
+  .nav-tab.tab-emerald:hover { background: #dcfce7; border-color: #86efac; color: #16a34a; }
+  .nav-tab.tab-emerald.active { background: linear-gradient(135deg, #059669 0%, #047857 100%); border-color: #059669; color: #ffffff; box-shadow: 0 4px 14px rgba(5, 150, 105, 0.35); }
+
+  /* 4. Sentence Builder - Royal Purple / Violet */
+  .nav-tab.tab-purple { background: #faf5ff; border-color: #e9d5ff; color: #7e22ce; }
+  .nav-tab.tab-purple:hover { background: #f3e8ff; border-color: #d8b4fe; color: #9333ea; }
+  .nav-tab.tab-purple.active { background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%); border-color: #7c3aed; color: #ffffff; box-shadow: 0 4px 14px rgba(124, 58, 237, 0.35); }
+
+  /* 5. Dialogues - Oceanic Teal */
+  .nav-tab.tab-teal { background: #f0fdfa; border-color: #99f6e4; color: #0f766e; }
+  .nav-tab.tab-teal:hover { background: #ccfbf1; border-color: #5eead4; color: #0d9488; }
+  .nav-tab.tab-teal.active { background: linear-gradient(135deg, #0d9488 0%, #0f766e 100%); border-color: #0d9488; color: #ffffff; box-shadow: 0 4px 14px rgba(13, 148, 136, 0.35); }
+
+  /* 6. Phrases & Slang - Rose Pink */
+  .nav-tab.tab-rose { background: #fff1f2; border-color: #fecdd3; color: #be123c; }
+  .nav-tab.tab-rose:hover { background: #ffe4e6; border-color: #fda4af; color: #e11d48; }
+  .nav-tab.tab-rose.active { background: linear-gradient(135deg, #e11d48 0%, #be123c 100%); border-color: #e11d48; color: #ffffff; box-shadow: 0 4px 14px rgba(225, 29, 72, 0.35); }
+
+  /* 7. Smart Translator & Voice STT - Cyan / Turquoise */
+  .nav-tab.tab-cyan { background: #ecfeff; border-color: #a5f3fc; color: #0891b2; }
+  .nav-tab.tab-cyan:hover { background: #cffafe; border-color: #67e8f9; color: #06b6d4; }
+  .nav-tab.tab-cyan.active { background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%); border-color: #06b6d4; color: #ffffff; box-shadow: 0 4px 14px rgba(6, 182, 212, 0.35); }
+
+  /* 8. Grammar - Deep Indigo */
+  .nav-tab.tab-indigo { background: #eef2ff; border-color: #c7d2fe; color: #4338ca; }
+  .nav-tab.tab-indigo:hover { background: #e0e7ff; border-color: #a5b4fc; color: #4f46e5; }
+  .nav-tab.tab-indigo.active { background: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%); border-color: #4f46e5; color: #ffffff; box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35); }
+
+  /* 9. Typing & Voice Quiz - Vibrant Orange */
+  .nav-tab.tab-orange { background: #fff7ed; border-color: #fed7aa; color: #c2410c; }
+  .nav-tab.tab-orange:hover { background: #ffedd5; border-color: #fdba74; color: #ea580c; }
+  .nav-tab.tab-orange.active { background: linear-gradient(135deg, #ea580c 0%, #c2410c 100%); border-color: #ea580c; color: #ffffff; box-shadow: 0 4px 14px rgba(234, 88, 12, 0.35); }
+
+  /* 10. Flashcards - Orchid Magenta / Fuchsia */
+  .nav-tab.tab-fuchsia { background: #fdf4ff; border-color: #f5d0fe; color: #a21caf; }
+  .nav-tab.tab-fuchsia:hover { background: #fae8ff; border-color: #f0abfc; color: #c026d3; }
+  .nav-tab.tab-fuchsia.active { background: linear-gradient(135deg, #c026d3 0%, #a21caf 100%); border-color: #c026d3; color: #ffffff; box-shadow: 0 4px 14px rgba(192, 38, 211, 0.35); }
+
+  /* Dark Mode Adjustments for Tabs (Eye-friendly Neon Pastel Tints) */
+  [data-theme="dark"] .nav-tab.tab-blue { background: rgba(2, 132, 199, 0.16); border-color: rgba(56, 189, 248, 0.3); color: #7dd3fc; }
+  [data-theme="dark"] .nav-tab.tab-blue:hover { background: rgba(2, 132, 199, 0.28); color: #bae6fd; }
+  [data-theme="dark"] .nav-tab.tab-blue.active { background: linear-gradient(135deg, #0284c7, #0369a1); border-color: #38bdf8; color: #fff; }
+
+  [data-theme="dark"] .nav-tab.tab-amber { background: rgba(217, 119, 6, 0.16); border-color: rgba(251, 191, 36, 0.3); color: #fde68a; }
+  [data-theme="dark"] .nav-tab.tab-amber:hover { background: rgba(217, 119, 6, 0.28); color: #fef3c7; }
+  [data-theme="dark"] .nav-tab.tab-amber.active { background: linear-gradient(135deg, #d97706, #b45309); border-color: #fbbf24; color: #fff; }
+
+  [data-theme="dark"] .nav-tab.tab-emerald { background: rgba(5, 150, 105, 0.16); border-color: rgba(74, 222, 128, 0.3); color: #86efac; }
+  [data-theme="dark"] .nav-tab.tab-emerald:hover { background: rgba(5, 150, 105, 0.28); color: #bbf7d0; }
+  [data-theme="dark"] .nav-tab.tab-emerald.active { background: linear-gradient(135deg, #059669, #047857); border-color: #4ade80; color: #fff; }
+
+  [data-theme="dark"] .nav-tab.tab-purple { background: rgba(124, 58, 237, 0.16); border-color: rgba(192, 132, 252, 0.3); color: #d8b4fe; }
+  [data-theme="dark"] .nav-tab.tab-purple:hover { background: rgba(124, 58, 237, 0.28); color: #e9d5ff; }
+  [data-theme="dark"] .nav-tab.tab-purple.active { background: linear-gradient(135deg, #7c3aed, #6d28d9); border-color: #c084fc; color: #fff; }
+
+  [data-theme="dark"] .nav-tab.tab-teal { background: rgba(13, 148, 136, 0.16); border-color: rgba(45, 212, 191, 0.3); color: #5eead4; }
+  [data-theme="dark"] .nav-tab.tab-teal:hover { background: rgba(13, 148, 136, 0.28); color: #99f6e4; }
+  [data-theme="dark"] .nav-tab.tab-teal.active { background: linear-gradient(135deg, #0d9488, #0f766e); border-color: #2dd4bf; color: #fff; }
+
+  [data-theme="dark"] .nav-tab.tab-rose { background: rgba(225, 29, 72, 0.16); border-color: rgba(251, 113, 133, 0.3); color: #fda4af; }
+  [data-theme="dark"] .nav-tab.tab-rose:hover { background: rgba(225, 29, 72, 0.28); color: #fecdd3; }
+  [data-theme="dark"] .nav-tab.tab-rose.active { background: linear-gradient(135deg, #e11d48, #be123c); border-color: #fb7185; color: #fff; }
+
+  [data-theme="dark"] .nav-tab.tab-cyan { background: rgba(6, 182, 212, 0.16); border-color: rgba(34, 211, 238, 0.3); color: #67e8f9; }
+  [data-theme="dark"] .nav-tab.tab-cyan:hover { background: rgba(6, 182, 212, 0.28); color: #a5f3fc; }
+  [data-theme="dark"] .nav-tab.tab-cyan.active { background: linear-gradient(135deg, #06b6d4, #0891b2); border-color: #22d3ee; color: #fff; }
+
+  [data-theme="dark"] .nav-tab.tab-indigo { background: rgba(79, 70, 229, 0.16); border-color: rgba(165, 180, 252, 0.3); color: #c7d2fe; }
+  [data-theme="dark"] .nav-tab.tab-indigo:hover { background: rgba(79, 70, 229, 0.28); color: #e0e7ff; }
+  [data-theme="dark"] .nav-tab.tab-indigo.active { background: linear-gradient(135deg, #4f46e5, #4338ca); border-color: #818cf8; color: #fff; }
+
+  [data-theme="dark"] .nav-tab.tab-orange { background: rgba(234, 88, 12, 0.16); border-color: rgba(251, 146, 60, 0.3); color: #fdba74; }
+  [data-theme="dark"] .nav-tab.tab-orange:hover { background: rgba(234, 88, 12, 0.28); color: #fed7aa; }
+  [data-theme="dark"] .nav-tab.tab-orange.active { background: linear-gradient(135deg, #ea580c, #c2410c); border-color: #fb923c; color: #fff; }
+
+  [data-theme="dark"] .nav-tab.tab-fuchsia { background: rgba(192, 38, 211, 0.16); border-color: rgba(232, 121, 249, 0.3); color: #f0abfc; }
+  [data-theme="dark"] .nav-tab.tab-fuchsia:hover { background: rgba(192, 38, 211, 0.28); color: #f5d0fe; }
+  [data-theme="dark"] .nav-tab.tab-fuchsia.active { background: linear-gradient(135deg, #c026d3, #a21caf); border-color: #e879f9; color: #fff; }
 
   /* ===== MAIN CONTAINER ===== */
   main {
@@ -340,33 +447,89 @@
   .time-card .time-sub { font-size: 0.85rem; color: var(--secondary); font-weight: 600; margin-top: 2px; }
   .time-card .time-thai { font-size: 0.82rem; color: var(--text-muted); margin-top: 2px; }
 
-  /* Sub Category Filters */
+  /* Sub Category Filters - Eye-Friendly Distinct Pastel Palette */
   .filter-bar {
     display: flex;
     gap: 8px;
     overflow-x: auto;
-    padding-bottom: 10px;
+    padding-bottom: 8px;
     margin-bottom: 16px;
     scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
   }
+  .filter-bar::-webkit-scrollbar { display: none; }
   .filter-pill {
-    padding: 6px 14px;
-    border-radius: 20px;
-    border: 1px solid var(--border);
-    background: #fff;
+    padding: 7px 15px;
+    border-radius: 9999px;
+    border: 1.5px solid #cbd5e1;
+    background: #f8fafc;
+    color: #475569;
     font-size: 0.82rem;
     font-weight: 700;
     cursor: pointer;
     white-space: nowrap;
-    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    user-select: none;
   }
-  .filter-pill.active, .filter-pill:hover {
-    background: var(--primary);
-    color: #fff;
-    border-color: var(--primary);
+  .filter-pill:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
   }
+  .filter-pill:active { transform: translateY(0) scale(0.98); }
 
-  /* Sentence Builder */
+  /* Category Specific Pastel Colors */
+  .filter-pill.cat-all { background: #f8fafc; border-color: #cbd5e1; color: #475569; }
+  .filter-pill.cat-all.active { background: #334155; border-color: #334155; color: #ffffff; box-shadow: 0 4px 12px rgba(51, 65, 85, 0.35); }
+
+  .filter-pill.cat-greet { background: #f0f9ff; border-color: #bae6fd; color: #0369a1; }
+  .filter-pill.cat-greet.active { background: linear-gradient(135deg, #0284c7, #0369a1); border-color: #0284c7; color: #ffffff; box-shadow: 0 4px 12px rgba(2, 132, 199, 0.35); }
+
+  .filter-pill.cat-daily { background: #f0fdf4; border-color: #bbf7d0; color: #15803d; }
+  .filter-pill.cat-daily.active { background: linear-gradient(135deg, #059669, #047857); border-color: #059669; color: #ffffff; box-shadow: 0 4px 12px rgba(5, 150, 105, 0.35); }
+
+  .filter-pill.cat-shop { background: #fffbeb; border-color: #fde68a; color: #b45309; }
+  .filter-pill.cat-shop.active { background: linear-gradient(135deg, #d97706, #b45309); border-color: #d97706; color: #ffffff; box-shadow: 0 4px 12px rgba(217, 119, 6, 0.35); }
+
+  .filter-pill.cat-travel { background: #eef2ff; border-color: #c7d2fe; color: #4338ca; }
+  .filter-pill.cat-travel.active { background: linear-gradient(135deg, #4f46e5, #4338ca); border-color: #4f46e5; color: #ffffff; box-shadow: 0 4px 12px rgba(79, 70, 229, 0.35); }
+
+  .filter-pill.cat-biz { background: #faf5ff; border-color: #e9d5ff; color: #7e22ce; }
+  .filter-pill.cat-biz.active { background: linear-gradient(135deg, #7c3aed, #6d28d9); border-color: #7c3aed; color: #ffffff; box-shadow: 0 4px 12px rgba(124, 58, 237, 0.35); }
+
+  .filter-pill.cat-slang { background: #fdf4ff; border-color: #f5d0fe; color: #a21caf; }
+  .filter-pill.cat-slang.active { background: linear-gradient(135deg, #c026d3, #a21caf); border-color: #c026d3; color: #ffffff; box-shadow: 0 4px 12px rgba(192, 38, 211, 0.35); }
+
+  .filter-pill.cat-warn { background: #fff7ed; border-color: #fed7aa; color: #c2410c; }
+  .filter-pill.cat-warn.active { background: linear-gradient(135deg, #ea580c, #c2410c); border-color: #ea580c; color: #ffffff; box-shadow: 0 4px 12px rgba(234, 88, 12, 0.35); }
+
+  .filter-pill.cat-sos { background: #fff1f2; border-color: #fecdd3; color: #be123c; }
+  .filter-pill.cat-sos.active { background: linear-gradient(135deg, #e11d48, #be123c); border-color: #e11d48; color: #ffffff; box-shadow: 0 4px 12px rgba(225, 29, 72, 0.35); }
+
+  /* Dark mode category pills */
+  [data-theme="dark"] .filter-pill.cat-all { background: rgba(148, 163, 184, 0.14); border-color: rgba(148, 163, 184, 0.3); color: #cbd5e1; }
+  [data-theme="dark"] .filter-pill.cat-all.active { background: #475569; border-color: #64748b; color: #fff; }
+  [data-theme="dark"] .filter-pill.cat-greet { background: rgba(2, 132, 199, 0.14); border-color: rgba(56, 189, 248, 0.3); color: #7dd3fc; }
+  [data-theme="dark"] .filter-pill.cat-greet.active { background: linear-gradient(135deg, #0284c7, #0369a1); border-color: #38bdf8; color: #fff; }
+  [data-theme="dark"] .filter-pill.cat-daily { background: rgba(5, 150, 105, 0.14); border-color: rgba(74, 222, 128, 0.3); color: #86efac; }
+  [data-theme="dark"] .filter-pill.cat-daily.active { background: linear-gradient(135deg, #059669, #047857); border-color: #4ade80; color: #fff; }
+  [data-theme="dark"] .filter-pill.cat-shop { background: rgba(217, 119, 6, 0.14); border-color: rgba(251, 191, 36, 0.3); color: #fde68a; }
+  [data-theme="dark"] .filter-pill.cat-shop.active { background: linear-gradient(135deg, #d97706, #b45309); border-color: #fbbf24; color: #fff; }
+  [data-theme="dark"] .filter-pill.cat-travel { background: rgba(79, 70, 229, 0.14); border-color: rgba(165, 180, 252, 0.3); color: #c7d2fe; }
+  [data-theme="dark"] .filter-pill.cat-travel.active { background: linear-gradient(135deg, #4f46e5, #4338ca); border-color: #818cf8; color: #fff; }
+  [data-theme="dark"] .filter-pill.cat-biz { background: rgba(124, 58, 237, 0.14); border-color: rgba(192, 132, 252, 0.3); color: #d8b4fe; }
+  [data-theme="dark"] .filter-pill.cat-biz.active { background: linear-gradient(135deg, #7c3aed, #6d28d9); border-color: #c084fc; color: #fff; }
+  [data-theme="dark"] .filter-pill.cat-slang { background: rgba(192, 38, 211, 0.14); border-color: rgba(232, 121, 249, 0.3); color: #f0abfc; }
+  [data-theme="dark"] .filter-pill.cat-slang.active { background: linear-gradient(135deg, #c026d3, #a21caf); border-color: #e879f9; color: #fff; }
+  [data-theme="dark"] .filter-pill.cat-warn { background: rgba(234, 88, 12, 0.14); border-color: rgba(251, 146, 60, 0.3); color: #fdba74; }
+  [data-theme="dark"] .filter-pill.cat-warn.active { background: linear-gradient(135deg, #ea580c, #c2410c); border-color: #fb923c; color: #fff; }
+  [data-theme="dark"] .filter-pill.cat-sos { background: rgba(225, 29, 72, 0.14); border-color: rgba(251, 113, 133, 0.3); color: #fda4af; }
+  [data-theme="dark"] .filter-pill.cat-sos.active { background: linear-gradient(135deg, #e11d48, #be123c); border-color: #fb7185; color: #fff; }
+
+  /* Sentence Builder Mode Chips */
   .builder-mode-bar {
     display: flex;
     gap: 8px;
@@ -375,18 +538,36 @@
   }
   .mode-chip {
     padding: 8px 18px;
-    border-radius: 20px;
-    border: 1px solid var(--border);
-    background: #fff;
+    border-radius: 9999px;
+    border: 1.5px solid #cbd5e1;
+    background: #f8fafc;
+    color: #475569;
     font-size: 0.85rem;
     font-weight: 700;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+    user-select: none;
+  }
+  .mode-chip:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
   }
   .mode-chip.active {
-    background: var(--secondary);
+    background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
     color: #fff;
-    border-color: var(--secondary);
+    border-color: #7c3aed;
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.35);
+  }
+  [data-theme="dark"] .mode-chip {
+    background: rgba(148, 163, 184, 0.14);
+    border-color: rgba(148, 163, 184, 0.3);
+    color: #cbd5e1;
+  }
+  [data-theme="dark"] .mode-chip.active {
+    background: linear-gradient(135deg, #7c3aed, #6d28d9);
+    border-color: #c084fc;
+    color: #fff;
   }
 
   .builder-slot-box {
@@ -820,6 +1001,283 @@
     border-color: var(--secondary);
   }
 
+  /* ===== SMART TRANSLATOR & VOICE STT STUDIO ===== */
+  .trans-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .trans-lang-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    background: #f8fafc;
+    border: 1.5px solid #e2e8f0;
+    padding: 12px 18px;
+    border-radius: 16px;
+  }
+  [data-theme="dark"] .trans-lang-bar {
+    background: rgba(30, 41, 59, 0.5);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+  .trans-select-wrap {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .trans-select {
+    padding: 9px 16px;
+    border-radius: 20px;
+    border: 1.5px solid #cbd5e1;
+    background: #ffffff;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-main);
+    cursor: pointer;
+    outline: none;
+    transition: all 0.2s;
+  }
+  .trans-select:focus {
+    border-color: #06b6d4;
+    box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.2);
+  }
+  [data-theme="dark"] .trans-select {
+    background: #1e293b;
+    border-color: #475569;
+    color: #f1f5f9;
+  }
+  .trans-swap-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1.5px solid #cbd5e1;
+    background: #ffffff;
+    color: #0284c7;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  }
+  .trans-swap-btn:hover {
+    transform: rotate(180deg) scale(1.08);
+    background: #0284c7;
+    color: #ffffff;
+    border-color: #0284c7;
+    box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+  }
+  [data-theme="dark"] .trans-swap-btn {
+    background: #1e293b;
+    border-color: #475569;
+    color: #38bdf8;
+  }
+
+  .trans-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 820px) {
+    .trans-grid { grid-template-columns: 1fr; }
+  }
+
+  .trans-card {
+    background: #ffffff;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    transition: all 0.2s;
+  }
+  [data-theme="dark"] .trans-card {
+    background: #1e293b;
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+  .trans-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #f1f5f9;
+    padding-bottom: 8px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-muted);
+  }
+  [data-theme="dark"] .trans-card-header {
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+  }
+  .trans-textarea {
+    width: 100%;
+    min-height: 140px;
+    border: none;
+    background: transparent;
+    font-size: 1.15rem;
+    font-family: inherit;
+    line-height: 1.6;
+    color: var(--text-main);
+    resize: vertical;
+    outline: none;
+    box-sizing: border-box;
+  }
+  .trans-output-box {
+    width: 100%;
+    min-height: 140px;
+    font-size: 1.25rem;
+    font-weight: 600;
+    line-height: 1.6;
+    color: var(--primary);
+    word-break: break-word;
+    user-select: text;
+    white-space: pre-wrap;
+  }
+  [data-theme="dark"] .trans-output-box {
+    color: #67e8f9;
+  }
+  .trans-sub-text {
+    font-size: 0.92rem;
+    font-weight: 500;
+    color: #0284c7;
+    margin-top: 4px;
+    line-height: 1.4;
+  }
+  [data-theme="dark"] .trans-sub-text {
+    color: #7dd3fc;
+  }
+  .trans-toolbar {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 10px;
+    margin-top: auto;
+  }
+  [data-theme="dark"] .trans-toolbar {
+    border-top-color: rgba(255, 255, 255, 0.08);
+  }
+  .trans-tool-btn {
+    padding: 7px 14px;
+    border-radius: 20px;
+    border: 1.5px solid #cbd5e1;
+    background: #f8fafc;
+    color: var(--text-main);
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: all 0.2s;
+  }
+  .trans-tool-btn:hover {
+    background: #e2e8f0;
+    transform: translateY(-1px);
+  }
+  [data-theme="dark"] .trans-tool-btn {
+    background: #334155;
+    border-color: #475569;
+    color: #f1f5f9;
+  }
+  [data-theme="dark"] .trans-tool-btn:hover {
+    background: #475569;
+  }
+
+  /* Recording Pulse Effect */
+  @keyframes pulseRecord {
+    0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+    70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+  }
+  .recording-pulse {
+    animation: pulseRecord 1.4s infinite !important;
+    background: #ef4444 !important;
+    color: #ffffff !important;
+    border-color: #dc2626 !important;
+  }
+
+  /* Preset phrases */
+  .preset-phrases-box {
+    margin-top: 8px;
+    padding: 14px;
+    background: #f8fafc;
+    border-radius: 14px;
+    border: 1px dashed #cbd5e1;
+  }
+  [data-theme="dark"] .preset-phrases-box {
+    background: rgba(30, 41, 59, 0.4);
+    border-color: #475569;
+  }
+  .preset-phrase-chip {
+    padding: 6px 13px;
+    border-radius: 18px;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-main);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin: 3px;
+    transition: all 0.2s;
+  }
+  .preset-phrase-chip:hover {
+    background: #e0f2fe;
+    color: #0369a1;
+    border-color: #7dd3fc;
+    transform: translateY(-1px);
+  }
+  [data-theme="dark"] .preset-phrase-chip {
+    background: #1e293b;
+    border-color: #475569;
+    color: #cbd5e1;
+  }
+  [data-theme="dark"] .preset-phrase-chip:hover {
+    background: #334155;
+    color: #38bdf8;
+  }
+
+  /* Translation History */
+  .trans-history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .trans-history-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 0.86rem;
+    transition: all 0.2s;
+  }
+  .trans-history-item:hover {
+    border-color: #0284c7;
+    background: #f0f9ff;
+  }
+  [data-theme="dark"] .trans-history-item {
+    background: #1e293b;
+    border-color: #334155;
+  }
+  [data-theme="dark"] .trans-history-item:hover {
+    border-color: #38bdf8;
+    background: rgba(2, 132, 199, 0.15);
+  }
+
   footer { text-align: center; padding: 24px; font-size: 0.85rem; color: var(--text-muted); background: #fff; border-top: 1px solid var(--border); margin-top: 40px; }
 </style>
 </head>
@@ -856,15 +1314,16 @@
 <!-- Navigation -->
 <nav>
   <div class="nav-inner">
-    <button class="nav-tab active" onclick="switchTab('alphabet')">🔤 พยัญชนะ สระ & ตัวสะกด</button>
-    <button class="nav-tab" onclick="switchTab('drawpad')">✍️ แผ่นแพดฝึกเขียน & วาดคัดลายมือ</button>
-    <button class="nav-tab" onclick="switchTab('numbers')">🔢 ตัวเลข & การบอกเวลา</button>
-    <button class="nav-tab" onclick="switchTab('builder')">🧩 ต่อแต่งประโยค (ธรรมดา, ทางการ, อิสระ)</button>
-    <button class="nav-tab" onclick="switchTab('dialogues')">💬 บทสนทนาสถานการณ์จริง</button>
-    <button class="nav-tab" onclick="switchTab('phrases')">🗣️ คลังประโยค & สแลงชีวิตจริง</button>
-    <button class="nav-tab" onclick="switchTab('grammar')">📖 หลักไวยากรณ์ & การสะกด</button>
-    <button class="nav-tab" onclick="switchTab('typing')">⌨️ ฝึกพิมพ์ & โค้ชเสียง</button>
-    <button class="nav-tab" onclick="switchTab('flashcards')">🃏 แฟลชการ์ด</button>
+    <button class="nav-tab tab-blue active" data-tab="alphabet" onclick="switchTab('alphabet')">🔤 พยัญชนะ สระ & ตัวสะกด</button>
+    <button class="nav-tab tab-amber" data-tab="drawpad" onclick="switchTab('drawpad')">✍️ แผ่นแพดฝึกเขียน & วาดคัดลายมือ</button>
+    <button class="nav-tab tab-emerald" data-tab="numbers" onclick="switchTab('numbers')">🔢 ตัวเลข & การบอกเวลา</button>
+    <button class="nav-tab tab-purple" data-tab="builder" onclick="switchTab('builder')">🧩 ต่อแต่งประโยค (ธรรมดา, ทางการ, อิสระ)</button>
+    <button class="nav-tab tab-teal" data-tab="dialogues" onclick="switchTab('dialogues')">💬 บทสนทนาสถานการณ์จริง</button>
+    <button class="nav-tab tab-rose" data-tab="phrases" onclick="switchTab('phrases')">🗣️ คลังประโยค & สแลงชีวิตจริง</button>
+    <button class="nav-tab tab-cyan" data-tab="translator" onclick="switchTab('translator')">🌐 แปลภาษา & ถอดเสียงสด</button>
+    <button class="nav-tab tab-indigo" data-tab="grammar" onclick="switchTab('grammar')">📖 หลักไวยากรณ์ & การสะกด</button>
+    <button class="nav-tab tab-orange" data-tab="typing" onclick="switchTab('typing')">⌨️ ฝึกพิมพ์ & โค้ชเสียง</button>
+    <button class="nav-tab tab-fuchsia" data-tab="flashcards" onclick="switchTab('flashcards')">🃏 แฟลชการ์ด</button>
   </div>
 </nav>
 
@@ -1028,6 +1487,135 @@
       </div>
       <div class="filter-bar" id="phraseCategoryFilter"></div>
       <div class="phrase-list" id="phraseList"></div>
+    </div>
+  </div>
+
+  <!-- ================= TAB: SMART TRANSLATOR & VOICE STT ================= -->
+  <div id="tab-translator" class="view-panel">
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <h2>🌐 แปลภาษา & ถอดเสียงสดอัจฉริยะ (Smart Translator & Voice STT)</h2>
+          <div class="card-subtitle" style="margin-bottom:0;margin-top:2px;">
+            พูดด้วยเสียงแล้วถอดเป็นข้อความตามภาษาที่เลือก | คัดลอกข้อความมาวางเพื่อแปลสดพร้อมฟังเสียงอ่านสองระดับความเร็ว
+          </div>
+        </div>
+        <div style="display:flex;gap:6px;align-items:center;">
+          <span id="transStatus" style="font-size:0.85rem;font-weight:700;color:#0284c7;">⚡ พร้อมใช้งาน</span>
+        </div>
+      </div>
+
+      <div class="trans-panel">
+        <!-- Language Selector Bar -->
+        <div class="trans-lang-bar">
+          <div class="trans-select-wrap">
+            <span style="font-size:0.85rem;font-weight:700;color:var(--text-muted);">จาก:</span>
+            <select id="transSrcLang" class="trans-select" onchange="onTransLangChange()">
+              <option value="auto">🔍 ตรวจจับภาษาอัตโนมัติ (Auto)</option>
+              <option value="th" selected>🇹🇭 ไทย (Thai)</option>
+              <option value="en">🇬🇧 อังกฤษ (English)</option>
+              <option value="zh-CN">🇨🇳 จีนกลาง (Chinese)</option>
+              <option value="ja">🇯🇵 ญี่ปุ่น (Japanese)</option>
+              <option value="ko">🇰🇷 เกาหลี (Korean)</option>
+              <option value="fr">🇫🇷 ฝรั่งเศส (French)</option>
+              <option value="ru">🇷🇺 รัสเซีย (Russian)</option>
+              <option value="ar">🇸🇦 อาหรับ (Arabic)</option>
+              <option value="vi">🇻🇳 เวียดนาม (Vietnamese)</option>
+              <option value="es">🇪🇸 สเปน (Spanish)</option>
+              <option value="de">🇩🇪 เยอรมัน (German)</option>
+              <option value="it">🇮🇹 อิตาลี (Italian)</option>
+              <option value="tr">🇹🇷 ตุรกี (Turkish)</option>
+            </select>
+          </div>
+
+          <button class="trans-swap-btn" title="สลับภาษาต้นทาง-ปลายทาง" onclick="swapTransLanguages()">⇄</button>
+
+          <div class="trans-select-wrap">
+            <span style="font-size:0.85rem;font-weight:700;color:var(--text-muted);">แปลเป็น:</span>
+            <select id="transTgtLang" class="trans-select" onchange="onTransLangChange()">
+              <option value="zh-CN" selected>🇨🇳 จีนกลาง (Chinese)</option>
+              <option value="th">🇹🇭 ไทย (Thai)</option>
+              <option value="en">🇬🇧 อังกฤษ (English)</option>
+              <option value="ja">🇯🇵 ญี่ปุ่น (Japanese)</option>
+              <option value="ko">🇰🇷 เกาหลี (Korean)</option>
+              <option value="fr">🇫🇷 ฝรั่งเศส (French)</option>
+              <option value="ru">🇷🇺 รัสเซีย (Russian)</option>
+              <option value="ar">🇸🇦 อาหรับ (Arabic)</option>
+              <option value="vi">🇻🇳 เวียดนาม (Vietnamese)</option>
+              <option value="es">🇪🇸 สเปน (Spanish)</option>
+              <option value="de">🇩🇪 เยอรมัน (German)</option>
+              <option value="it">🇮🇹 อิตาลี (Italian)</option>
+              <option value="tr">🇹🇷 ตุรกี (Turkish)</option>
+            </select>
+          </div>
+
+          <label style="display:flex;align-items:center;gap:6px;font-size:0.85rem;font-weight:700;color:var(--text-muted);cursor:pointer;margin-left:8px;">
+            <input type="checkbox" id="transAutoCheckbox" checked style="accent-color:#0284c7;"> แปลอัตโนมัติขณะพิมพ์/พูด
+          </label>
+        </div>
+
+        <!-- 2-Column Grid -->
+        <div class="trans-grid">
+          <!-- Source Box -->
+          <div class="trans-card">
+            <div class="trans-card-header">
+              <span id="transSrcTitle">ข้อความต้นทาง</span>
+              <span id="transCharCount" style="font-size:0.8rem;color:var(--text-muted);">0 ตัวอักษร</span>
+            </div>
+            <textarea id="transInput" class="trans-textarea" placeholder="พิมพ์ข้อความที่นี่ หรือกด '📥 วางข้อความ' หรือกด '🎙️ พูดด้วยเสียง' เพื่อเริ่มถอดคำพูด..." oninput="handleTransInput()"></textarea>
+            <div id="transMicStatus" style="font-size:0.82rem;min-height:18px;color:var(--text-muted);">🎙️ พร้อมรับเสียงพูด</div>
+            <div class="trans-toolbar">
+              <button id="transMicBtn" class="trans-tool-btn" style="background:#fef2f2;color:#dc2626;border-color:#fecaca;" onclick="toggleTransMic()">🎙️ พูดด้วยเสียง</button>
+              <button class="trans-tool-btn" onclick="pasteTransInput()">📥 วางข้อความ</button>
+              <button class="trans-tool-btn" onclick="speakTransSource(false)">🔊 ฟังเสียง</button>
+              <button class="trans-tool-btn" onclick="speakTransSource(true)">🐢 ฟังช้า</button>
+              <button class="trans-tool-btn" style="margin-left:auto;" onclick="clearTransInput()">🧹 ล้าง</button>
+            </div>
+          </div>
+
+          <!-- Target Box -->
+          <div class="trans-card">
+            <div class="trans-card-header">
+              <span id="transTgtTitle">ผลลัพธ์คำแปล</span>
+              <button class="btn btn-primary" style="padding:4px 14px;font-size:0.8rem;" onclick="executeTranslation()">⚡ แปลทันที</button>
+            </div>
+            <div id="transOutput" class="trans-output-box">กรุณาพิมพ์หรือพูดข้อความเพื่อเริ่มแปล...</div>
+            <div id="transSub" class="trans-sub-text"></div>
+            <div class="trans-toolbar">
+              <button class="trans-tool-btn" style="background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe;" onclick="speakTransTarget(false)">🔊 ฟังเสียงแปล</button>
+              <button class="trans-tool-btn" style="background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe;" onclick="speakTransTarget(true)">🐢 ฟังช้า</button>
+              <button class="trans-tool-btn" onclick="copyTransOutput()">📋 คัดลอกคำแปล</button>
+              <button class="trans-tool-btn" onclick="sendTransToPad()">✍️ ส่งไปฝึกเขียน</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Presets -->
+        <div class="preset-phrases-box">
+          <div style="font-size:0.86rem;font-weight:700;color:var(--text-muted);margin-bottom:6px;">
+            💡 แตะประโยคยอดฮิตเพื่อแปลและทดสอบเสียงทันที:
+          </div>
+          <div style="display:flex;flex-wrap:wrap;">
+            <button class="preset-phrase-chip" onclick="setPresetPhrase('สวัสดีครับ สบายดีไหม ยินดีที่ได้รู้จัก')">👋 สวัสดี สบายดีไหม</button>
+            <button class="preset-phrase-chip" onclick="setPresetPhrase('ขอโทษนะครับ ห้องน้ำอยู่ที่ไหน')">🚻 ห้องน้ำอยู่ที่ไหน</button>
+            <button class="preset-phrase-chip" onclick="setPresetPhrase('อันนี้ราคาเท่าไหร่ ลดราคาหน่อยได้ไหมครับ')">💰 อันนี้ราคาเท่าไหร่ ลดได้ไหม</button>
+            <button class="preset-phrase-chip" onclick="setPresetPhrase('ที่นี่มีเมนูแนะนำอะไรอร่อยบ้าง ขอไม่เผ็ดนะ')">🍽️ มีเมนูแนะนำไหม ไม่เผ็ด</button>
+            <button class="preset-phrase-chip" onclick="setPresetPhrase('ช่วยด้วยครับ มีเหตุฉุกเฉิน ต้องการความช่วยเหลือด่วน')">🚨 ช่วยด้วย มีเหตุฉุกเฉิน</button>
+            <button class="preset-phrase-chip" onclick="setPresetPhrase('ไปสถานีรถไฟหรือสนามบิน คิดราคาเท่าไหร่ครับ')">🚕 ไปสนามบินราคาเท่าไหร่</button>
+            <button class="preset-phrase-chip" onclick="setPresetPhrase('ที่นี่มีสัญญาณ Wi-Fi ฟรีไหม รหัสผ่านคืออะไร')">📶 มี Wi-Fi ฟรีไหม</button>
+            <button class="preset-phrase-chip" onclick="setPresetPhrase('ขอบคุณมากครับ ขอให้วันนี้เป็นวันที่ดีของคุณนะ')">🤝 ขอบคุณมาก ขอให้โชคดี</button>
+          </div>
+        </div>
+
+        <!-- Translation History -->
+        <div style="margin-top:10px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
+            <h3 style="font-size:0.95rem;font-weight:700;color:var(--text-main);">🕒 ประวัติการแปลล่าสุด (บันทึกอัตโนมัติ)</h3>
+            <button class="btn btn-secondary" style="padding:4px 10px;font-size:0.75rem;" onclick="clearTransHistory()">🗑️ ล้างประวัติ</button>
+          </div>
+          <div id="transHistoryList" class="trans-history-list"></div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -2121,161 +2709,161 @@ const DB = {
             "sub": "ㄅ (ปัว)",
             "thai": "ป",
             "toon": "🎈",
-            "sound": "bo"
+            "sound": "玻"
           },
           {
             "char": "p",
             "sub": "ㄆ (พัว)",
             "thai": "พ (พ่นลม)",
             "toon": "🚩",
-            "sound": "po"
+            "sound": "坡"
           },
           {
             "char": "m",
             "sub": "ㄇ (มัว)",
             "thai": "ม",
             "toon": "🚪",
-            "sound": "mo"
+            "sound": "摸"
           },
           {
             "char": "f",
             "sub": "ㄈ (ฟัว)",
             "thai": "ฟ",
             "toon": "🦯",
-            "sound": "fo"
+            "sound": "佛"
           },
           {
             "char": "d",
             "sub": "ㄉ (เตอ)",
             "thai": "ต",
             "toon": "🐴",
-            "sound": "de"
+            "sound": "得"
           },
           {
             "char": "t",
             "sub": "ㄊ (เทอ)",
             "thai": "ท (พ่นลม)",
             "toon": "☂️",
-            "sound": "te"
+            "sound": "特"
           },
           {
             "char": "n",
             "sub": "ㄋ (เนอ)",
             "thai": "น",
             "toon": "⛩️",
-            "sound": "ne"
+            "sound": "讷"
           },
           {
             "char": "l",
             "sub": "ㄌ (เลอ)",
             "thai": "ล",
             "toon": "📏",
-            "sound": "le"
+            "sound": "勒"
           },
           {
             "char": "g",
             "sub": "ㄍ (เกอ)",
             "thai": "ก",
             "toon": "🕊️",
-            "sound": "ge"
+            "sound": "哥"
           },
           {
             "char": "k",
             "sub": "ㄎ (เคอ)",
             "thai": "ค (พ่นลม)",
             "toon": "🪁",
-            "sound": "ke"
+            "sound": "科"
           },
           {
             "char": "h",
             "sub": "ㄏ (เฮอ)",
             "thai": "ฮ/ห",
             "toon": "🪑",
-            "sound": "he"
+            "sound": "喝"
           },
           {
             "char": "j",
             "sub": "ㄐ (จี)",
             "thai": "จ",
             "toon": "🐔",
-            "sound": "ji"
+            "sound": "鸡"
           },
           {
             "char": "q",
             "sub": "ㄑ (ชี)",
             "thai": "ช (พ่นลม)",
             "toon": "🎈",
-            "sound": "qi"
+            "sound": "七"
           },
           {
             "char": "x",
             "sub": "ㄒ (ซี)",
             "thai": "ซ",
             "toon": "🍉",
-            "sound": "xi"
+            "sound": "西"
           },
           {
             "char": "zh",
             "sub": "ㄓ (จรือ)",
             "thai": "จ (ม้วนลิ้น)",
             "toon": "🕷️",
-            "sound": "zhi"
+            "sound": "知"
           },
           {
             "char": "ch",
             "sub": "ㄔ (ชรือ)",
             "thai": "ช (ม้วนลิ้น พ่นลม)",
             "toon": "🪱",
-            "sound": "chi"
+            "sound": "吃"
           },
           {
             "char": "sh",
             "sub": "ㄕ (ซรือ)",
             "thai": "ซ (ม้วนลิ้น)",
             "toon": "🦁",
-            "sound": "shi"
+            "sound": "诗"
           },
           {
             "char": "r",
             "sub": "ㄖ (ยรือ)",
             "thai": "ย/ร (ม้วนลิ้น)",
             "toon": "☀️",
-            "sound": "ri"
+            "sound": "日"
           },
           {
             "char": "z",
             "sub": "ㄗ (จือ)",
             "thai": "จ (ฟันชิด)",
             "toon": "🦆",
-            "sound": "zi"
+            "sound": "资"
           },
           {
             "char": "c",
             "sub": "ㄘ (ชือ)",
             "thai": "ช (ฟันชิด พ่นลม)",
             "toon": "🦔",
-            "sound": "ci"
+            "sound": "雌"
           },
           {
             "char": "s",
             "sub": "ㄙ (ซือ)",
             "thai": "ซ (ฟันชิด)",
             "toon": "🐛",
-            "sound": "si"
+            "sound": "思"
           },
           {
             "char": "y",
             "sub": "ㄧ (อี)",
             "thai": "ย/อ",
             "toon": "👕",
-            "sound": "yi"
+            "sound": "衣"
           },
           {
             "char": "w",
             "sub": "ㄨ (อู)",
             "thai": "ว/อ",
             "toon": "🐦",
-            "sound": "wu"
+            "sound": "乌"
           }
         ]
       },
@@ -2287,140 +2875,140 @@ const DB = {
             "sub": "ㄚ (อา)",
             "thai": "สระอา",
             "toon": "👧",
-            "sound": "a"
+            "sound": "啊"
           },
           {
             "char": "o",
             "sub": "ㄛ (โอ)",
             "thai": "สระโอ/ออ",
             "toon": "🐓",
-            "sound": "o"
+            "sound": "喔"
           },
           {
             "char": "e",
             "sub": "ㄜ (เออ)",
             "thai": "สระเออ",
             "toon": "🦢",
-            "sound": "e"
+            "sound": "鹅"
           },
           {
             "char": "i",
             "sub": "ㄧ (อี)",
             "thai": "สระอี",
             "toon": "🐜",
-            "sound": "yi"
+            "sound": "衣"
           },
           {
             "char": "u",
             "sub": "ㄨ (อู)",
             "thai": "สระอู",
             "toon": "🦆",
-            "sound": "wu"
+            "sound": "乌"
           },
           {
             "char": "ü",
             "sub": "ㄩ (อวี)",
             "thai": "สระอวี (ห่อปากกลม)",
             "toon": "🐟",
-            "sound": "yu"
+            "sound": "迂"
           },
           {
             "char": "ai",
             "sub": "ㄞ (ไอ)",
             "thai": "สระไอ",
             "toon": "🦒",
-            "sound": "ai"
+            "sound": "哀"
           },
           {
             "char": "ei",
             "sub": "ㄟ (เอย)",
             "thai": "สระเอย",
             "toon": "☕",
-            "sound": "ei"
+            "sound": "欸"
           },
           {
             "char": "ui",
             "sub": "ㄨㄟ (อุย)",
             "thai": "สระอุย",
             "toon": "🧣",
-            "sound": "wei"
+            "sound": "微"
           },
           {
             "char": "ao",
             "sub": "ㄠ (เอา)",
             "thai": "สระเอา",
             "toon": "🧥",
-            "sound": "ao"
+            "sound": "熬"
           },
           {
             "char": "ou",
             "sub": "ㄡ (โอว)",
             "thai": "สระโอว",
             "toon": "🪷",
-            "sound": "ou"
+            "sound": "欧"
           },
           {
             "char": "iu",
             "sub": "ㄧㄡ (อิว)",
             "thai": "สระอิว",
             "toon": "🏊",
-            "sound": "you"
+            "sound": "优"
           },
           {
             "char": "ie",
             "sub": "ㄧㄝ (เอีย)",
             "thai": "สระเอีย",
             "toon": "🥥",
-            "sound": "ye"
+            "sound": "耶"
           },
           {
             "char": "an",
             "sub": "ㄢ (อัน)",
             "thai": "สระอัน",
             "toon": "🚪",
-            "sound": "an"
+            "sound": "安"
           },
           {
             "char": "en",
             "sub": "ㄣ (เอิน)",
             "thai": "สระเอิน",
             "toon": "🧷",
-            "sound": "en"
+            "sound": "恩"
           },
           {
             "char": "in",
             "sub": "ㄧㄣ (อิน)",
             "thai": "สระอิน",
             "toon": "🦅",
-            "sound": "yin"
+            "sound": "因"
           },
           {
             "char": "ang",
             "sub": "ㄤ (อาง)",
             "thai": "สระอาง (ขึ้นจมูก)",
             "toon": "🐑",
-            "sound": "ang"
+            "sound": "昂"
           },
           {
             "char": "eng",
             "sub": "ㄥ (เอิง)",
             "thai": "สระเอิง",
             "toon": "💡",
-            "sound": "eng"
+            "sound": "亨"
           },
           {
             "char": "ing",
             "sub": "ㄧㄥ (อิง)",
             "thai": "สระอิง",
             "toon": "🦅",
-            "sound": "ying"
+            "sound": "英"
           },
           {
             "char": "ong",
             "sub": "ㄨㄥ (โอง/อุง)",
             "thai": "สระอุง/โอง",
             "toon": "钟",
-            "sound": "hong"
+            "sound": "红"
           }
         ]
       },
@@ -2432,28 +3020,28 @@ const DB = {
             "sub": "mā (ม้า)",
             "thai": "เสียงสามัญราบเรียบสูง",
             "toon": "🚗",
-            "sound": "mā"
+            "sound": "妈"
           },
           {
             "char": "á (เสียง 2)",
             "sub": "má (หมา)",
             "thai": "เสียงจัตวา ลากขึ้นสูง",
             "toon": "🧗",
-            "sound": "má"
+            "sound": "麻"
           },
           {
             "char": "ǎ (เสียง 3)",
             "sub": "mǎ (หม่า)",
             "thai": "เสียงเอก โค้งลงแล้วขึ้น",
             "toon": "🎢",
-            "sound": "mǎ"
+            "sound": "马"
           },
           {
             "char": "à (เสียง 4)",
             "sub": "mà (ม่า)",
             "thai": "เสียงโท กดสั้นกระแทก",
             "toon": "⚡",
-            "sound": "mà"
+            "sound": "骂"
           }
         ]
       }
@@ -6485,7 +7073,7 @@ const DB = {
             "sub": "เครื่องหมายแข็ง",
             "thai": "แยกพยางค์แข็ง",
             "toon": "🧱",
-            "sound": "Ъ"
+            "sound": "твёрдый знак"
           },
           {
             "char": "Ы ы",
@@ -6499,7 +7087,7 @@ const DB = {
             "sub": "เครื่องหมายนุ่ม",
             "thai": "ทำเสียงนุ่ม",
             "toon": "🪶",
-            "sound": "Ь"
+            "sound": "мягкий знак"
           },
           {
             "char": "Э э",
@@ -7054,98 +7642,98 @@ const DB = {
             "sub": "alif",
             "thai": "อะลิฟ (สระอา/อ)",
             "toon": "🦁",
-            "sound": "alif"
+            "sound": "أَلِف"
           },
           {
             "char": "ب",
             "sub": "baa",
             "thai": "บาอ์ (บ)",
             "toon": "🦆",
-            "sound": "baa"
+            "sound": "بَاء"
           },
           {
             "char": "ت",
             "sub": "taa",
             "thai": "ตาอ์ (ต)",
             "toon": "👑",
-            "sound": "taa"
+            "sound": "تَاء"
           },
           {
             "char": "ث",
             "sub": "thaa",
             "thai": "ษาอ์ (ซ ลิ้นแตะฟัน)",
             "toon": "🦊",
-            "sound": "thaa"
+            "sound": "ثَاء"
           },
           {
             "char": "ج",
             "sub": "jeem",
             "thai": "ญีม (จ/ญ)",
             "toon": "🐪",
-            "sound": "jeem"
+            "sound": "جِيم"
           },
           {
             "char": "ح",
             "sub": "haa",
             "thai": "ฮาอ์ (ฮ เสียดคอพ่นลม)",
             "toon": "🐴",
-            "sound": "haa"
+            "sound": "حَاء"
           },
           {
             "char": "خ",
             "sub": "khaa",
             "thai": "คออ์ (ค ขากเสมหะ)",
             "toon": "🥒",
-            "sound": "khaa"
+            "sound": "خَاء"
           },
           {
             "char": "د",
             "sub": "daal",
             "thai": "ดาล (ด)",
             "toon": "🐓",
-            "sound": "daal"
+            "sound": "دَال"
           },
           {
             "char": "ذ",
             "sub": "dhaal",
             "thai": "ซาล (ซ ลิ้นแตะฟันสั่น)",
             "toon": "🐺",
-            "sound": "dhaal"
+            "sound": "ذَال"
           },
           {
             "char": "ر",
             "sub": "raa",
             "thai": "รออ์ (ร ลิ้นรัว)",
             "toon": "🦚",
-            "sound": "raa"
+            "sound": "رَاء"
           },
           {
             "char": "ز",
             "sub": "zaay",
             "thai": "ซัยน์ (ซ สั่น)",
             "toon": "🦒",
-            "sound": "zaay"
+            "sound": "زَاي"
           },
           {
             "char": "س",
             "sub": "seen",
             "thai": "ซีน (ส/ซ ชัดเจน)",
             "toon": "🐟",
-            "sound": "seen"
+            "sound": "سِين"
           },
           {
             "char": "ش",
             "sub": "sheen",
             "thai": "ชีน (ช พ่นลม)",
             "toon": "☀️",
-            "sound": "sheen"
+            "sound": "شِين"
           },
           {
             "char": "ص",
             "sub": "saad",
             "thai": "ศอด (ซ เสียงหนา)",
             "toon": "🦅",
-            "sound": "saad"
+            "sound": "صَاد"
           }
         ]
       },
@@ -7157,98 +7745,98 @@ const DB = {
             "sub": "daad",
             "thai": "ฎอด (ด ลิ้นแตะกระพุ้งแก้ม)",
             "toon": "🐸",
-            "sound": "daad"
+            "sound": "ضَاد"
           },
           {
             "char": "ط",
             "sub": "taa",
             "thai": "ตออ์ (ต เสียงหนา)",
             "toon": "✈️",
-            "sound": "taa"
+            "sound": "طَاء"
           },
           {
             "char": "ظ",
             "sub": "zaa",
             "thai": "ซออ์ (ซ หนา)",
             "toon": "🦌",
-            "sound": "zaa"
+            "sound": "ظَاء"
           },
           {
             "char": "ع",
             "sub": "ayn",
             "thai": "อัยน์ (อ บีบจากลำคอลึก)",
             "toon": "👁️",
-            "sound": "ayn"
+            "sound": "عَيْن"
           },
           {
             "char": "غ",
             "sub": "ghayn",
             "thai": "ฆอยน์ (ฆ ขากเสมหะนุ่ม)",
             "toon": "☁️",
-            "sound": "ghayn"
+            "sound": "غَيْن"
           },
           {
             "char": "ف",
             "sub": "faa",
             "thai": "ฟาอ์ (ฟ)",
             "toon": "🐘",
-            "sound": "faa"
+            "sound": "فَاء"
           },
           {
             "char": "ق",
             "sub": "qaaf",
             "thai": "กอฟ (ก ลำคอลึก)",
             "toon": "🌙",
-            "sound": "qaaf"
+            "sound": "قَاف"
           },
           {
             "char": "ك",
             "sub": "kaaf",
             "thai": "กาฟ (ค/ก เบา)",
             "toon": "📖",
-            "sound": "kaaf"
+            "sound": "كَاف"
           },
           {
             "char": "ل",
             "sub": "laam",
             "thai": "ลาม (ล)",
             "toon": "🍋",
-            "sound": "laam"
+            "sound": "لَام"
           },
           {
             "char": "م",
             "sub": "meem",
             "thai": "มีม (ม)",
             "toon": "🔑",
-            "sound": "meem"
+            "sound": "مِيم"
           },
           {
             "char": "ن",
             "sub": "noon",
             "thai": "นูน (น)",
             "toon": "⭐",
-            "sound": "noon"
+            "sound": "نُون"
           },
           {
             "char": "هـ",
             "sub": "haa",
             "thai": "ฮาอ์ (ฮ ในอก)",
             "toon": "🌙",
-            "sound": "haa"
+            "sound": "هَاء"
           },
           {
             "char": "و",
             "sub": "waaw",
             "thai": "วาว (ว/สระอู)",
             "toon": "🌹",
-            "sound": "waaw"
+            "sound": "وَاو"
           },
           {
             "char": "ي",
             "sub": "yaa",
             "thai": "ยาอ์ (ย/สระอี)",
             "toon": "✋",
-            "sound": "yaa"
+            "sound": "يَاء"
           }
         ]
       }
@@ -7730,42 +8318,42 @@ const DB = {
             "sub": "á",
             "thai": "สระอะ (สั้น)",
             "toon": "🌙",
-            "sound": "ă"
+            "sound": "á"
           },
           {
             "char": "Â â",
             "sub": "ớ",
             "thai": "สระเออะ (หมวกทรงกระโจม)",
             "toon": "👒",
-            "sound": "â"
+            "sound": "ớ"
           },
           {
             "char": "B b",
             "sub": "bê",
             "thai": "บ",
             "toon": "🐮",
-            "sound": "b"
+            "sound": "bê"
           },
           {
             "char": "C c",
             "sub": "xê",
             "thai": "ค/ก",
             "toon": "🐟",
-            "sound": "c"
+            "sound": "xê"
           },
           {
             "char": "D d",
             "sub": "dê",
             "thai": "ย/ซ (ไม่มีขีด)",
             "toon": "🐐",
-            "sound": "d"
+            "sound": "dê"
           },
           {
             "char": "Đ đ",
             "sub": "đê",
             "thai": "ด (มีขีด)",
             "toon": "🎸",
-            "sound": "đ"
+            "sound": "đê"
           },
           {
             "char": "E e",
@@ -7786,14 +8374,14 @@ const DB = {
             "sub": "giê",
             "thai": "ก/ฆ",
             "toon": "🐓",
-            "sound": "g"
+            "sound": "giê"
           },
           {
             "char": "H h",
             "sub": "hát",
             "thai": "ฮ/ห",
             "toon": "🌺",
-            "sound": "h"
+            "sound": "hát"
           },
           {
             "char": "I i",
@@ -7807,14 +8395,14 @@ const DB = {
             "sub": "ca",
             "thai": "ค/ก",
             "toon": "🪁",
-            "sound": "k"
+            "sound": "ca"
           },
           {
             "char": "L l",
             "sub": "e-lờ",
             "thai": "ล",
             "toon": "🍋",
-            "sound": "l"
+            "sound": "e-lờ"
           }
         ]
       },
@@ -7826,14 +8414,14 @@ const DB = {
             "sub": "e-mờ",
             "thai": "ม",
             "toon": "🐱",
-            "sound": "m"
+            "sound": "e-mờ"
           },
           {
             "char": "N n",
             "sub": "e-nờ",
             "thai": "น",
             "toon": "🐦",
-            "sound": "n"
+            "sound": "e-nờ"
           },
           {
             "char": "O o",
@@ -7861,35 +8449,35 @@ const DB = {
             "sub": "pê",
             "thai": "ป/พ",
             "toon": "🎈",
-            "sound": "p"
+            "sound": "pê"
           },
           {
             "char": "Q q",
             "sub": "quy",
             "thai": "กว (คู)",
             "toon": "👑",
-            "sound": "q"
+            "sound": "quy"
           },
           {
             "char": "R r",
             "sub": "e-rờ",
             "thai": "ร (รัวลิ้น/ซ)",
             "toon": "🌹",
-            "sound": "r"
+            "sound": "e-rờ"
           },
           {
             "char": "S s",
             "sub": "ét-sì",
             "thai": "ซ (พ่นลม)",
             "toon": "🦁",
-            "sound": "s"
+            "sound": "ét-sì"
           },
           {
             "char": "T t",
             "sub": "tê",
             "thai": "ต",
             "toon": "🐯",
-            "sound": "t"
+            "sound": "tê"
           },
           {
             "char": "U u",
@@ -7910,21 +8498,21 @@ const DB = {
             "sub": "vê",
             "thai": "ว",
             "toon": "🎻",
-            "sound": "v"
+            "sound": "vê"
           },
           {
             "char": "X x",
             "sub": "xích-ma",
             "thai": "ซ (เบา)",
             "toon": "🚲",
-            "sound": "x"
+            "sound": "xích-ma"
           },
           {
             "char": "Y y",
             "sub": "i dài",
             "thai": "อี (ยาว)",
             "toon": "🩺",
-            "sound": "y"
+            "sound": "i dài"
           }
         ]
       },
@@ -11934,6 +12522,7 @@ function selectLanguage(id) {
   renderGrammar(data);
   initQuiz();
   initFlashcards();
+  if (typeof syncTranslatorLanguages === 'function') syncTranslatorLanguages(id);
 }
 
 // ==================== VOICE SELECTOR ====================
@@ -11983,10 +12572,14 @@ function changeActiveVoice() {
 // ==================== NAVIGATION TABS ====================
 function switchTab(tabId) {
   currentTabId = tabId;
-  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.nav-tab').forEach(t => {
+    t.classList.remove('active');
+    if (t.dataset.tab === tabId || (t.getAttribute('onclick') && t.getAttribute('onclick').indexOf(tabId) !== -1)) {
+      t.classList.add('active');
+    }
+  });
   document.querySelectorAll('.view-panel').forEach(p => p.classList.remove('active'));
 
-  event.currentTarget.classList.add('active');
   const targetPanel = document.getElementById('tab-' + tabId);
   if (targetPanel) targetPanel.classList.add('active');
 
@@ -11995,6 +12588,7 @@ function switchTab(tabId) {
   if (tabId === 'builder') initSentenceBuilder();
   if (tabId === 'numbers') renderNumbers(DB[currentLangId]);
   if (tabId === 'drawpad') initDrawingPad();
+  if (tabId === 'translator') initTranslator();
 }
 
 // ==================== TAB 1: ALPHABET & CHARACTERS ====================
@@ -12286,19 +12880,38 @@ function renderDialogues(data) {
 
 // ==================== TAB 5: PHRASES (CATEGORIZED) ====================
 function renderPhraseCategories(data) {
-  const cats = new Set(['all']);
-  data.phrases.forEach(p => cats.add(p.cat));
+  const orderedCats = ['all', 'ทักทาย', 'ชีวิตประจำวัน', 'ช้อปปิ้ง', 'เดินทาง', 'เจรจาธุรกิจ', 'สแลง', 'คำเตือน/คำหยาบ', 'ฉุกเฉิน'];
+  const presentCats = new Set(['all']);
+  data.phrases.forEach(p => presentCats.add(p.cat));
 
   const filterBar = document.getElementById('phraseCategoryFilter');
   filterBar.innerHTML = '';
 
-  cats.forEach(c => {
+  const catMeta = {
+    'all': { label: '🌟 ทั้งหมด', cls: 'cat-all' },
+    'ทักทาย': { label: '👋 ทักทาย & มารยาท', cls: 'cat-greet' },
+    'ชีวิตประจำวัน': { label: '☕ ชีวิตประจำวัน', cls: 'cat-daily' },
+    'ช้อปปิ้ง': { label: '🛍️ ช้อปปิ้ง & ต่อราคา', cls: 'cat-shop' },
+    'เดินทาง': { label: '✈️ เดินทาง & ถามทาง', cls: 'cat-travel' },
+    'เจรจาธุรกิจ': { label: '💼 เจรจาธุรกิจ & ทางการ', cls: 'cat-biz' },
+    'สแลง': { label: '🔥 สแลง & วัยรุ่น', cls: 'cat-slang' },
+    'คำเตือน/คำหยาบ': { label: '⚠️ คำเตือน / คำด่า', cls: 'cat-warn' },
+    'ฉุกเฉิน': { label: '🚨 ฉุกเฉิน & ช่วยเหลือ', cls: 'cat-sos' }
+  };
+
+  const list = orderedCats.filter(c => presentCats.has(c));
+  presentCats.forEach(c => {
+    if (!list.includes(c)) list.push(c);
+  });
+
+  list.forEach(c => {
+    const meta = catMeta[c] || { label: c, cls: 'cat-default' };
     const pill = document.createElement('button');
-    pill.className = `filter-pill ${c === currentPhraseFilter ? 'active' : ''}`;
-    pill.textContent = c === 'all' ? '🌟 ทั้งหมด' : c;
+    pill.className = `filter-pill ${meta.cls} ${c === currentPhraseFilter ? 'active' : ''}`;
+    pill.textContent = meta.label;
     pill.onclick = () => {
       currentPhraseFilter = c;
-      document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('#phraseCategoryFilter .filter-pill').forEach(b => b.classList.remove('active'));
       pill.classList.add('active');
       renderPhrases(data, c);
     };
@@ -12529,8 +13142,18 @@ function toggleSpeechSpeed() {
 }
 
 function speakTarget(text, isSlow = false, forceRepeat = false) {
-  const cleanText = (text || '').trim();
+  let cleanText = (text || '').trim();
   if (!cleanText) return;
+
+  // Clean annotations and alternative slash options for clean speech:
+  // e.g. "二 / 两" -> "二", "ゼロ / 零" -> "ゼロ", "일 (하나)" -> "일"
+  if (cleanText.includes('/') && cleanText.length < 30) {
+    cleanText = cleanText.split('/')[0].trim();
+  }
+  if (cleanText.includes('(') && cleanText.length < 30) {
+    const withoutParen = cleanText.replace(/([^)]*)/g, '').trim();
+    if (withoutParen) cleanText = withoutParen;
+  }
 
   const currentLang = DB[currentLangId] || {};
   const langCode = currentLang.speechCode || 'en-US';
@@ -12611,8 +13234,18 @@ function playOnlineTTS(text, langCode, isSlow) {
       currentAudioElement.pause();
       currentAudioElement = null;
     }
-    const cleanUrlText = encodeURIComponent(text.replace(/[​-‍﻿]/g, ''));
-    const ttsUrl = 'https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=' + langCode + '&q=' + cleanUrlText;
+    let speechText = (text || '').trim();
+    if (speechText.includes('/') && speechText.length < 30) {
+      speechText = speechText.split('/')[0].trim();
+    }
+    if (speechText.includes('(') && speechText.length < 30) {
+      const wp = speechText.replace(/([^)]*)/g, '').trim();
+      if (wp) speechText = wp;
+    }
+    let gCode = langCode;
+    if (langCode === 'zh' || langCode === 'zh-CN') gCode = 'zh-CN';
+    const cleanUrlText = encodeURIComponent(speechText.replace(/[​-‍﻿]/g, ''));
+    const ttsUrl = 'https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=' + gCode + '&q=' + cleanUrlText;
     const audio = new Audio(ttsUrl);
     audio.playbackRate = isSlow ? 0.75 : (speechRate === 0.5 ? 0.6 : (speechRate === 0.75 ? 0.8 : 1.0));
     currentAudioElement = audio;
@@ -12907,6 +13540,472 @@ function saveCanvasImage() {
 function submitPracticePad() {
   addScore(10);
   alert('🎉 ยอดเยี่ยมมาก! บันทึกคะแนนฝึกคัดลายมือเรียบร้อย (+10 คะแนน)');
+}
+
+// ==================== SMART TRANSLATOR & VOICE STT STUDIO ====================
+let transRecognition = null;
+let isTransListening = false;
+let transDebounceTimer = null;
+
+const LANG_CODE_MAP = {
+  'th': { name: 'ไทย', speech: 'th-TH', gtx: 'th' },
+  'en': { name: 'อังกฤษ', speech: 'en-US', gtx: 'en' },
+  'zh-CN': { name: 'จีนกลาง', speech: 'zh-CN', gtx: 'zh-CN' },
+  'zh': { name: 'จีนกลาง', speech: 'zh-CN', gtx: 'zh-CN' },
+  'ja': { name: 'ญี่ปุ่น', speech: 'ja-JP', gtx: 'ja' },
+  'ko': { name: 'เกาหลี', speech: 'ko-KR', gtx: 'ko' },
+  'fr': { name: 'ฝรั่งเศส', speech: 'fr-FR', gtx: 'fr' },
+  'ru': { name: 'รัสเซีย', speech: 'ru-RU', gtx: 'ru' },
+  'ar': { name: 'อาหรับ', speech: 'ar-SA', gtx: 'ar' },
+  'vi': { name: 'เวียดนาม', speech: 'vi-VN', gtx: 'vi' },
+  'es': { name: 'สเปน', speech: 'es-ES', gtx: 'es' },
+  'de': { name: 'เยอรมัน', speech: 'de-DE', gtx: 'de' },
+  'it': { name: 'อิตาลี', speech: 'it-IT', gtx: 'it' },
+  'tr': { name: 'ตุรกี', speech: 'tr-TR', gtx: 'tr' }
+};
+
+function showToast(msg) {
+  let toast = document.getElementById('globalToast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'globalToast';
+    toast.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(100px);background:#0f172a;color:#fff;padding:10px 22px;border-radius:30px;font-size:0.88rem;font-weight:700;box-shadow:0 8px 24px rgba(0,0,0,0.3);z-index:99999;transition:all 0.3s cubic-bezier(0.16,1,0.3,1);opacity:0;pointer-events:none;display:flex;align-items:center;gap:8px;';
+    document.body.appendChild(toast);
+  }
+  toast.innerHTML = msg;
+  toast.style.opacity = '1';
+  toast.style.transform = 'translateX(-50%) translateY(0)';
+  clearTimeout(toast._timer);
+  toast._timer = setTimeout(function() {
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateX(-50%) translateY(100px)';
+  }, 2300);
+}
+
+function speakTextWithLang(text, langCodeOrShort, isSlow) {
+  const cleanText = (text || '').trim();
+  if (!cleanText) return;
+
+  let shortLang = 'en';
+  let fullLangCode = 'en-US';
+
+  const entry = LANG_CODE_MAP[langCodeOrShort];
+  if (entry) {
+    shortLang = entry.gtx;
+    fullLangCode = entry.speech;
+  } else if (langCodeOrShort.indexOf('-') !== -1) {
+    fullLangCode = langCodeOrShort;
+    shortLang = langCodeOrShort.split('-')[0].toLowerCase();
+  } else {
+    shortLang = langCodeOrShort.toLowerCase();
+    fullLangCode = (LANG_CODE_MAP[shortLang] && LANG_CODE_MAP[shortLang].speech) || 'en-US';
+  }
+
+  const hasNativeVoice = speechVoices && speechVoices.some(function(v) {
+    return v.lang.toLowerCase().indexOf(shortLang) === 0;
+  });
+
+  if (!hasNativeVoice || shortLang === 'ar') {
+    playOnlineTTS(cleanText, shortLang, isSlow);
+    return;
+  }
+
+  if ('speechSynthesis' in window) {
+    try {
+      window.speechSynthesis.cancel();
+      const utter = new SpeechSynthesisUtterance(cleanText);
+      utter.lang = fullLangCode;
+      const best = findBestVoice(fullLangCode);
+      if (best) utter.voice = best;
+      utter.rate = isSlow ? 0.72 : speechRate;
+      utter.pitch = 1.0;
+      utter.volume = 1.0;
+      utter.onerror = function() { playOnlineTTS(cleanText, shortLang, isSlow); };
+      activeUtterance = utter;
+      utter.onend = function() { activeUtterance = null; };
+      setTimeout(function() {
+        window.speechSynthesis.speak(utter);
+      }, 50);
+      return;
+    } catch(e) {
+      console.warn('speakTextWithLang error, falling back:', e);
+    }
+  }
+  playOnlineTTS(cleanText, shortLang, isSlow);
+}
+
+function initTranslator() {
+  syncTranslatorLanguages(currentLangId);
+  renderTransHistory();
+  updateTransCharCount();
+}
+
+function syncTranslatorLanguages(langId) {
+  const srcSelect = document.getElementById('transSrcLang');
+  const tgtSelect = document.getElementById('transTgtLang');
+  if (!srcSelect || !tgtSelect) return;
+
+  const gCode = (LANG_CODE_MAP[langId] && LANG_CODE_MAP[langId].gtx) || langId;
+  if (langId === 'th') {
+    srcSelect.value = 'th';
+    tgtSelect.value = 'en';
+  } else {
+    srcSelect.value = 'th';
+    tgtSelect.value = (langId === 'zh' ? 'zh-CN' : gCode);
+  }
+  onTransLangChange();
+}
+
+function onTransLangChange() {
+  const srcSelect = document.getElementById('transSrcLang');
+  const tgtSelect = document.getElementById('transTgtLang');
+  const srcTitle = document.getElementById('transSrcTitle');
+  const tgtTitle = document.getElementById('transTgtTitle');
+  const micStatus = document.getElementById('transMicStatus');
+
+  const srcText = srcSelect.options[srcSelect.selectedIndex].text;
+  const tgtText = tgtSelect.options[tgtSelect.selectedIndex].text;
+
+  srcTitle.textContent = 'ข้อความต้นทาง (' + srcText + ')';
+  tgtTitle.textContent = 'ผลลัพธ์คำแปล (' + tgtText + ')';
+  micStatus.innerHTML = '🎙️ พร้อมรับเสียงพูด (' + srcText + ')';
+
+  const inputEl = document.getElementById('transInput');
+  if (inputEl.value.trim() && document.getElementById('transAutoCheckbox').checked) {
+    executeTranslation();
+  }
+}
+
+function swapTransLanguages() {
+  const srcSelect = document.getElementById('transSrcLang');
+  const tgtSelect = document.getElementById('transTgtLang');
+  const inputEl = document.getElementById('transInput');
+  const outputEl = document.getElementById('transOutput');
+
+  let oldSrc = srcSelect.value;
+  let oldTgt = tgtSelect.value;
+
+  if (oldSrc === 'auto') oldSrc = 'en';
+
+  srcSelect.value = oldTgt;
+  tgtSelect.value = oldSrc;
+
+  const currentOutput = outputEl.textContent.trim();
+  if (currentOutput && currentOutput !== 'กรุณาพิมพ์หรือพูดข้อความเพื่อเริ่มแปล...' && currentOutput.indexOf('กำลังแปล') === -1) {
+    inputEl.value = currentOutput;
+  }
+
+  onTransLangChange();
+  executeTranslation();
+  showToast('⇄ สลับภาษาเรียบร้อยแล้ว');
+}
+
+function handleTransInput() {
+  updateTransCharCount();
+  const auto = document.getElementById('transAutoCheckbox');
+  if (auto && auto.checked) {
+    clearTimeout(transDebounceTimer);
+    transDebounceTimer = setTimeout(function() {
+      executeTranslation();
+    }, 550);
+  }
+}
+
+function updateTransCharCount() {
+  const inputEl = document.getElementById('transInput');
+  const countEl = document.getElementById('transCharCount');
+  if (inputEl && countEl) {
+    countEl.textContent = inputEl.value.length + ' ตัวอักษร';
+  }
+}
+
+function clearTransInput() {
+  const inputEl = document.getElementById('transInput');
+  const outputEl = document.getElementById('transOutput');
+  const subEl = document.getElementById('transSub');
+  const statusEl = document.getElementById('transStatus');
+  inputEl.value = '';
+  outputEl.textContent = 'กรุณาพิมพ์หรือพูดข้อความเพื่อเริ่มแปล...';
+  subEl.textContent = '';
+  statusEl.innerHTML = '<span style="color:#0284c7;">⚡ พร้อมใช้งาน</span>';
+  updateTransCharCount();
+  inputEl.focus();
+}
+
+async function pasteTransInput() {
+  const inputEl = document.getElementById('transInput');
+  try {
+    if (navigator.clipboard && navigator.clipboard.readText) {
+      const text = await navigator.clipboard.readText();
+      if (text) {
+        inputEl.value = text;
+        updateTransCharCount();
+        executeTranslation();
+        showToast('📥 วางข้อความจากคลิปบอร์ดแล้ว');
+        return;
+      }
+    }
+  } catch(e) {
+    console.warn('Clipboard read error:', e);
+  }
+  const promptText = prompt('วางข้อความที่คัดลอกมาที่นี่:');
+  if (promptText) {
+    inputEl.value = promptText;
+    updateTransCharCount();
+    executeTranslation();
+    showToast('📥 วางข้อความแล้ว');
+  }
+}
+
+function toggleTransMic() {
+  const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
+  if (!SpeechRec) {
+    alert('ขออภัย เบราว์เซอร์ของคุณยังไม่รองรับ Web Speech API\nแนะนำให้ใช้งานบน Google Chrome, Microsoft Edge หรือ Safari');
+    return;
+  }
+
+  if (isTransListening) {
+    if (transRecognition) transRecognition.stop();
+    return;
+  }
+
+  const srcLang = document.getElementById('transSrcLang').value;
+  let recognitionLang = 'th-TH';
+
+  if (srcLang === 'auto') {
+    recognitionLang = (DB[currentLangId] && DB[currentLangId].speechCode) || 'th-TH';
+  } else if (LANG_CODE_MAP[srcLang]) {
+    recognitionLang = LANG_CODE_MAP[srcLang].speech;
+  }
+
+  transRecognition = new SpeechRec();
+  transRecognition.continuous = false;
+  transRecognition.interimResults = true;
+  transRecognition.lang = recognitionLang;
+
+  const micBtn = document.getElementById('transMicBtn');
+  const micStatus = document.getElementById('transMicStatus');
+  const inputEl = document.getElementById('transInput');
+
+  transRecognition.onstart = function() {
+    isTransListening = true;
+    micBtn.classList.add('recording-pulse');
+    micBtn.innerHTML = '🛑 แตะเพื่อหยุดฟัง';
+    micStatus.innerHTML = '<span style="color:#ef4444;font-weight:700;">🔴 กำลังบันทึกเสียง... พูดได้เลย</span> (' + recognitionLang + ')';
+    showToast('🎙️ กำลังฟังเสียงพูดภาษา: ' + recognitionLang);
+  };
+
+  transRecognition.onresult = function(event) {
+    let interim = '';
+    let final = '';
+    for (let i = event.resultIndex; i < event.results.length; ++i) {
+      if (event.results[i].isFinal) {
+        final += event.results[i][0].transcript;
+      } else {
+        interim += event.results[i][0].transcript;
+      }
+    }
+    if (final) {
+      inputEl.value = (inputEl.value ? (inputEl.value + ' ') : '') + final;
+    } else if (interim) {
+      inputEl.value = interim;
+    }
+    updateTransCharCount();
+  };
+
+  transRecognition.onerror = function(event) {
+    console.warn('Speech recognition error:', event.error);
+    micStatus.innerHTML = '<span style="color:#f59e0b;">⚠️ เกิดข้อผิดพลาดหรือเสียงเบา: ' + event.error + '</span>';
+  };
+
+  transRecognition.onend = function() {
+    isTransListening = false;
+    micBtn.classList.remove('recording-pulse');
+    micBtn.innerHTML = '🎙️ พูดด้วยเสียง';
+    micStatus.innerHTML = '<span style="color:#10b981;">✓ บันทึกเสียงเรียบร้อย</span>';
+    if (inputEl.value.trim() && document.getElementById('transAutoCheckbox').checked) {
+      executeTranslation();
+    }
+  };
+
+  try {
+    transRecognition.start();
+  } catch (err) {
+    console.error('Recognition start error:', err);
+  }
+}
+
+async function executeTranslation() {
+  const inputEl = document.getElementById('transInput');
+  const text = inputEl.value.trim();
+  const outputEl = document.getElementById('transOutput');
+  const subEl = document.getElementById('transSub');
+  const statusEl = document.getElementById('transStatus');
+
+  if (!text) {
+    outputEl.textContent = 'กรุณาพิมพ์หรือพูดข้อความเพื่อเริ่มแปล...';
+    subEl.textContent = '';
+    statusEl.innerHTML = '<span style="color:#0284c7;">⚡ พร้อมใช้งาน</span>';
+    return;
+  }
+
+  const srcLang = document.getElementById('transSrcLang').value;
+  const tgtLang = document.getElementById('transTgtLang').value;
+
+  statusEl.innerHTML = '<span style="color:#0284c7;">⏳ กำลังแปลภาษา...</span>';
+
+  try {
+    const url = 'https://translate.googleapis.com/translate_a/single?client=gtx&sl=' + srcLang + '&tl=' + tgtLang + '&dt=t&dt=rm&q=' + encodeURIComponent(text);
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    const json = await res.json();
+
+    let translated = '';
+    if (Array.isArray(json[0])) {
+      translated = json[0].map(function(item) { return item[0]; }).join('');
+    }
+
+    let roman = '';
+    if (Array.isArray(json[0])) {
+      for (let i = 0; i < json[0].length; i++) {
+        const item = json[0][i];
+        if (item[3]) roman += item[3] + ' ';
+        else if (item[2]) roman += item[2] + ' ';
+      }
+    }
+
+    outputEl.textContent = translated || text;
+    subEl.textContent = roman.trim() ? ('คำอ่าน/พินอิน: ' + roman.trim()) : '';
+    statusEl.innerHTML = '<span style="color:#10b981;">⚡ แปลสำเร็จ</span>';
+
+    saveTransHistory(text, translated || text, srcLang, tgtLang);
+  } catch (err) {
+    console.warn('Primary translate failed, trying fallback:', err);
+    try {
+      const pair = (srcLang === 'auto' ? 'en' : srcLang) + '|' + tgtLang;
+      const fbUrl = 'https://api.mymemory.translated.net/get?q=' + encodeURIComponent(text) + '&langpair=' + pair;
+      const fbRes = await fetch(fbUrl);
+      const fbJson = await fbRes.json();
+      if (fbJson && fbJson.responseData && fbJson.responseData.translatedText) {
+        outputEl.textContent = fbJson.responseData.translatedText;
+        subEl.textContent = '';
+        statusEl.innerHTML = '<span style="color:#10b981;">⚡ แปลสำเร็จ (สำรอง)</span>';
+        saveTransHistory(text, fbJson.responseData.translatedText, srcLang, tgtLang);
+        return;
+      }
+    } catch (fbErr) {
+      console.error('Fallback error:', fbErr);
+    }
+    statusEl.innerHTML = '<span style="color:#ef4444;">⚠️ แปลไม่สำเร็จ ตรวจสอบการเชื่อมต่ออินเทอร์เน็ต</span>';
+  }
+}
+
+function speakTransSource(isSlow) {
+  const text = document.getElementById('transInput').value.trim();
+  if (!text) return;
+  const srcLang = document.getElementById('transSrcLang').value;
+  const code = (srcLang === 'auto') ? currentLangId : srcLang;
+  speakTextWithLang(text, code, isSlow);
+}
+
+function speakTransTarget(isSlow) {
+  const text = document.getElementById('transOutput').textContent.trim();
+  if (!text || text === 'กรุณาพิมพ์หรือพูดข้อความเพื่อเริ่มแปล...' || text.indexOf('กำลังแปล') !== -1) return;
+  const tgtLang = document.getElementById('transTgtLang').value;
+  speakTextWithLang(text, tgtLang, isSlow);
+}
+
+async function copyTransOutput() {
+  const text = document.getElementById('transOutput').textContent.trim();
+  if (!text || text === 'กรุณาพิมพ์หรือพูดข้อความเพื่อเริ่มแปล...') return;
+  try {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      await navigator.clipboard.writeText(text);
+      showToast('📋 คัดลอกคำแปลเรียบร้อยแล้ว: ' + (text.length > 25 ? (text.slice(0, 25) + '...') : text));
+      return;
+    }
+  } catch(e) {}
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  document.body.appendChild(ta);
+  ta.select();
+  document.execCommand('copy');
+  document.body.removeChild(ta);
+  showToast('📋 คัดลอกคำแปลเรียบร้อยแล้ว');
+}
+
+function sendTransToPad() {
+  const text = document.getElementById('transOutput').textContent.trim();
+  if (!text || text === 'กรุณาพิมพ์หรือพูดข้อความเพื่อเริ่มแปล...' || text.indexOf('กำลังแปล') !== -1) return;
+  const firstChar = text.charAt(0);
+  switchTab('drawpad');
+  setPadCharacter(firstChar, text);
+  showToast('✍️ ส่งตัวอักษร "' + firstChar + '" เข้าแผ่นแพดฝึกเขียนแล้ว!');
+}
+
+function setPresetPhrase(text) {
+  const inputEl = document.getElementById('transInput');
+  inputEl.value = text;
+  document.getElementById('transSrcLang').value = 'th';
+  onTransLangChange();
+  executeTranslation();
+  showToast('💡 เลือกประโยค: ' + text);
+}
+
+function saveTransHistory(src, tgt, sl, tl) {
+  if (!src || !tgt || src === tgt) return;
+  try {
+    let hist = JSON.parse(localStorage.getItem('world_lingua_trans_history') || '[]');
+    hist = hist.filter(function(h) { return h.src !== src; });
+    hist.unshift({ src: src, tgt: tgt, sl: sl, tl: tl, time: Date.now() });
+    if (hist.length > 10) hist = hist.slice(0, 10);
+    localStorage.setItem('world_lingua_trans_history', JSON.stringify(hist));
+    renderTransHistory();
+  } catch(e) {
+    console.warn('History save error:', e);
+  }
+}
+
+function renderTransHistory() {
+  const container = document.getElementById('transHistoryList');
+  if (!container) return;
+  try {
+    const hist = JSON.parse(localStorage.getItem('world_lingua_trans_history') || '[]');
+    if (hist.length === 0) {
+      container.innerHTML = '<div style="font-size:0.82rem;color:var(--text-muted);font-style:italic;padding:8px 0;">ยังไม่มีประวัติการแปล (ข้อความที่แปลจะบันทึกที่นี่โดยอัตโนมัติ)</div>';
+      return;
+    }
+    container.innerHTML = '';
+    hist.forEach(function(item) {
+      const row = document.createElement('div');
+      row.className = 'trans-history-item';
+      row.innerHTML = '<div>' +
+        '<div style="font-weight:700;color:var(--primary);">' + escapeHtml(item.src) + '</div>' +
+        '<div style="color:var(--secondary);font-weight:600;margin-top:2px;">↳ ' + escapeHtml(item.tgt) + '</div>' +
+      '</div>' +
+      '<div style="display:flex;gap:4px;align-items:center;">' +
+        '<button class="speak-btn" title="ฟังเสียงอ่าน" onclick="speakTextWithLang(\'' + escapeJs(item.tgt) + '\', \'' + item.tl + '\', false)">🔊</button>' +
+        '<button class="speak-btn" title="คัดลอกคำแปล" onclick="navigator.clipboard.writeText(\'' + escapeJs(item.tgt) + '\');showToast(\'📋 คัดลอกแล้ว\');">📋</button>' +
+      '</div>';
+      container.appendChild(row);
+    });
+  } catch(e) {
+    console.warn('History render error:', e);
+  }
+}
+
+function escapeHtml(str) {
+  return (str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function escapeJs(str) {
+  return (str || '').replace(/\\/g, '\\\\').replace(/\'/g, "\\\'").replace(/"/g, '\\\"');
+}
+
+function clearTransHistory() {
+  localStorage.removeItem('world_lingua_trans_history');
+  renderTransHistory();
+  showToast('🗑️ ล้างประวัติการแปลเรียบร้อยแล้ว');
 }
 
 // ==================== SCORING & STORAGE ====================
