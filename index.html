@@ -3,23 +3,22 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>GlobalLingua Toon: ฝึกภาษาด้วยภาพการ์ตูนช่วยจำ & บทสนทนารอบโลก</title>
-<meta name="theme-color" content="#1d3557">
+<title>WorldLingua Omni: ศูนย์การเรียนรู้ภาษาครบทุกมุมโลก (จาก 0 สู่ระดับสูง)</title>
+<meta name="theme-color" content="#0f172a">
 <style>
   :root {
-    --primary: #1d3557;
-    --secondary: #457b9d;
-    --accent: #e63946;
-    --gold: #f4a261;
-    --green: #2a9d8f;
-    --purple: #6a4c93;
-    --pink: #ffb703;
-    --light-bg: #f0f4f8;
+    --primary: #0f172a;
+    --secondary: #2563eb;
+    --accent: #e11d48;
+    --gold: #d97706;
+    --green: #059669;
+    --purple: #7c3aed;
+    --light-bg: #f8fafc;
     --card-bg: #ffffff;
-    --text-main: #1e293b;
+    --text-main: #0f172a;
     --text-muted: #64748b;
     --border: #e2e8f0;
-    --shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+    --shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', system-ui, -apple-system, 'Noto Sans Thai', sans-serif; }
@@ -27,13 +26,13 @@
 
   /* ===== HEADER ===== */
   header {
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #334155 100%);
+    background: linear-gradient(135deg, #020617 0%, #0f172a 50%, #1e293b 100%);
     color: #fff;
     padding: 16px 20px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.25);
   }
   .header-top {
-    max-width: 1100px;
+    max-width: 1150px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
@@ -48,14 +47,41 @@
     border: 1px solid rgba(255, 255, 255, 0.25);
     padding: 6px 14px;
     border-radius: 20px;
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     font-weight: 700;
   }
 
-  /* Language Selector Bar */
-  .lang-bar {
-    max-width: 1100px;
+  /* Region Tabs & Language Grid */
+  .region-nav {
+    max-width: 1150px;
     margin: 14px auto 0;
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+  }
+  .region-btn {
+    background: rgba(255, 255, 255, 0.08);
+    color: #94a3b8;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 6px 14px;
+    border-radius: 18px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  .region-btn.active, .region-btn:hover {
+    background: #fff;
+    color: #0f172a;
+    border-color: #fff;
+  }
+
+  .lang-grid-box {
+    max-width: 1150px;
+    margin: 10px auto 0;
     display: flex;
     gap: 8px;
     overflow-x: auto;
@@ -63,13 +89,13 @@
     scrollbar-width: thin;
   }
   .lang-btn {
-    background: rgba(255, 255, 255, 0.1);
-    color: #e2e8f0;
+    background: rgba(255, 255, 255, 0.12);
+    color: #f1f5f9;
     border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 7px 15px;
-    border-radius: 24px;
+    padding: 6px 14px;
+    border-radius: 20px;
     cursor: pointer;
-    font-size: 0.85rem;
+    font-size: 0.82rem;
     white-space: nowrap;
     display: flex;
     align-items: center;
@@ -77,40 +103,12 @@
     transition: all 0.2s;
   }
   .lang-btn:hover, .lang-btn.active {
-    background: #fff;
-    color: #0f172a;
-    border-color: #fff;
-    font-weight: 700;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-  }
-
-  /* Level Selector Bar */
-  .level-bar {
-    max-width: 1100px;
-    margin: 10px auto 0;
-    display: flex;
-    gap: 8px;
-    overflow-x: auto;
-    padding-bottom: 2px;
-  }
-  .level-btn {
-    padding: 5px 12px;
-    border-radius: 16px;
-    border: 1px solid rgba(255,255,255,0.25);
-    background: rgba(0,0,0,0.2);
-    color: #cbd5e1;
-    font-size: 0.78rem;
-    font-weight: 600;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: all 0.2s;
-  }
-  .level-btn.active, .level-btn:hover {
     background: var(--gold);
-    color: #0f172a;
+    color: #020617;
     border-color: var(--gold);
-    font-weight: 700;
+    font-weight: 800;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(217, 119, 6, 0.35);
   }
 
   /* Navigation Tabs */
@@ -122,7 +120,7 @@
     z-index: 100;
   }
   .nav-inner {
-    max-width: 1100px;
+    max-width: 1150px;
     margin: 0 auto;
     display: flex;
     overflow-x: auto;
@@ -134,8 +132,8 @@
     border: none;
     border-bottom: 3px solid transparent;
     cursor: pointer;
-    font-size: 0.9rem;
-    font-weight: 600;
+    font-size: 0.88rem;
+    font-weight: 700;
     color: var(--text-muted);
     white-space: nowrap;
     display: flex;
@@ -144,11 +142,11 @@
     transition: all 0.2s;
   }
   .nav-tab:hover { color: var(--primary); }
-  .nav-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .nav-tab.active { color: var(--secondary); border-bottom-color: var(--secondary); }
 
   /* ===== MAIN CONTAINER ===== */
   main {
-    max-width: 1100px;
+    max-width: 1150px;
     margin: 20px auto;
     padding: 0 16px;
     flex: 1;
@@ -177,13 +175,13 @@
     justify-content: space-between;
     align-items: center;
     margin-bottom: 14px;
-    border-left: 4px solid var(--accent);
+    border-left: 4px solid var(--secondary);
     padding-left: 10px;
   }
   .card-header h2 { font-size: 1.18rem; color: var(--primary); }
   .card-subtitle { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 14px; }
 
-  /* Mnemonic Cartoon Grid Items */
+  /* Grid Items */
   .grid-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
@@ -205,10 +203,10 @@
     overflow: hidden;
   }
   .char-cell:hover {
-    border-color: var(--accent);
-    background: #fffafa;
+    border-color: var(--secondary);
+    background: #f0f7ff;
     transform: translateY(-4px) scale(1.02);
-    box-shadow: 0 8px 18px rgba(230, 57, 70, 0.12);
+    box-shadow: 0 8px 18px rgba(37, 99, 235, 0.12);
   }
   .toon-icon {
     font-size: 2.2rem;
@@ -218,12 +216,12 @@
     transition: transform 0.2s;
   }
   .char-cell:hover .toon-icon { transform: scale(1.15) rotate(5deg); }
-  .char-cell .main-char { font-size: 1.4rem; font-weight: 800; color: var(--primary); }
-  .char-cell .sub-char  { font-size: 0.82rem; font-weight: 600; color: var(--accent); }
+  .char-cell .main-char { font-size: 1.45rem; font-weight: 800; color: var(--primary); }
+  .char-cell .sub-char  { font-size: 0.85rem; font-weight: 600; color: var(--accent); }
   .char-cell .thai-hint { font-size: 0.75rem; color: var(--text-muted); }
   .char-cell .mnemonic { font-size: 0.72rem; color: #0284c7; background: #e0f2fe; padding: 2px 6px; border-radius: 6px; font-weight: 600; margin-top: 4px; }
 
-  /* Dialogue Box with Cartoon Scene Banner */
+  /* Dialogue Box */
   .dialogue-card {
     background: #fff;
     border: 1px solid var(--border);
@@ -317,7 +315,7 @@
     transition: all 0.2s;
     flex-shrink: 0;
   }
-  .speak-btn:hover { background: var(--accent); color: #fff; border-color: var(--accent); transform: scale(1.08); }
+  .speak-btn:hover { background: var(--secondary); color: #fff; border-color: var(--secondary); transform: scale(1.08); }
 
   /* Grammar Notes */
   .grammar-card {
@@ -334,9 +332,30 @@
   .grammar-title { font-size: 1.05rem; font-weight: 800; color: var(--purple); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
   .grammar-formula { background: #f1f5f9; padding: 8px 14px; border-radius: 8px; font-family: monospace; font-size: 0.92rem; font-weight: 700; color: #0f172a; margin: 8px 0; }
   .grammar-desc { font-size: 0.88rem; color: #475569; line-height: 1.5; margin-bottom: 8px; }
-  .grammar-eg { font-size: 0.95rem; font-weight: 600; color: var(--primary); padding-left: 10px; border-left: 3px solid var(--accent); }
+  .grammar-eg { font-size: 0.95rem; font-weight: 600; color: var(--primary); padding-left: 10px; border-left: 3px solid var(--secondary); }
 
-  /* Sentence Builder */
+  /* Sentence Builder Mode Selector */
+  .builder-mode-bar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .mode-chip {
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: #fff;
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .mode-chip.active {
+    background: var(--secondary);
+    color: #fff;
+    border-color: var(--secondary);
+  }
+
   .builder-slot-box {
     background: #f8fafc;
     border: 2px dashed #cbd5e1;
@@ -372,7 +391,7 @@
     margin-bottom: 16px;
   }
   .builder-preview .final-text { font-size: 1.35rem; font-weight: 800; color: var(--primary); margin-bottom: 4px; }
-  .builder-preview .final-sub  { font-size: 0.95rem; color: var(--accent); font-weight: 600; }
+  .builder-preview .final-sub  { font-size: 0.95rem; color: var(--secondary); font-weight: 600; }
   .builder-preview .final-thai { font-size: 0.88rem; color: var(--text-muted); margin-top: 4px; }
 
   .palette-title { font-size: 0.85rem; font-weight: 700; color: var(--text-muted); margin: 14px 0 8px; text-transform: uppercase; }
@@ -405,7 +424,7 @@
   .quiz-badge { display: inline-block; background: #e0f2fe; color: #0369a1; padding: 4px 14px; border-radius: 20px; font-size: 0.82rem; font-weight: 700; margin-bottom: 12px; }
   .quiz-toon { font-size: 4rem; margin-bottom: 8px; filter: drop-shadow(0 4px 10px rgba(0,0,0,0.1)); }
   .quiz-target { font-size: 2.3rem; font-weight: 800; color: var(--primary); margin-bottom: 6px; letter-spacing: -0.5px; }
-  .quiz-sub    { font-size: 1rem; color: var(--accent); font-weight: 600; margin-bottom: 18px; }
+  .quiz-sub    { font-size: 1rem; color: var(--secondary); font-weight: 600; margin-bottom: 18px; }
   
   .quiz-input-box {
     width: 100%;
@@ -425,7 +444,7 @@
     outline: none;
     transition: all 0.2s;
   }
-  .quiz-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(29, 53, 87, 0.1); }
+  .quiz-input:focus { border-color: var(--secondary); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
   .quiz-input.correct { border-color: var(--green); background: #f0fdf4; }
   .quiz-input.wrong { border-color: var(--accent); background: #fef2f2; }
 
@@ -442,8 +461,8 @@
     align-items: center;
     gap: 6px;
   }
-  .btn-primary { background: var(--primary); color: #fff; }
-  .btn-primary:hover { background: var(--secondary); transform: translateY(-1px); }
+  .btn-primary { background: var(--secondary); color: #fff; }
+  .btn-primary:hover { background: #1d4ed8; transform: translateY(-1px); }
   .btn-secondary { background: #e2e8f0; color: var(--text-main); }
   .btn-secondary:hover { background: #cbd5e1; }
   .btn-accent { background: var(--accent); color: #fff; }
@@ -491,7 +510,7 @@
   .fc-front .big { font-size: 2.4rem; font-weight: 800; color: var(--gold); }
   .fc-front .sub { font-size: 0.95rem; opacity: 0.85; margin-top: 6px; }
   .fc-back .big  { font-size: 1.8rem; font-weight: 700; color: var(--primary); }
-  .fc-back .sub  { font-size: 1.1rem; color: var(--accent); font-weight: 600; margin-top: 6px; }
+  .fc-back .sub  { font-size: 1.1rem; color: var(--secondary); font-weight: 600; margin-top: 6px; }
   .fc-back .thai { font-size: 0.95rem; color: var(--text-muted); margin-top: 6px; }
 
   footer {
@@ -511,96 +530,66 @@
 <header>
   <div class="header-top">
     <div class="logo-box">
-      <h1>🎨 GlobalLingua Toon <span>· ภาพการ์ตูนช่วยจำ & บทสนทนารอบโลก</span></h1>
-      <p>ภาพการ์ตูนช่วยจำพินอิน · ภาพจำลองเหตุการณ์จริง · ระบบเริ่มจาก 0 สู่ระดับสูง · ฟรี 100%</p>
+      <h1>🌐 WorldLingua Omni <span>· ศูนย์การเรียนรู้ภาษาครบทุกมุมโลก</span></h1>
+      <p>พยัญชนะ สระ ตัวสะกด ครบทุกภาษา · แต่งประโยคธรรมดา & ทางการขั้นสูง · ฟรี 100%</p>
     </div>
     <div class="score-badge">⭐ คะแนนสะสม: <span id="userScore">0</span></div>
   </div>
 
-  <!-- Languages Bar (12 Languages) -->
-  <div class="lang-bar" id="langBar"></div>
-
-  <!-- Level Selector -->
-  <div class="level-bar" id="levelBar">
-    <button class="level-btn active" onclick="setLevel('all')">🎯 ทุกระดับ (All Levels)</button>
-    <button class="level-btn" onclick="setLevel('0')">🌱 เริ่มจาก 0: พยัญชนะ/สระ/นับเลข</button>
-    <button class="level-btn" onclick="setLevel('1')">✈️ ระดับ 1: เอาตัวรอด & ท่องเที่ยว</button>
-    <button class="level-btn" onclick="setLevel('2')">💬 ระดับ 2: บทสนทนาจริง A-B</button>
-    <button class="level-btn" onclick="setLevel('3')">🚀 ระดับ 3: ขั้นสูง & ไวยากรณ์ลึก</button>
+  <!-- Region Filter Tabs -->
+  <div class="region-nav" id="regionNav">
+    <button class="region-btn active" onclick="filterRegion('all')">🌍 ทั้งหมด (All)</button>
+    <button class="region-btn" onclick="filterRegion('asia')">🌏 เอเชีย (Asia)</button>
+    <button class="region-btn" onclick="filterRegion('europe')">🏰 ยุโรป (Europe)</button>
+    <button class="region-btn" onclick="filterRegion('mideast')">🕌 ตะวันออกกลาง & แอฟริกา</button>
   </div>
+
+  <!-- Language Buttons Bar -->
+  <div class="lang-grid-box" id="langBar"></div>
 </header>
 
 <!-- Navigation -->
 <nav>
   <div class="nav-inner">
-    <button class="nav-tab active" onclick="switchTab('alphabet')">🔤 อักษร & ภาพการ์ตูนช่วยจำ</button>
-    <button class="nav-tab" onclick="switchTab('dialogues')">💬 บทสนทนาพร้อมภาพจำลอง</button>
-    <button class="nav-tab" onclick="switchTab('phrases')">🗣️ คลังประโยคภาพประกอบ</button>
-    <button class="nav-tab" onclick="switchTab('grammar')">📖 ไวยากรณ์ขั้นสูง</button>
-    <button class="nav-tab" onclick="switchTab('builder')">🧩 ต่อแต่งประโยค</button>
+    <button class="nav-tab active" onclick="switchTab('alphabet')">🔤 ตารางพยัญชนะ & สระ & ตัวสะกด</button>
+    <button class="nav-tab" onclick="switchTab('builder')">🧩 ต่อแต่งประโยค (ธรรมดา & ทางการ)</button>
+    <button class="nav-tab" onclick="switchTab('dialogues')">💬 บทสนทนาสถานการณ์จริง</button>
+    <button class="nav-tab" onclick="switchTab('phrases')">🗣️ คลังประโยคสำคัญ</button>
+    <button class="nav-tab" onclick="switchTab('grammar')">📖 หลักไวยากรณ์และการสะกด</button>
     <button class="nav-tab" onclick="switchTab('typing')">⌨️ ฝึกพิมพ์ & ควิซภาพ</button>
-    <button class="nav-tab" onclick="switchTab('flashcards')">🃏 แฟลชการ์ดภาพการ์ตูน</button>
+    <button class="nav-tab" onclick="switchTab('flashcards')">🃏 แฟลชการ์ด</button>
   </div>
 </nav>
 
 <main>
 
-  <!-- ================= TAB 1: ALPHABET & CARTOON MNEMONICS ================= -->
+  <!-- ================= TAB 1: ALPHABET & CHARACTERS ================= -->
   <div id="tab-alphabet" class="view-panel active">
     <div class="card">
       <div class="card-header">
-        <h2 id="alphaTitle">ระบบเสียงและภาพการ์ตูนช่วยจำ (Mnemonic System)</h2>
+        <h2 id="alphaTitle">ตารางพยัญชนะ สระ และตัวสะกด</h2>
         <button class="btn btn-secondary" style="padding:4px 12px;font-size:0.8rem;" onclick="speakFirstSound()">🔊 ฟังตัวอย่างเสียง</button>
       </div>
-      <div class="card-subtitle">แตะที่การ์ดเพื่อฟังเสียงอ่านที่ถูกต้อง และดูภาพช่วยจำที่ช่วยให้สมองจำแม่นขึ้น 3 เท่า</div>
+      <div class="card-subtitle">แตะที่การ์ดตัวอักษรเพื่อฟังเสียงออกเสียงที่ถูกต้องตามหลักสากล</div>
       <div id="alphaContainer"></div>
     </div>
   </div>
 
-  <!-- ================= TAB 2: INTERACTIVE DIALOGUES WITH SCENE BANNERS ================= -->
-  <div id="tab-dialogues" class="view-panel">
-    <div class="card">
-      <div class="card-header">
-        <h2>บทสนทนาโต้ตอบสถานการณ์จริง (A vs B)</h2>
-        <span style="font-size:0.85rem;color:var(--text-muted);">แตะที่กล่องคำพูดเพื่อฟังเสียงคู่สนทนา</span>
-      </div>
-      <div id="dialogueContainer"></div>
-    </div>
-  </div>
-
-  <!-- ================= TAB 3: ILLUSTRATED PHRASES ================= -->
-  <div id="tab-phrases" class="view-panel">
-    <div class="card">
-      <div class="card-header">
-        <h2>คลังประโยคพร้อมภาพประกอบ (Illustrated Phrases)</h2>
-        <span style="font-size:0.85rem;color:var(--text-muted);">กด 🔊 เพื่อฟังเสียงอ่าน</span>
-      </div>
-      <div class="phrase-list" id="phraseList"></div>
-    </div>
-  </div>
-
-  <!-- ================= TAB 4: ADVANCED GRAMMAR ================= -->
-  <div id="tab-grammar" class="view-panel">
-    <div class="card">
-      <div class="card-header">
-        <h2>ไวยากรณ์และโครงสร้างประโยคขั้นสูง (Grammar Deep Dive)</h2>
-        <span style="font-size:0.85rem;color:var(--purple);font-weight:700;">HSK & Advanced</span>
-      </div>
-      <div id="grammarContainer"></div>
-    </div>
-  </div>
-
-  <!-- ================= TAB 5: SENTENCE BUILDER ================= -->
+  <!-- ================= TAB 2: SENTENCE BUILDER (CASUAL VS FORMAL) ================= -->
   <div id="tab-builder" class="view-panel">
     <div class="card">
       <div class="card-header">
-        <h2>ตัวช่วยแต่งประโยคขั้นสูง (Sentence Builder)</h2>
+        <h2>ระบบต่อแต่งประโยค (ธรรมดา และ ทางการขั้นสูง)</h2>
         <button class="btn btn-secondary" style="padding:4px 12px;font-size:0.8rem;" onclick="resetBuilder()">🔄 ล้างประโยค</button>
       </div>
-      <div class="card-subtitle">แตะคำศัพท์ด้านล่างเพื่อเรียงต่อเป็นประโยคที่ถูกต้องตามหลักไวยากรณ์</div>
+
+      <div class="builder-mode-bar">
+        <button class="mode-chip active" id="modeCasualBtn" onclick="setBuilderMode('casual')">☕ แบบธรรมดา/ทั่วไป (Casual)</button>
+        <button class="mode-chip" id="modeFormalBtn" onclick="setBuilderMode('formal')">🎩 แบบทางการ/ขั้นสูง (Formal)</button>
+      </div>
 
       <div class="builder-slot-box" id="builderSlots">
-        <span style="color:#94a3b8;font-size:0.9rem;" id="slotPlaceholder">ยังไม่ได้เลือกคำ... แตะคำด้านล่างเพื่อเริ่มสร้างประโยค</span>
+        <span style="color:#94a3b8;font-size:0.9rem;" id="slotPlaceholder">แตะคำศัพท์ด้านล่างเพื่อต่อประโยค...</span>
       </div>
 
       <div class="builder-preview" id="builderPreview" style="display:none;">
@@ -614,12 +603,45 @@
     </div>
   </div>
 
+  <!-- ================= TAB 3: INTERACTIVE DIALOGUES ================= -->
+  <div id="tab-dialogues" class="view-panel">
+    <div class="card">
+      <div class="card-header">
+        <h2>บทสนทนาโต้ตอบสถานการณ์จริง (A vs B)</h2>
+        <span style="font-size:0.85rem;color:var(--text-muted);">แตะที่กล่องคำพูดเพื่อฟังเสียงคู่สนทนา</span>
+      </div>
+      <div id="dialogueContainer"></div>
+    </div>
+  </div>
+
+  <!-- ================= TAB 4: PHRASES ================= -->
+  <div id="tab-phrases" class="view-panel">
+    <div class="card">
+      <div class="card-header">
+        <h2>คลังประโยคและวลีสำคัญ (Phrases)</h2>
+        <span style="font-size:0.85rem;color:var(--text-muted);">กด 🔊 เพื่อฟังเสียงอ่าน</span>
+      </div>
+      <div class="phrase-list" id="phraseList"></div>
+    </div>
+  </div>
+
+  <!-- ================= TAB 5: GRAMMAR ================= -->
+  <div id="tab-grammar" class="view-panel">
+    <div class="card">
+      <div class="card-header">
+        <h2>หลักไวยากรณ์และการผสมคำ (Grammar & Syntax)</h2>
+        <span style="font-size:0.85rem;color:var(--purple);font-weight:700;">กฎไวยากรณ์สำคัญ</span>
+      </div>
+      <div id="grammarContainer"></div>
+    </div>
+  </div>
+
   <!-- ================= TAB 6: QUIZ & TYPING ================= -->
   <div id="tab-typing" class="view-panel">
     <div class="quiz-container">
       <div class="quiz-badge" id="quizModeBadge">แบบฝึกพิมพ์และควิซภาพจำลอง</div>
       <div class="quiz-toon" id="quizToon">🎈</div>
-      <div class="quiz-prompt" id="quizPrompt">จงพิมพ์คำอ่าน/พินอิน หรือความหมาย:</div>
+      <div class="quiz-prompt" id="quizPrompt">จงพิมพ์คำอ่านหรือความหมาย:</div>
       <div class="quiz-target" id="quizTarget">你好</div>
       <div class="quiz-sub" id="quizSub">ความหมาย: สวัสดี</div>
 
@@ -641,7 +663,7 @@
   <div id="tab-flashcards" class="view-panel">
     <div class="card" style="text-align:center;">
       <div class="card-header" style="justify-content:center;border-left:none;">
-        <h2>บัตรคำภาพการ์ตูนช่วยจำ (Illustrated Flashcards)</h2>
+        <h2>บัตรคำภาพช่วยจำ (Illustrated Flashcards)</h2>
       </div>
       <p style="color:var(--text-muted);font-size:0.85rem;margin-bottom:12px;">แตะที่การ์ดเพื่อพลิกดูเฉลยคำอ่านและคำแปล</p>
 
@@ -672,400 +694,590 @@
 </main>
 
 <footer>
-  <p>© 2026 GlobalLingua Toon · ภาพการ์ตูนช่วยจำ & ระบบเรียนรู้ตั้งแต่ศูนย์สู่ขั้นสูง · ฟรี 100%</p>
+  <p>© 2026 WorldLingua Omni · รวมภาษาสำคัญรอบโลกครอบคลุมทุกทวีป · ฟรี 100%</p>
 </footer>
 
-<!-- ================= DATABASE WITH CARTOON MNEMONICS ================= -->
+<!-- ================= COMPREHENSIVE MULTI-LANGUAGE SCRIPT ================= -->
 <script>
+// ==================== MASTER LANGUAGES DATABASE ====================
 const DB = {
+  // --- 1. CHINESE (จีน) ---
   zh: {
-    id: "zh",
-    name: "ภาษาจีนกลาง (Chinese)",
-    flag: "🇨🇳",
-    speechCode: "zh-CN",
-    alphabetTitle: "声母 (พยัญชนะ 21 ตัว) พร้อมภาพการ์ตูนช่วยจำ",
+    id: "zh", region: "asia", name: "จีนกลาง (Chinese)", flag: "🇨🇳", speechCode: "zh-CN",
+    alphabetTitle: "声母 (พยัญชนะ 21 ตัว) & 韵母 (สระ 36 เสียง)",
     alphabetSections: [
       {
-        title: "🌱 ภาพการ์ตูนช่วยจำพยัญชนะ (Pinyin Mnemonics)",
+        title: "🌱 พยัญชนะ 声母 (21 ตัว)",
         items: [
-          { char: "b", sub: "ㄅ (ปัว)", thai: "ป (ไม่พ่นลม)", toon: "🎈", mnemonic: "ลูกโป่งมีก้าน (b)", sound: "bo" },
-          { char: "p", sub: "ㄆ (พัว)", thai: "พ (พ่นลม)", toon: "🚩", mnemonic: "ธงปักเสาโบกสะบัด (p)", sound: "po" },
-          { char: "m", sub: "ㄇ (มัว)", thai: "ม (นาสิก)", toon: "🚪", mnemonic: "ประตูสองบานโค้ง (m)", sound: "mo" },
-          { char: "f", sub: "ㄈ (ฟัว)", thai: "ฟ (ฟันแตะปาก)", toon: "🦯", mnemonic: "ไม้เท้าคุณตาโค้ง (f)", sound: "fo" },
-          { char: "d", sub: "ㄉ (เตอ)", thai: "ต", toon: "🐴", mnemonic: "หลังม้าวิ่งเหยาะ (d)", sound: "de" },
-          { char: "t", sub: "ㄊ (เทอ)", thai: "ท (พ่นลม)", toon: "☂️", mnemonic: "ด้ามร่มกางฝน (t)", sound: "te" },
-          { char: "n", sub: "ㄋ (เนอ)", thai: "น", toon: "⛩️", mnemonic: "ประตูซุ้มโค้งเดียว (n)", sound: "ne" },
-          { char: "l", sub: "ㄌ (เลอ)", thai: "ล", toon: "📏", mnemonic: "ไม้บรรทัดตั้งตรง (l)", sound: "le" },
-          { char: "g", sub: "ㄍ (เกอ)", thai: "ก", toon: "🕊️", mnemonic: "นกพิราบ 9 คอโค้ง (g)", sound: "ge" },
-          { char: "k", sub: "ㄎ (เคอ)", thai: "ค (พ่นลม)", toon: "🪁", mnemonic: "ว่าวลอยมีกิ่งไม้ (k)", sound: "ke" },
-          { char: "h", sub: "ㄏ (เฮอ)", thai: "ฮ/ห", toon: "🪑", mnemonic: "เก้าอี้พนักพิงสูง (h)", sound: "he" },
-          { char: "j", sub: "ㄐ (จี)", thai: "จ", toon: "🐔", mnemonic: "แม่ไก่จิกเบ็ด (j)", sound: "ji" },
-          { char: "q", sub: "ㄑ (ชี)", thai: "ช (พ่นลม)", toon: "🎈", mnemonic: "ลูกโป่งผูกเชือกขวา (q)", sound: "qi" },
-          { char: "x", sub: "ㄒ (ซี)", thai: "ซ", toon: "🍉", mnemonic: "กากบาทตัดแตงโม (x)", sound: "xi" },
-          { char: "zh", sub: "ㄓ (จรือ)", thai: "จร (ม้วนลิ้น)", toon: "🦁", mnemonic: "สิงโตคำรามม้วนลิ้น (zh)", sound: "zhi" },
-          { char: "ch", sub: "ㄔ (ชรือ)", thai: "ชร (ม้วน+พ่น)", toon: "🚂", mnemonic: "รถไฟพ่นควันฉึกฉัก (ch)", sound: "chi" },
-          { char: "sh", sub: "ㄕ (ซรือ)", thai: "ซร (ม้วนลิ้น)", toon: "🐍", mnemonic: "งูใหญ่ส่งเสียงซี่ๆ (sh)", sound: "shi" },
-          { char: "r", sub: "ㄖ (ยรือ)", thai: "ร/ย (ม้วนลิ้น)", toon: "☀️", mnemonic: "พระอาทิตย์ส่องแสง (r)", sound: "ri" },
-          { char: "z", sub: "ㄗ (จือ)", thai: "จือ (ฟันชิด)", toon: "🦆", mnemonic: "ลูกเป็ดว่ายน้ำซิกแซก (z)", sound: "zi" },
-          { char: "c", sub: "ㄘ (ชือ)", thai: "ชือ (พ่นลม)", toon: "🦔", mnemonic: "เม่นสลัดหนามพ่นลม (c)", sound: "ci" },
-          { char: "s", sub: "ㄙ (ซือ)", thai: "ซือ (ฟันชิด)", toon: "🪱", mnemonic: "หนอนเลื้อยโค้งตัว (s)", sound: "si" }
+          { char: "b", sub: "ㄅ (ปัว)", thai: "ป (ไม่พ่นลม)", toon: "🎈", sound: "bo" },
+          { char: "p", sub: "ㄆ (พัว)", thai: "พ (พ่นลม)", toon: "🚩", sound: "po" },
+          { char: "m", sub: "ㄇ (มัว)", thai: "ม (นาสิก)", toon: "🚪", sound: "mo" },
+          { char: "f", sub: "ㄈ (ฟัว)", thai: "ฟ (ฟันแตะปาก)", toon: "🦯", sound: "fo" },
+          { char: "d", sub: "ㄉ (เตอ)", thai: "ต", toon: "🐴", sound: "de" },
+          { char: "t", sub: "ㄊ (เทอ)", thai: "ท (พ่นลม)", toon: "☂️", sound: "te" },
+          { char: "n", sub: "ㄋ (เนอ)", thai: "น", toon: "⛩️", sound: "ne" },
+          { char: "l", sub: "ㄌ (เลอ)", thai: "ล", toon: "📏", sound: "le" },
+          { char: "g", sub: "ㄍ (เกอ)", thai: "ก", toon: "🕊️", sound: "ge" },
+          { char: "k", sub: "ㄎ (เคอ)", thai: "ค (พ่นลม)", toon: "🪁", sound: "ke" },
+          { char: "h", sub: "ㄏ (เฮอ)", thai: "ฮ/ห", toon: "🪑", sound: "he" },
+          { char: "j", sub: "ㄐ (จี)", thai: "จ", toon: "🐔", sound: "ji" },
+          { char: "q", sub: "ㄑ (ชี)", thai: "ช (พ่นลม)", toon: "🎈", sound: "qi" },
+          { char: "x", sub: "ㄒ (ซี)", thai: "ซ", toon: "🍉", sound: "xi" },
+          { char: "zh", sub: "ㄓ (จรือ)", thai: "จร (ม้วนลิ้น)", toon: "🦁", sound: "zhi" },
+          { char: "ch", sub: "ㄔ (ชรือ)", thai: "ชร (ม้วน+พ่น)", toon: "🚂", sound: "chi" },
+          { char: "sh", sub: "ㄕ (ซรือ)", thai: "ซร (ม้วนลิ้น)", toon: "🐍", sound: "shi" },
+          { char: "r", sub: "ㄖ (ยรือ)", thai: "ร/ย (ม้วนลิ้น)", toon: "☀️", sound: "ri" },
+          { char: "z", sub: "ㄗ (จือ)", thai: "จือ (ฟันชิด)", toon: "🦆", sound: "zi" },
+          { char: "c", sub: "ㄘ (ชือ)", thai: "ชือ (พ่นลม)", toon: "🦔", sound: "ci" },
+          { char: "s", sub: "ㄙ (ซือ)", thai: "ซือ (ฟันชิด)", toon: "🪱", sound: "si" }
         ]
       },
       {
-        title: "🌱 ภาพการ์ตูนตัวเลขนับ (Numbers 1-10)",
+        title: "🌱 สระเดี่ยวพื้นฐาน 韵母",
         items: [
-          { char: "一", sub: "yī", thai: "1 (อี)", toon: "☝️", mnemonic: "หนึ่งนิ้วชี้ขึ้น", sound: "一" },
-          { char: "二", sub: "èr", thai: "2 (เอ้อร์)", toon: "✌️", mnemonic: "สองนิ้วสู้ตาย", sound: "二" },
-          { char: "三", sub: "sān", thai: "3 (ซาน)", toon: "🥪", mnemonic: "แซนด์วิช 3 ชั้น", sound: "三" },
-          { char: "四", sub: "sì", thai: "4 (ซื่อ)", toon: "🪟", mnemonic: "หน้าต่าง 4 ช่อง", sound: "四" },
-          { char: "五", sub: "wǔ", thai: "5 (อู่)", toon: "🖐️", mnemonic: "กางมือห้านิ้ว", sound: "五" },
-          { char: "六", sub: "liù", thai: "6 (ลิ่ว)", toon: "🤙", mnemonic: "สัญญาณมือหก", sound: "六" },
-          { char: "七", sub: "qī", thai: "7 (ชี)", toon: "🔫", mnemonic: "ปืนพกเลขเจ็ด", sound: "七" },
-          { char: "八", sub: "bā", thai: "8 (ปา)", toon: "🎪", mnemonic: "กระโจมเต็นท์ทรงแปด", sound: "八" },
-          { char: "九", sub: "jiǔ", thai: "9 (จิ่ว)", toon: "🪝", mnemonic: "ตะขอเบ็ดเกี่ยวเก้า", sound: "九" },
-          { char: "十", sub: "shí", thai: "10 (สือ)", toon: "➕", mnemonic: "กากบาทสิบสมบูรณ์", sound: "十" }
+          { char: "a", sub: "อา", thai: "อา", toon: "👄", sound: "a" },
+          { char: "o", sub: "โอ", thai: "โอ", toon: "⭕", sound: "o" },
+          { char: "e", sub: "เออ", thai: "เออ", toon: "🦢", sound: "e" },
+          { char: "i", sub: "อี", thai: "อี", toon: "🕯️", sound: "yi" },
+          { char: "u", sub: "อู", thai: "อู", toon: "🐦", sound: "wu" },
+          { char: "ü", sub: "อวี", thai: "อวี (ห่อปาก)", toon: "🐟", sound: "yu" }
         ]
       }
     ],
     dialogues: [
       {
-        title: "เช็คอินโรงแรม (Hotel Check-in)",
-        sceneArt: "🏨",
-        desc: "เดินทางถึงโรงแรม ติดต่อพนักงานต้อนรับที่เคาน์เตอร์",
-        avatarA: "🧑‍💼",
-        avatarB: "👩‍💼",
+        title: "เช็คอินโรงแรม (Hotel Check-in)", sceneArt: "🏨", desc: "ติดต่อเคาน์เตอร์โรงแรม", avatarA: "🧑", avatarB: "👩‍💼",
         turns: [
           { speaker: "A", name: "ลูกค้า", text: "你好，我预订了一间双人房。", sub: "Nǐ hǎo, wǒ yùdìng le yì jiān shuāngrén fáng.", thai: "สวัสดีครับ ผมจองห้องพักคู่ไว้หนึ่งห้องครับ" },
-          { speaker: "B", name: "พนักงาน", text: "请出示您的护照，我帮您办理入住。", sub: "Qǐng chūshì nín de hùzhào, wǒ bāng nín bànlǐ rùzhù.", thai: "กรุณาแสดงหนังสือเดินทางค่ะ เดี๋ยวฉันจะดำเนินการเช็คอินให้" },
-          { speaker: "A", name: "ลูกค้า", text: "请问酒店有免费 Wi-Fi 吗？密码是多少？", sub: "Qǐngwèn jiǔdiàn yǒu miǎnfèi Wi-Fi ma? Mìmǎ shì duōshao?", thai: "ขอถามหน่อยครับ โรงแรมมี Wi-Fi ฟรีไหม? รหัสผ่านคืออะไรครับ?" },
-          { speaker: "B", name: "พนักงาน", text: "有的，房卡背面写着密码。退房时间是中午十二点。", sub: "Yǒu de, fángkǎ bèimiàn xiězhe mìmǎ. Tuìfáng shíjiān shì zhōngwǔ shí'èr diǎn.", thai: "มีค่ะ รหัสผ่านเขียนอยู่หลังคีย์การ์ด เวลาเช็คเอาท์คือเที่ยงวัน 12:00 น. ค่ะ" }
-        ]
-      },
-      {
-        title: "สั่งอาหารและเช็คบิล (Restaurant & Bill)",
-        sceneArt: "🥟",
-        desc: "นั่งในร้านอาหารจีน สั่งติ่มซำและอาหารจานเด็ด",
-        avatarA: "🙋‍♂️",
-        avatarB: "👨‍🍳",
-        turns: [
-          { speaker: "A", name: "ลูกค้า", text: "服务员，请给我们一份菜单，有推荐的招牌菜吗？", sub: "Fúwùyuán, qǐng gěi wǒmen yí fèn càidān, yǒu tuījiàn de zhāopái cài ma?", thai: "บริกรครับ ขอดูเมนูหน่อยครับ มีเมนูเด็ดแนะนำไหมครับ?" },
-          { speaker: "B", name: "บริกร", text: "我们店的宫保鸡丁和小笼包非常受欢迎。", sub: "Wǒmen diàn de gōngbǎo jīdīng hé xiǎolóngbāo fēicháng shòu huānyíng.", thai: "ไก่ผัดถั่วลิสงกงเป่าและเสี่ยวหลงเปาของร้านเราได้รับความนิยมมากค่ะ" },
-          { speaker: "A", name: "ลูกค้า", text: "好的，请来一份，不要太辣。吃完后买单！", sub: "Hǎo de, qǐng lái yí fèn, bú yào tài là. Chī wán hòu mǎidān!", thai: "โอเคครับ ขออย่างละหนึ่งที่ ไม่เอาเผ็ดมากนะ ทานเสร็จแล้วเช็คบิลด้วยครับ!" },
-          { speaker: "B", name: "บริกร", text: "一共一百六十八元，您用微信还是支付宝？", sub: "Yígòng yìbǎi liùshíbā yuán, nín yòng wēixìn háishi zhīfùbǎo?", thai: "ทั้งหมด 168 หยวนค่ะ ชำระผ่านวีแชทหรืออาลีเพย์คะ?" }
-        ]
-      },
-      {
-        title: "ช้อปปิ้งและต่อรองราคา (Bargaining in Markets)",
-        sceneArt: "🛍️",
-        desc: "เดินตลาดนัดกลางคืน ซื้อเสื้อผ้าและของฝาก",
-        avatarA: "🎒",
-        avatarB: "👴",
-        turns: [
-          { speaker: "A", name: "ลูกค้า", text: "老板，这件衣服多少钱？", sub: "Lǎobǎn, zhè jiàn yīfu duōshao qián?", thai: "เถ้าแก่ครับ เสื้อตัวนี้ราคาเท่าไหร่ครับ?" },
-          { speaker: "B", name: "คนขาย", text: "这件质量非常好，算你两百块吧。", sub: "Zhè jiàn zhìliàng fēicháng hǎo, suàn nǐ liǎng bǎi kuài ba.", thai: "ตัวนี้คุณภาพดีมาก คิดคุณ 200 หยวนละกัน" },
-          { speaker: "A", name: "ลูกค้า", text: "太贵了！能不能便宜一点？一百块卖不卖？", sub: "Tài guì le! Néng bu néng piányi yìdiǎn? Yì bǎi kuài mài bu mài?", thai: "แพงเกินไปแล้ว! ลดลงหน่อยได้ไหม? 100 หยวนขายไหมครับ?" },
-          { speaker: "B", name: "คนขาย", text: "行吧行吧，交个朋友，一百二拿走！", sub: "Xíng ba xíng ba, jiāo ge péngyou, yì bǎi èr ná zǒu!", thai: "เอาเถอะๆ ถือว่าผูกมิตรกัน 120 หยวนเอาไปเลย!" }
+          { speaker: "B", name: "พนักงาน", text: "请出示您的护照，退房时间是中午十二点。", sub: "Qǐng chūshì nín de hùzhào, tuìfáng shíjiān shì zhōngwǔ shí'èr diǎn.", thai: "กรุณาแสดงหนังสือเดินทาง เวลาเช็คเอาท์คือเที่ยงวัน 12:00 น. ค่ะ" }
         ]
       }
     ],
     phrases: [
-      { level: "0", cat: "ทักทาย", toon: "👋", target: "你好", sub: "nǐ hǎo", thai: "สวัสดี" },
-      { level: "0", cat: "ทักทาย", toon: "🙏", target: "谢谢", sub: "xièxie", thai: "ขอบคุณ" },
-      { level: "0", cat: "ทักทาย", toon: "🙇", target: "对不起", sub: "duìbuqǐ", thai: "ขอโทษ" },
-      { level: "1", cat: "ถามทาง", toon: "🚄", target: "请问，去高铁站怎么走？", sub: "qǐngwèn, qù gāotiě zhàn zěnme zǒu?", thai: "ขอถามหน่อยครับ ไปสถานีรถไฟความเร็วสูงไปยังไง?" },
-      { level: "1", cat: "ช้อปปิ้ง", toon: "💳", target: "可以刷外国信用卡吗？", sub: "kěyǐ shuā wàiguó xìnyòngkǎ ma?", thai: "สามารถรูดบัตรเครดิตต่างประเทศได้ไหม?" },
-      { level: "2", cat: "สนทนา", toon: "🌤️", target: "今天天气真好，我们一起去逛逛吧。", sub: "jīntiān tiānqì zhēn hǎo, wǒmen yìqǐ qù guàngguang ba.", thai: "วันนี้อากาศดีจัง พวกเราไปด้วยกันเดินเล่นเถอะ" },
-      { level: "3", cat: "ขั้นสูง", toon: "🧗", target: "不论遇到什么困难，我们都要坚持到底。", sub: "búlùn yùdào shénme kùnnan, wǒmen dōu yào jiānchí dàodǐ.", thai: "ไม่ว่าจะพบอุปสรรคใด พวกเราล้วนต้องยืนหยัดจนถึงที่สุด" },
-      { level: "3", cat: "ขั้นสูง", toon: "⚔️", target: "与其坐以待毙，不如主动出击。", sub: "yǔqí zuòyǐdàibì, bùrú zhǔdòng chūjī.", thai: "แทนที่จะนั่งรอความตาย สู้เป็นฝ่ายรุกก่อนดีกว่า (สำนวน)" },
-      { level: "3", cat: "ขั้นสูง", toon: "📈", target: "随着经济的发展，人们的生活水平显著提高。", sub: "suízhe jīngjì de fāzhǎn, rénmen de shēnghuó shuǐpíng xiǎnzhù tígāo.", thai: "เมื่อเศรษฐกิจพัฒนา ระดับชีวิตความเป็นอยู่ของผู้คนก็ยกระดับขึ้นอย่างเด่นชัด" }
+      { cat: "ทักทาย", toon: "👋", target: "你好", sub: "nǐ hǎo", thai: "สวัสดี" },
+      { cat: "ช้อปปิ้ง", toon: "🏷️", target: "这个多少钱？", sub: "zhège duōshao qián?", thai: "อันนี้ราคาเท่าไหร่?" }
     ],
-    grammarNotes: [
-      {
-        title: "1. โครงสร้างไวยากรณ์ 把 (Ba-Construction)",
-        formula: "ประธาน + 把 + กรรม + กริยา + ส่วนเติมเต็ม",
-        desc: "ใช้เมื่อต้องการเน้นว่าเรา 'จัดการ' หรือทำอะไรกับสิ่งนั้น จนเกิดการเปลี่ยนแปลงหรือเคลื่อนย้าย",
-        example: "我把作业做完了。(Wǒ bǎ zuòyè zuò wán le.) = ฉันทำการบ้านเสร็จเรียบร้อยแล้ว"
-      },
-      {
-        title: "2. โครงสร้างประโยคถูกกระทำ 被 (Bei-Passive Voice)",
-        formula: "ผู้ถูกกระทำ + 被 + (ผู้กระทำ) + กริยา + ผลลัพธ์",
-        desc: "ใช้บอกว่าประธาน 'ถูก/โดน' กระทำ มักสื่อถึงเหตุการณ์ที่ไม่พึงประสงค์",
-        example: "我的钱包被小偷偷走了。(Wǒ de qiánbāo bèi xiǎotōu tōu zǒu le.) = กระเป๋าเงินของฉันโดนขโมยไปแล้ว"
-      },
-      {
-        title: "3. โครงสร้างการเปรียบเทียบ 比 (Bi-Comparison)",
-        formula: "A + 比 + B + คุณศัพท์ (+ ส่วนต่าง)",
-        desc: "ใช้ในการเปรียบเทียบว่า A มีคุณลักษณะมากกว่า B อย่างไร",
-        example: "今天比昨天冷得多。(Jīntiān bǐ zuótiān lěng de duō.) = วันนี้หนาวกว่าเมื่อวานมาก"
-      }
-    ],
+    grammarNotes: [{ title: "โครงสร้าง 把 (Ba-Sentence)", formula: "ประธาน + 把 + กรรม + กริยา + ผลลัพธ์", desc: "ใช้เน้นการจัดการกับกรรมจนเกิดการเปลี่ยนแปลง", example: "我把作业做完了。(ฉันทำการบ้านเสร็จแล้ว)" }],
     sentenceBuilder: {
-      categories: [
-        {
-          name: "ประธาน / สรรพนาม (Subject)",
-          words: [
-            { text: "我", sub: "wǒ", thai: "ฉัน" },
-            { text: "我们", sub: "wǒmen", thai: "พวกเรา" },
-            { text: "他", sub: "tā", thai: "เขา" }
-          ]
-        },
-        {
-          name: "คำช่วย/ไวยากรณ์ (Grammar Marker)",
-          words: [
-            { text: "想", sub: "xiǎng", thai: "อยากจะ" },
-            { text: "必须", sub: "bìxū", thai: "ต้อง/จำเป็น" },
-            { text: "把", sub: "bǎ", thai: "นำ/เอา (เน้นกรรม)" },
-            { text: "已经", sub: "yǐjīng", thai: "ได้...แล้ว" }
-          ]
-        },
-        {
-          name: "กรรม / วัตถุ (Object)",
-          words: [
-            { text: "这本书", sub: "zhè běn shū", thai: "หนังสือเล่มนี้" },
-            { text: "行李", sub: "xíngli", thai: "กระเป๋าเดินทาง" },
-            { text: "车票", sub: "chēpiào", thai: "ตั๋วรถ" },
-            { text: "中文", sub: "zhōngwén", thai: "ภาษาจีน" }
-          ]
-        },
-        {
-          name: "กริยา / ผลลัพธ์ (Action & Result)",
-          words: [
-            { text: "学好了", sub: "xué hǎo le", thai: "เรียนรู้ได้ดีแล้ว" },
-            { text: "拿过来了", sub: "ná guòlai le", thai: "หยิบมาให้แล้ว" },
-            { text: "买到了", sub: "mǎi dào le", thai: "ซื้อได้แล้ว" }
-          ]
-        }
-      ]
+      casual: {
+        categories: [
+          { name: "ประธาน", words: [{ text: "我", sub: "wǒ", thai: "ฉัน" }, { text: "你", sub: "nǐ", thai: "เธอ" }] },
+          { name: "กริยา", words: [{ text: "要去", sub: "yào qù", thai: "จะไป" }, { text: "想吃", sub: "xiǎng chī", thai: "อยากกิน" }] },
+          { name: "กรรม/สถานที่", words: [{ text: "中国菜", sub: "zhōngguócài", thai: "อาหารจีน" }, { text: "超市", sub: "chāoshì", thai: "ซูเปอร์มาร์เก็ต" }] }
+        ]
+      },
+      formal: {
+        categories: [
+          { name: "ประธานสุภาพ", words: [{ text: "请问贵公司", sub: "qǐngwèn guì gōngsī", thai: "ขอเรียนถามว่าทางบริษัทท่าน" }, { text: "我们", sub: "wǒmen", thai: "พวกเรา" }] },
+          { name: "กริยาทางการ", words: [{ text: "能否提供", sub: "néngfǒu tígōng", thai: "สามารถจัดเตรียม...ได้หรือไม่" }, { text: "希望正式商谈", sub: "xīwàng zhèngshì shāngtán", thai: "หวังว่าจะได้เจรจาเป็นทางการ" }] },
+          { name: "หัวข้อ/เป้าหมาย", words: [{ text: "详细的合作方案？", sub: "xiángxì de hézuò fāng'àn?", thai: "แผนความร่วมมืออย่างละเอียด?" }, { text: "合同细节。", sub: "hétong xìjié.", thai: "รายละเอียดสัญญา" }] }
+        ]
+      }
     }
   },
 
+  // --- 2. JAPANESE (ญี่ปุ่น) ---
   ja: {
-    id: "ja",
-    name: "ภาษาญี่ปุ่น (Japanese)",
-    flag: "🇯🇵",
-    speechCode: "ja-JP",
-    alphabetTitle: "ฮิรางานะ & คาตาคานะ พร้อมภาพการ์ตูนช่วยจำ",
+    id: "ja", region: "asia", name: "ญี่ปุ่น (Japanese)", flag: "🇯🇵", speechCode: "ja-JP",
+    alphabetTitle: "ตารางอักษร ฮิรางานะ 46 ตัว (Hiragana)",
     alphabetSections: [
       {
-        title: "🌱 ภาพการ์ตูนช่วยจำฮิรางานะ (Hiragana Mnemonics)",
+        title: "🌱 ฮิรางานะ สระและพยัญชนะแถวหลัก",
         items: [
-          { char: "あ", sub: "a (อะ)", thai: "อะ", toon: "🍎", mnemonic: "ลูกแอปเปิ้ลมีขั้ว (a)", sound: "あ" },
-          { char: "い", sub: "i (อิ)", thai: "อิ", toon: "🥢", mnemonic: "ตะเกียบคู่ขนาน (i)", sound: "い" },
-          { char: "う", sub: "u (อุ)", thai: "อุ", toon: "🧎", mnemonic: "คนก้มหลังโค้ง (u)", sound: "う" },
-          { char: "え", sub: "e (เอะ)", thai: "เอะ", toon: "🐦", mnemonic: "นกกระยางเกาะเสา (e)", sound: "え" },
-          { char: "お", sub: "o (โอะ)", thai: "โอะ", toon: "⛳", mnemonic: "หลุมกอล์ฟและธง (o)", sound: "お" },
-          { char: "か", sub: "ka (คะ)", thai: "คะ", toon: "🦟", mnemonic: "ยุงบินตัดมีด (ka)", sound: "か" },
-          { char: "き", sub: "ki (คิ)", thai: "คิ", toon: "🔑", mnemonic: "ลูกกุญแจไข (ki)", sound: "き" },
-          { char: "く", sub: "ku (คุ)", thai: "คุ", toon: "🐦", mnemonic: "ปากนกอ้ากว้าง (ku)", sound: "く" }
+          { char: "あ", sub: "a", thai: "อะ", toon: "🍎", sound: "あ" },
+          { char: "い", sub: "i", thai: "อิ", toon: "🥢", sound: "い" },
+          { char: "う", sub: "u", thai: "อุ", toon: "🧎", sound: "う" },
+          { char: "え", sub: "e", thai: "เอะ", toon: "🐦", sound: "え" },
+          { char: "お", sub: "o", thai: "โอะ", toon: "⛳", sound: "お" },
+          { char: "か", sub: "ka", thai: "คะ", toon: "🦟", sound: "か" },
+          { char: "き", sub: "ki", thai: "คิ", toon: "🔑", sound: "き" },
+          { char: "く", sub: "ku", thai: "คุ", toon: "🐦", sound: "く" },
+          { char: "け", sub: "ke", thai: "เคะ", toon: "🎋", sound: "け" },
+          { char: "こ", sub: "ko", thai: "โคะ", toon: "📦", sound: "こ" }
         ]
       }
     ],
     dialogues: [
       {
-        title: "ร้านอาหารญี่ปุ่นและซูชิ (Sushi Bar)",
-        sceneArt: "🍣",
-        desc: "นั่งทานซูชิสายพานและสั่งอาหารชุดพิเศษ",
-        avatarA: "🙋‍♂️",
-        avatarB: "👨‍🍳",
+        title: "ร้านอาหารญี่ปุ่น (Sushi Bar)", sceneArt: "🍣", desc: "สั่งอาหารในร้าน", avatarA: "🧑", avatarB: "👨‍🍳",
         turns: [
           { speaker: "A", name: "ลูกค้า", text: "すみません、二人ですが、席は空いていますか？", sub: "Sumimasen, futari desu ga, seki wa aite imasu ka?", thai: "ขอโทษครับ สองคนครับ มีที่นั่งว่างไหมครับ?" },
-          { speaker: "B", name: "พนักงาน", text: "いらっしゃいませ！こちらのテーブル席へどうぞ。", sub: "Irasshaimase! Kochira no teeburu seki e douzo.", thai: "ยินดีต้อนรับค่ะ! เชิญที่โต๊ะตรงนี้ได้เลยค่ะ" }
+          { speaker: "B", name: "พนักงาน", text: "いらっしゃいませ！こちらの席へどうぞ。", sub: "Irasshaimase! Kochira no seki e douzo.", thai: "ยินดีต้อนรับค่ะ! เชิญที่โต๊ะตรงนี้ได้เลยค่ะ" }
         ]
       }
     ],
-    phrases: [
-      { level: "0", cat: "ทักทาย", toon: "☀️", target: "こんにちは", sub: "Konnichiwa", thai: "สวัสดี" },
-      { level: "0", cat: "ทักทาย", toon: "🙏", target: "ありがとうございます", sub: "Arigatou gozaimasu", thai: "ขอบคุณมากครับ/ค่ะ" },
-      { level: "1", cat: "ถามทาง", toon: "🚻", target: "トイレはどこですか？", sub: "Toire wa doko desu ka?", thai: "ห้องน้ำอยู่ที่ไหน?" }
-    ],
-    grammarNotes: [
-      {
-        title: "คำช่วย は (wa) กับ が (ga)",
-        formula: "หัวเรื่อง + は / ประธานชี้เฉพาะ + が",
-        desc: "は ใช้ชี้หัวข้อหลักที่กำลังพูดถึง ส่วน が ใช้เน้นประธานหรือข้อมูลใหม่",
-        example: "これは本です。(Kore wa hon desu.) = อันนี้คือหนังสือ"
-      }
-    ],
+    phrases: [{ cat: "ทักทาย", toon: "☀️", target: "こんにちは", sub: "Konnichiwa", thai: "สวัสดี" }],
+    grammarNotes: [{ title: "คำช่วย は และ を", formula: "หัวเรื่อง + は / กรรม + を + กริยา", desc: "โครงสร้างภาษาญี่ปุ่นเรียง ประธาน-กรรม-กริยา", example: "お茶を飲みます。(ดื่มชาเขียว)" }],
     sentenceBuilder: {
-      categories: [
-        {
-          name: "คำสรรพนาม/สิ่งของ",
-          words: [{ text: "これ", sub: "kore", thai: "อันนี้" }]
-        },
-        {
-          name: "กริยา/คำขอ",
-          words: [{ text: "をください", sub: "o kudasai", thai: "ขอ...หน่อยครับ" }]
-        }
-      ]
+      casual: {
+        categories: [
+          { name: "คำนาม", words: [{ text: "これ", sub: "kore", thai: "อันนี้" }, { text: "ラーメン", sub: "raamen", thai: "ราเมง" }] },
+          { name: "คำขอ", words: [{ text: "をください", sub: "o kudasai", thai: "ขอ...หน่อยครับ" }, { text: "はおいしい", sub: "wa oishii", thai: "อร่อยมาก" }] }
+        ]
+      },
+      formal: {
+        categories: [
+          { name: "หัวข้อทางการ", words: [{ text: "何卒", sub: "nanitzo", thai: "ขอความกรุณา" }, { text: "今後の進捗につきましては", sub: "kongo no shinchoku ni...", thai: "เกี่ยวกับความคืบหน้าหลังจากนี้" }] },
+          { name: "กริยาสุภาพขั้นสูง", words: [{ text: "ご検討いただけますようお願い申し上げます。", sub: "gokentou itadakemasu you...", thai: "กราบขอความกรุณาพิจารณาด้วยครับ" }] }
+        ]
+      }
     }
   },
 
+  // --- 3. KOREAN (เกาหลี) ---
   ko: {
-    id: "ko",
-    name: "ภาษาเกาหลี (Korean)",
-    flag: "🇰🇷",
-    speechCode: "ko-KR",
-    alphabetTitle: "ฮันกึล (Hangul) พร้อมภาพการ์ตูนช่วยจำ",
+    id: "ko", region: "asia", name: "เกาหลี (Korean)", flag: "🇰🇷", speechCode: "ko-KR",
+    alphabetTitle: "ตารางอักษรฮันกึล พยัญชนะ 14 ตัว & สระ 10 ตัว",
     alphabetSections: [
       {
-        title: "🌱 ภาพการ์ตูนช่วยจำพยัญชนะเกาหลี (Hangul Mnemonics)",
+        title: "🌱 พยัญชนะพื้นฐาน 14 ตัว (자음)",
         items: [
-          { char: "ㄱ", sub: "g/k", thai: "ก/ค", toon: "🔫", mnemonic: "ปืนพกหักฉาก (ㄱ)", sound: "기역" },
-          { char: "ㄴ", sub: "n", thai: "น", toon: "👃", mnemonic: "จมูกโด่งเชิด (ㄴ)", sound: "니은" },
-          { char: "ㄷ", sub: "d/t", thai: "ด/ท", toon: "🚪", mnemonic: "ประตูบานเปิด (ㄷ)", sound: "디귿" },
-          { char: "ㅁ", sub: "m", thai: "ม", toon: "👄", mnemonic: "ริมฝีปากสี่เหลี่ยม (ㅁ)", sound: "미음" },
-          { char: "ㅅ", sub: "s", thai: "ซ/ส", toon: "⛰️", mnemonic: "ภูเขายอดแหลม (ㅅ)", sound: "시옷" },
-          { char: "ㅇ", sub: "ng", thai: "อ/ง", toon: "🌕", mnemonic: "พระจันทร์กลมโต (ㅇ)", sound: "이응" }
+          { char: "ㄱ", sub: "g/k", thai: "ก/ค", toon: "🔫", sound: "기역" },
+          { char: "ㄴ", sub: "n", thai: "น", toon: "👃", sound: "니은" },
+          { char: "ㄷ", sub: "d/t", thai: "ด/ท", toon: "🚪", sound: "디귿" },
+          { char: "ㄹ", sub: "r/l", thai: "ร/ล", toon: "🐍", sound: "리을" },
+          { char: "ㅁ", sub: "m", thai: "ม", toon: "👄", sound: "미음" },
+          { char: "ㅂ", sub: "b/p", thai: "บ/พ", toon: "🥛", sound: "비읍" },
+          { char: "ㅅ", sub: "s", thai: "ซ/ส", toon: "⛰️", sound: "시옷" },
+          { char: "ㅇ", sub: "ng/อ", thai: "อ/ง", toon: "🌕", sound: "이응" }
         ]
       }
     ],
-    dialogues: [
-      {
-        title: "สั่งกาแฟในโซล (Seoul Cafe)",
-        sceneArt: "☕",
-        desc: "สั่งเครื่องดื่มยอดฮิตในคาเฟ่ย่านฮงแด",
-        avatarA: "🙋‍♂️",
-        avatarB: "👩‍🍳",
-        turns: [
-          { speaker: "A", name: "ลูกค้า", text: "아이스 아메리카노 한 잔 테이크아웃 해 주세요.", sub: "Aiseu Amerikano han jan teikeuaut hae juseyo.", thai: "ขออเมริกาโน่เย็นหนึ่งแก้วสั่งกลับบ้านครับ" },
-          { speaker: "B", name: "พนักงาน", text: "네, 원두는 산미 있는 걸로 드릴까요?", sub: "Ne, wonduneun sanmi inneun geollo deurilkkayo?", thai: "ค่ะ รับเมล็ดกาแฟแบบติดเปรี้ยวไหมคะ?" }
+    dialogues: [],
+    phrases: [{ cat: "ทักทาย", toon: "👋", target: "안녕하세요", sub: "Annyeonghaseyo", thai: "สวัสดี" }],
+    grammarNotes: [{ title: "รูปสุภาพ ~아요/어요", formula: "กริยา + 아요/어요", desc: "รูปสุภาพเป็นกันเองที่ใช้บ่อยที่สุด", example: "가요 (ไปค่ะ/ครับ)" }],
+    sentenceBuilder: {
+      casual: {
+        categories: [
+          { name: "สิ่งของ", words: [{ text: "이거", sub: "Igeo", thai: "อันนี้" }] },
+          { name: "คำขอ", words: [{ text: "주세요", sub: "juseyo", thai: "ขอ...หน่อยครับ" }] }
+        ]
+      },
+      formal: {
+        categories: [
+          { name: "ประธานทางการ", words: [{ text: "귀사의 무궁한 발전을 기원하며,", sub: "ขออวยพรให้บริษัทท่านเจริญรุ่งเรือง", thai: "ขออวยพรให้บริษัทของท่าน" }] },
+          { name: "คำลงท้ายทางการ", words: [{ text: "협조해 주셔서 대단히 감사드립니다.", sub: "ขอบพระคุณที่ให้ความร่วมมือเป็นอย่างยิ่ง", thai: "กราบขอบพระคุณในความร่วมมือเป็นอย่างยิ่งครับ" }] }
         ]
       }
-    ],
-    phrases: [
-      { level: "0", cat: "ทักทาย", toon: "👋", target: "안녕하세요", sub: "Annyeonghaseyo", thai: "สวัสดี" },
-      { level: "1", cat: "ช้อปปิ้ง", toon: "🏷️", target: "얼마예요?", sub: "Eolmayeyo?", thai: "ราคาเท่าไหร่?" }
-    ],
-    grammarNotes: [],
-    sentenceBuilder: null
+    }
   },
 
+  // --- 4. ENGLISH (อังกฤษ) ---
   en: {
-    id: "en",
-    name: "ภาษาอังกฤษ (English)",
-    flag: "🇬🇧",
-    speechCode: "en-US",
-    alphabetTitle: "International Phonics & Cartoons",
+    id: "en", region: "europe", name: "อังกฤษ (English)", flag: "🇬🇧", speechCode: "en-US",
+    alphabetTitle: "English Phonics & Alphabet (A-Z)",
     alphabetSections: [
       {
-        title: "🌱 คำสำคัญพร้อมภาพจำลอง",
+        title: "🌱 Phonics A-M",
         items: [
-          { char: "Hello", sub: "เฮลโล", thai: "สวัสดี", toon: "👋", mnemonic: "โบกมือทักทาย", sound: "Hello" },
-          { char: "Thank you", sub: "แธงคิว", thai: "ขอบคุณ", toon: "🎁", mnemonic: "รับของขวัญ", sound: "Thank you" }
+          { char: "A a", sub: "แอะ/เอ", thai: "แอะ", toon: "🍎", sound: "A" },
+          { char: "B b", sub: "เบอะ", thai: "บ", toon: "🦇", sound: "B" },
+          { char: "C c", sub: "เคอะ", thai: "ค/ซ", toon: "🐱", sound: "C" },
+          { char: "D d", sub: "เดอะ", thai: "ด", toon: "🐶", sound: "D" },
+          { char: "E e", sub: "เอะ/อี", thai: "เอะ", toon: "🥚", sound: "E" },
+          { char: "F f", sub: "เฟอะ", thai: "ฟ", toon: "🐟", sound: "F" }
         ]
       }
     ],
     dialogues: [],
-    phrases: [
-      { level: "0", cat: "ทักทาย", toon: "👋", target: "Hello / Hi", sub: "เฮลโล", thai: "สวัสดี" },
-      { level: "1", cat: "ถามทาง", toon: "🚻", target: "Where is the restroom?", sub: "แวร์ อิส เดอะ เรสต์รูม", thai: "ห้องน้ำอยู่ที่ไหน?" }
-    ],
-    grammarNotes: [],
-    sentenceBuilder: null
+    phrases: [{ cat: "ทักทาย", toon: "👋", target: "Hello, how are you?", sub: "เฮลโล ฮาว อาร์ ยู", thai: "สวัสดี สบายดีไหม?" }],
+    grammarNotes: [{ title: "Passive Voice", formula: "S + be + V.3", desc: "ประธานถูกกระทำ", example: "The letter was sent." }],
+    sentenceBuilder: {
+      casual: {
+        categories: [
+          { name: "Subject", words: [{ text: "Can I have", sub: "Can I have", thai: "ขอ..." }] },
+          { name: "Object", words: [{ text: "a cup of coffee?", sub: "coffee", thai: "กาแฟสักแก้วได้ไหม?" }] }
+        ]
+      },
+      formal: {
+        categories: [
+          { name: "Formal Opening", words: [{ text: "I would be grateful if you could", sub: "I would be grateful...", thai: "กระผมจะขอบพระคุณยิ่งหากท่านสามารถ" }] },
+          { name: "Formal Action", words: [{ text: "provide further clarification on this matter.", sub: "clarification", thai: "ช่วยให้ความกระจ่างเพิ่มเติมในเรื่องนี้ได้" }] }
+        ]
+      }
+    }
   },
 
+  // --- 5. FRENCH (ฝรั่งเศส) ---
   fr: {
-    id: "fr",
-    name: "ภาษาฝรั่งเศส (French)",
-    flag: "🇫🇷",
-    speechCode: "fr-FR",
-    alphabetTitle: "Français avec Images",
-    alphabetSections: [],
+    id: "fr", region: "europe", name: "ฝรั่งเศส (French)", flag: "🇫🇷", speechCode: "fr-FR",
+    alphabetTitle: "L'Alphabet Français (A-Z + อักษรพิเศษ)",
+    alphabetSections: [
+      {
+        title: "🌱 คำพื้นฐานและการออกเสียงฝรั่งเศส",
+        items: [
+          { char: "Bonjour", sub: "บงชูร์", thai: "สวัสดี (กลางวัน)", toon: "☀️", sound: "Bonjour" },
+          { char: "Bonsoir", sub: "บงซัวร์", thai: "สวัสดี (ค่ำ)", toon: "🌙", sound: "Bonsoir" },
+          { char: "Merci", sub: "แมร์ซี", thai: "ขอบคุณ", toon: "🙏", sound: "Merci" },
+          { char: "Oui", sub: "วี", thai: "ใช่", toon: "👍", sound: "Oui" },
+          { char: "Non", sub: "นง", thai: "ไม่ใช่", toon: "🙅", sound: "Non" }
+        ]
+      }
+    ],
     dialogues: [],
-    phrases: [{ level: "0", cat: "ทักทาย", toon: "🥖", target: "Bonjour", sub: "บงชูร์", thai: "สวัสดี" }],
-    grammarNotes: [],
-    sentenceBuilder: null
+    phrases: [{ cat: "ทักทาย", toon: "🥖", target: "Bonjour !", sub: "บงชูร์", thai: "สวัสดีครับ/ค่ะ" }],
+    grammarNotes: [{ title: "การใช้เพศคำนาม (Le vs La)", formula: "Le (ชาย) / La (หญิง)", desc: "คำนามฝรั่งเศสทุกคำมีเพศ", example: "Le café (เพศชาย) | La tour (เพศหญิง)" }],
+    sentenceBuilder: {
+      casual: {
+        categories: [
+          { name: "ความต้องการ", words: [{ text: "Je voudrais", sub: "Je voudrais", thai: "ฉันอยากได้..." }] },
+          { name: "สิ่งของ", words: [{ text: "un café s'il vous plaît.", sub: "un cafe", thai: "กาแฟหนึ่งแก้วครับ" }] }
+        ]
+      },
+      formal: {
+        categories: [
+          { name: "วลีทางการ", words: [{ text: "Veuillez agréer, Madame, Monsieur,", sub: "Veuillez agreer...", thai: "ขอแสดงความนับถืออย่างสูง" }] },
+          { name: "คำลงท้ายจดหมาย", words: [{ text: "l'expression de mes salutations distinguées.", sub: "salutations", thai: "ด้วยความเคารพอย่างสูงยิ่ง" }] }
+        ]
+      }
+    }
   },
+
+  // --- 6. SPANISH (สเปน) ---
   es: {
-    id: "es",
-    name: "ภาษาสเปน (Spanish)",
-    flag: "🇪🇸",
-    speechCode: "es-ES",
-    alphabetTitle: "Español con Dibujos",
-    alphabetSections: [],
+    id: "es", region: "europe", name: "สเปน (Spanish)", flag: "🇪🇸", speechCode: "es-ES",
+    alphabetTitle: "El Abecedario Español (A-Z + Ñ)",
+    alphabetSections: [
+      {
+        title: "🌱 อักษรเฉพาะภาษาสเปน",
+        items: [
+          { char: "Ñ ñ", sub: "เอเญ่", thai: "ญ", toon: "🎉", sound: "Ñ" },
+          { char: "LL ll", sub: "เอเย่", thai: "ย", toon: "🥢", sound: "ll" },
+          { char: "RR rr", sub: "เอร์เร่", thai: "ร (รัวลิ้น)", toon: "🏎️", sound: "rr" }
+        ]
+      }
+    ],
     dialogues: [],
-    phrases: [{ level: "0", cat: "ทักทาย", toon: "💃", target: "¡Hola!", sub: "โอล่า", thai: "สวัสดี" }],
-    grammarNotes: [],
-    sentenceBuilder: null
+    phrases: [{ cat: "ทักทาย", toon: "💃", target: "¡Hola! ¿Cómo estás?", sub: "โอล่า โกโม เอสตาส", thai: "สวัสดี เป็นอย่างไรบ้าง?" }],
+    grammarNotes: [{ title: "Ser vs Estar", formula: "Ser (ถาวร) vs Estar (ชั่วคราว)", desc: "คำว่า 'เป็น/อยู่/คือ' แยกตามสภาพ", example: "Soy tailandés (ฉันเป็นคนไทย) vs Estoy cansado (ฉันเหนื่อย)" }],
+    sentenceBuilder: {
+      casual: {
+        categories: [
+          { name: "คำถาม", words: [{ text: "¿Dónde está", sub: "Donde esta", thai: "...อยู่ที่ไหน" }] },
+          { name: "สถานที่", words: [{ text: "el baño?", sub: "el bano?", thai: "ห้องน้ำ" }] }
+        ]
+      },
+      formal: {
+        categories: [
+          { name: "คำขึ้นต้นทางการ", words: [{ text: "Estimado señor / señora,", sub: "Estimado...", thai: "กราบเรียนท่าน..." }] },
+          { name: "คำลงท้ายทางการ", words: [{ text: "Atentamente le saluda,", sub: "Atentamente...", thai: "ขอแสดงความนับถืออย่างยิ่ง" }] }
+        ]
+      }
+    }
   },
+
+  // --- 7. GERMAN (เยอรมัน) ---
   de: {
-    id: "de",
-    name: "ภาษาเยอรมัน (German)",
-    flag: "🇩🇪",
-    speechCode: "de-DE",
-    alphabetTitle: "Deutsch mit Bildern",
-    alphabetSections: [],
+    id: "de", region: "europe", name: "เยอรมัน (German)", flag: "🇩🇪", speechCode: "de-DE",
+    alphabetTitle: "Das Deutsche Alphabet (A-Z + Umlaut)",
+    alphabetSections: [
+      {
+        title: "🌱 สระและอักษรพิเศษเยอรมัน",
+        items: [
+          { char: "Ä ä", sub: "แอร์", thai: "แอ", toon: "🍎", sound: "Ä" },
+          { char: "Ö ö", sub: "เออร์", thai: "เออ (ห่อปาก)", toon: "🍩", sound: "Ö" },
+          { char: "Ü ü", sub: "อวี", thai: "อวี (ห่อปาก)", toon: "🥣", sound: "Ü" },
+          { char: "ß", sub: "เอสเซ็ท", thai: "ss", toon: "🐍", sound: "ß" }
+        ]
+      }
+    ],
     dialogues: [],
-    phrases: [{ level: "0", cat: "ทักทาย", toon: "🥨", target: "Guten Tag", sub: "กูเทิน ทาค", thai: "สวัสดี" }],
-    grammarNotes: [],
-    sentenceBuilder: null
+    phrases: [{ cat: "ทักทาย", toon: "🥨", target: "Guten Tag!", sub: "กูเทิน ทาค", thai: "สวัสดี (กลางวัน)" }],
+    grammarNotes: [{ title: "เพศคำนาม 3 เพศ", formula: "Der (ชาย) / Die (หญิง) / Das (กลาง)", desc: "คำนามขึ้นต้นด้วยตัวพิมพ์ใหญ่เสมอ", example: "Das Buch (หนังสือ)" }],
+    sentenceBuilder: {
+      casual: {
+        categories: [
+          { name: "ความต้องการ", words: [{ text: "Ich möchte", sub: "Ich mochte", thai: "ฉันอยากได้..." }] },
+          { name: "สิ่งของ", words: [{ text: "Wasser bitte.", sub: "Wasser bitte", thai: "น้ำดื่มครับ" }] }
+        ]
+      },
+      formal: {
+        categories: [
+          { name: "คำขึ้นต้นทางการ", words: [{ text: "Sehr geehrte Damen und Herren,", sub: "Sehr geehrte...", thai: "กราบเรียนท่านสุภาพบุรุษและสุภาพสตรี" }] },
+          { name: "คำลงท้ายทางการ", words: [{ text: "Mit freundlichen Grüßen", sub: "Mit freundlichen...", thai: "ด้วยความนับถืออย่างเป็นมิตร" }] }
+        ]
+      }
+    }
   },
+
+  // --- 8. RUSSIAN (รัสเซีย) ---
   ru: {
-    id: "ru",
-    name: "ภาษารัสเซีย (Russian)",
-    flag: "🇷🇺",
-    speechCode: "ru-RU",
-    alphabetTitle: "Русский Язык",
-    alphabetSections: [],
+    id: "ru", region: "europe", name: "รัสเซีย (Russian)", flag: "🇷🇺", speechCode: "ru-RU",
+    alphabetTitle: "อักษรซีริลลิก 33 ตัว (Русский алфавит)",
+    alphabetSections: [
+      {
+        title: "🌱 อักษรซีริลลิกและเสียงเทียบไทย",
+        items: [
+          { char: "А а", sub: "อา", thai: "อะ/อา", toon: "🍉", sound: "А" },
+          { char: "Б б", sub: "เบ", thai: "บ", toon: "🥁", sound: "Б" },
+          { char: "В в", sub: "เว", thai: "ว", toon: "🐺", sound: "В" },
+          { char: "Г г", sub: "เก", thai: "ก", toon: "🍄", sound: "Г" },
+          { char: "Д д", sub: "เด", thai: "ด", toon: "🏠", sound: "Д" }
+        ]
+      }
+    ],
     dialogues: [],
-    phrases: [{ level: "0", cat: "ทักทาย", toon: "🪆", target: "Здравствуйте", sub: "ซดรัฟส์ทวุยเตีย", thai: "สวัสดี" }],
-    grammarNotes: [],
-    sentenceBuilder: null
+    phrases: [{ cat: "ทักทาย", toon: "🪆", target: "Здравствуйте!", sub: "ซดรัฟส์ทวุยเตีย", thai: "สวัสดี (สุภาพ)" }],
+    grammarNotes: [{ title: "การเน้นเสียงสระ (Stress)", formula: "ตัว O ที่ไม่เน้นเสียง -> ออกเสียงคล้าย 'อะ'", desc: "คำว่า Спасибо อ่านว่า สปา-ซี-บา", example: "Спасибо (สปาซีบา = ขอบคุณ)" }],
+    sentenceBuilder: {
+      casual: {
+        categories: [
+          { name: "คำถาม", words: [{ text: "Где", sub: "Gde", thai: "อยู่ที่ไหน" }] },
+          { name: "สถานที่", words: [{ text: "метро?", sub: "metro?", thai: "รถไฟใต้ดิน" }] }
+        ]
+      },
+      formal: {
+        categories: [
+          { name: "ทางการ", words: [{ text: "Уважаемые коллеги,", sub: "Uvazhayemye...", thai: "เรียนท่านเพื่อนร่วมงานที่เคารพ" }] },
+          { name: "ลงท้าย", words: [{ text: "С глубоким уважением,", sub: "S glubokim...", thai: "ด้วยความเคารพอย่างลึกซึ้ง" }] }
+        ]
+      }
+    }
   },
+
+  // --- 9. ARABIC (อาหรับ) ---
   ar: {
-    id: "ar",
-    name: "ภาษาอาหรับ (Arabic)",
-    flag: "🇸🇦",
-    speechCode: "ar-SA",
-    alphabetTitle: "اللغة العربية المصورة",
-    alphabetSections: [],
+    id: "ar", region: "mideast", name: "อาหรับ (Arabic)", flag: "🇸🇦", speechCode: "ar-SA",
+    alphabetTitle: "ตารางพยัญชนะอาหรับ 28 ตัว (เขียนขวาไปซ้าย)",
+    alphabetSections: [
+      {
+        title: "🌱 พยัญชนะอาหรับหลัก",
+        items: [
+          { char: "ا", sub: "อลิฟ", thai: "อ (ยาว)", toon: "🦯", sound: "ألف" },
+          { char: "ب", sub: "บาอ์", thai: "บ (จุดล่าง)", toon: "⛵", sound: "باء" },
+          { char: "ت", sub: "ตาอ์", thai: "ต (2 จุดบน)", toon: "😊", sound: "تاء" },
+          { char: "ث", sub: "ษาอ์", thai: "ษ (3 จุดบน)", toon: "🔺", sound: "ثاء" }
+        ]
+      }
+    ],
     dialogues: [],
-    phrases: [{ level: "0", cat: "ทักทาย", toon: "🕌", target: "السلام عليكم", sub: "As-salamu alaykum", thai: "ขอความสันติสุขจงมีแด่ท่าน" }],
-    grammarNotes: [],
-    sentenceBuilder: null
+    phrases: [{ cat: "ทักทาย", toon: "🕌", target: "السلام عليكم", sub: "As-salamu alaykum", thai: "ขอความสันติสุขจงมีแด่ท่าน" }],
+    grammarNotes: [{ title: "ทิศทางการเขียน", formula: "เขียนจาก 'ขวา' ไป 'ซ้าย'", desc: "อักษรจะเชื่อมต่อกันเป็นคำคล้ายตัวเขียน", example: "كتاب (กิตาบ = หนังสือ)" }],
+    sentenceBuilder: {
+      casual: {
+        categories: [
+          { name: "คำถาม", words: [{ text: "أين", sub: "Ayna", thai: "ที่ไหน" }] },
+          { name: "สถานที่", words: [{ text: "الحمام؟", sub: "al-hammam?", thai: "ห้องน้ำ" }] }
+        ]
+      },
+      formal: {
+        categories: [
+          { name: "คำขึ้นต้นทางการ", words: [{ text: "سعادة المدير المحترم،", sub: "เรียนท่านผู้อำนวยการที่เคารพ", thai: "เรียนท่านผู้อำนวยการที่เคารพ" }] },
+          { name: "คำลงท้ายทางการ", words: [{ text: "وتفضلوا بقبول فائق الاحترام والتقدير.", sub: "ขอแสดงความนับถืออย่างสูงยิ่ง", thai: "ขอแสดงความนับถืออย่างสูงยิ่ง" }] }
+        ]
+      }
+    }
   },
+
+  // --- 10. VIETNAMESE (เวียดนาม) ---
   vi: {
-    id: "vi",
-    name: "ภาษาเวียดนาม (Vietnamese)",
-    flag: "🇻🇳",
-    speechCode: "vi-VN",
-    alphabetTitle: "Tiếng Việt Hình Ảnh",
-    alphabetSections: [],
+    id: "vi", region: "asia", name: "เวียดนาม (Vietnamese)", flag: "🇻🇳", speechCode: "vi-VN",
+    alphabetTitle: "ตารางอักษรเวียดนาม 29 ตัว & 6 วรรณยุกต์",
+    alphabetSections: [
+      {
+        title: "🌱 อักษรพิเศษและพยัญชนะ",
+        items: [
+          { char: "A a", sub: "อา", thai: "อา", toon: "👄", sound: "A" },
+          { char: "Ă ă", sub: "อะ", thai: "อะ", toon: "🌙", sound: "Ă" },
+          { char: "Â â", sub: "เออะ", thai: "เออะ", toon: "👒", sound: "Â" },
+          { char: "Đ đ", sub: "เด่อ", thai: "ด", toon: "🚪", sound: "Đ" }
+        ]
+      }
+    ],
     dialogues: [],
-    phrases: [{ level: "0", cat: "ทักทาย", toon: "🍜", target: "Xin chào!", sub: "ซินจ่าว", thai: "สวัสดี" }],
-    grammarNotes: [],
-    sentenceBuilder: null
+    phrases: [{ cat: "ทักทาย", toon: "🍜", target: "Xin chào!", sub: "ซินจ่าว", thai: "สวัสดี" }],
+    grammarNotes: [{ title: "ระบบวรรณยุกต์ 6 เสียง", formula: "Ngang, Huyền, Sắc, Hỏi, Ngã, Nặng", desc: "วรรณยุกต์เปลี่ยน ความหมายเปลี่ยนโดยสิ้นเชิง", example: "Má (แม่) vs Mả (หลุมศพ)" }],
+    sentenceBuilder: {
+      casual: {
+        categories: [
+          { name: "คำขอ", words: [{ text: "Cho tôi", sub: "Cho toi", thai: "ขอให้ฉัน..." }] },
+          { name: "สิ่งของ", words: [{ text: "một bát phở.", sub: "mot bat pho", thai: "เฝอหนึ่งชาม" }] }
+        ]
+      },
+      formal: {
+        categories: [
+          { name: "ทางการ", words: [{ text: "Kính gửi Ban Giám đốc,", sub: "Kinh gui...", thai: "กราบเรียนคณะกรรมการบริหาร" }] },
+          { name: "ลงท้าย", words: [{ text: "Trân trọng cảm ơn.", sub: "Tran trong...", thai: "ขอขอบพระคุณอย่างสูง" }] }
+        ]
+      }
+    }
   },
+
+  // --- 11. ITALIAN (อิตาลี) ---
   it: {
-    id: "it",
-    name: "ภาษาอิตาลี (Italian)",
-    flag: "🇮🇹",
-    speechCode: "it-IT",
-    alphabetTitle: "Italiano Illustrato",
-    alphabetSections: [],
+    id: "it", region: "europe", name: "อิตาลี (Italian)", flag: "🇮🇹", speechCode: "it-IT",
+    alphabetTitle: "L'Alfabeto Italiano (อักษรภาษาอิตาลี)",
+    alphabetSections: [
+      {
+        title: "🌱 อักษรหลักภาษาอิตาลี",
+        items: [
+          { char: "A a", sub: "อา", thai: "อา", toon: "🍕", sound: "A" },
+          { char: "C c", sub: "ชี / กา", thai: "ช/ก", toon: "☕", sound: "C" },
+          { char: "G g", sub: "จี / กา", thai: "จ/ก", toon: "🍨", sound: "G" }
+        ]
+      }
+    ],
     dialogues: [],
-    phrases: [{ level: "0", cat: "ทักทาย", toon: "🍕", target: "Ciao", sub: "เชา", thai: "สวัสดี" }],
-    grammarNotes: [],
-    sentenceBuilder: null
+    phrases: [{ cat: "ทักทาย", toon: "🍕", target: "Ciao !", sub: "เชา", thai: "สวัสดี" }],
+    grammarNotes: [{ title: "การออกเสียง C และ G", formula: "C/G + E, I = เสียงนุ่ม (ช, จ)", desc: "Ciao อ่านว่า เชา", example: "Ciao (เชา)" }],
+    sentenceBuilder: {
+      casual: {
+        categories: [
+          { name: "คำขอ", words: [{ text: "Vorrei", sub: "Vorrei", thai: "ฉันอยากได้..." }] },
+          { name: "อาหาร", words: [{ text: "una pizza.", sub: "una pizza", thai: "พิซซ่าหนึ่งถาด" }] }
+        ]
+      },
+      formal: {
+        categories: [
+          { name: "ทางการ", words: [{ text: "Gentile Dottore,", sub: "Gentile...", thai: "กราบเรียนท่านด็อกเตอร์" }] },
+          { name: "ลงท้าย", words: [{ text: "Cordiali saluti.", sub: "Cordiali...", thai: "ด้วยความนับถืออย่างยิ่ง" }] }
+        ]
+      }
+    }
   },
+
+  // --- 12. TURKISH (ตุรกี) ---
   tr: {
-    id: "tr",
-    name: "ภาษาตุรกี (Turkish)",
-    flag: "🇹🇷",
-    speechCode: "tr-TR",
-    alphabetTitle: "Resimli Türkçe",
-    alphabetSections: [],
+    id: "tr", region: "mideast", name: "ตุรกี (Turkish)", flag: "🇹🇷", speechCode: "tr-TR",
+    alphabetTitle: "Türk Alfabesi (29 ตัวอักษรตุรกี)",
+    alphabetSections: [
+      {
+        title: "🌱 อักษรเฉพาะภาษาตุรกี",
+        items: [
+          { char: "Ç ç", sub: "เช่อ", thai: "ช", toon: "☕", sound: "Ç" },
+          { char: "Ğ ğ", sub: "ยูมูชัก เก", thai: "เสียงลากยาว", toon: "⛰️", sound: "ğ" },
+          { char: "I ı", sub: "อือ (ไร้จุด)", thai: "อือ", toon: "📏", sound: "I" },
+          { char: "İ i", sub: "อี (มีจุด)", thai: "อี", toon: "🕯️", sound: "İ" }
+        ]
+      }
+    ],
     dialogues: [],
-    phrases: [{ level: "0", cat: "ทักทาย", toon: "☕", target: "Merhaba!", sub: "แมร์ฮาบา", thai: "สวัสดี" }],
-    grammarNotes: [],
-    sentenceBuilder: null
+    phrases: [{ cat: "ทักทาย", toon: "☕", target: "Merhaba !", sub: "แมร์ฮาบา", thai: "สวัสดี" }],
+    grammarNotes: [{ title: "Vowel Harmony (ความสอดคล้องของสระ)", formula: "สระหน้า vs สระหลัง", desc: "คำลงท้ายจะปรับสระตามพยางค์สุดท้ายเสมอ", example: "Evler (บ้านหลายหลัง)" }],
+    sentenceBuilder: {
+      casual: {
+        categories: [
+          { name: "คำถาม", words: [{ text: "Nerede", sub: "Nerede", thai: "อยู่ที่ไหน" }] },
+          { name: "สถานที่", words: [{ text: "otel?", sub: "otel?", thai: "โรงแรม" }] }
+        ]
+      },
+      formal: {
+        categories: [
+          { name: "ทางการ", words: [{ text: "Sayın Yetkili,", sub: "Sayin...", thai: "กราบเรียนท่านผู้มีอำนาจหน้าที่" }] },
+          { name: "ลงท้าย", words: [{ text: "Saygılarımla arz ederim.", sub: "Saygilarimla...", thai: "ขอแสดงความนับถืออย่างสูงยิ่ง" }] }
+        ]
+      }
+    }
+  },
+
+  // --- 13. THAI (ไทย - สำหรับชาวต่างชาติหรือผู้ต้องการทบทวน) ---
+  th: {
+    id: "th", region: "asia", name: "ไทย (Thai)", flag: "🇹🇭", speechCode: "th-TH",
+    alphabetTitle: "พยัญชนะไทย 44 ตัว & สระ 32 เสียง",
+    alphabetSections: [
+      {
+        title: "🌱 พยัญชนะไทยเบื้องต้น",
+        items: [
+          { char: "ก", sub: "gor kai", thai: "ก ไก่", toon: "🐔", sound: "ก" },
+          { char: "ข", sub: "khor khai", thai: "ข ไข่", toon: "🥚", sound: "ข" },
+          { char: "ค", sub: "khor khway", thai: "ค ควาย", toon: "🐃", sound: "ค" },
+          { char: "ง", sub: "ngor ngoo", thai: "ง งู", toon: "🐍", sound: "ง" }
+        ]
+      }
+    ],
+    dialogues: [],
+    phrases: [{ cat: "ทักทาย", toon: "🙏", target: "สวัสดีครับ / สวัสดีค่ะ", sub: "Sawasdee", thai: "สวัสดี" }],
+    grammarNotes: [{ title: "คำลงท้ายสุภาพ ครับ/ค่ะ", formula: "ผู้ชายใช้ 'ครับ' / ผู้หญิงใช้ 'ค่ะ'", desc: "ใช้แสดงความสุภาพท้ายประโยค", example: "ขอบคุณครับ / ขอบคุณค่ะ" }],
+    sentenceBuilder: {
+      casual: {
+        categories: [
+          { name: "ประธาน", words: [{ text: "ผม/ฉัน", sub: "I", thai: "ฉัน" }] },
+          { name: "กริยา", words: [{ text: "อยากไป", sub: "want to go", thai: "อยากไป" }] },
+          { name: "สถานที่", words: [{ text: "ตลาดนัด", sub: "night market", thai: "ตลาดนัด" }] }
+        ]
+      },
+      formal: {
+        categories: [
+          { name: "คำขึ้นต้นทางการ", words: [{ text: "กราบเรียนท่านประธานที่เคารพ,", sub: "Dear Chairman,", thai: "กราบเรียนท่านประธาน" }] },
+          { name: "คำลงท้ายทางการ", words: [{ text: "ขอแสดงความนับถือเป็นอย่างยิ่ง.", sub: "Sincerely yours.", thai: "ขอแสดงความนับถืออย่างยิ่ง" }] }
+        ]
+      }
+    }
+  },
+
+  // --- 14. HINDI (ฮินดี - อินเดีย) ---
+  hi: {
+    id: "hi", region: "asia", name: "ฮินดี (Hindi)", flag: "🇮🇳", speechCode: "hi-IN",
+    alphabetTitle: "อักษรเทวนาครี (Devanagari Alphabet)",
+    alphabetSections: [
+      {
+        title: "🌱 พยัญชนะเทวนาครีเบื้องต้น",
+        items: [
+          { char: "क", sub: "ka", thai: "ก/ค", toon: "🪁", sound: "क" },
+          { char: "ख", sub: "kha", thai: "ข (พ่นลม)", toon: "🐰", sound: "ख" },
+          { char: "ग", sub: "ga", thai: "ก (ในคอ)", toon: "🐄", sound: "ग" },
+          { char: "घ", sub: "gha", thai: "ฆ", toon: "🏠", sound: "घ" }
+        ]
+      }
+    ],
+    dialogues: [],
+    phrases: [{ cat: "ทักทาย", toon: "🙏", target: "नमस्ते", sub: "Namaste", thai: "สวัสดี (นมัสเต)" }],
+    grammarNotes: [{ title: "การเรียงประโยค SOV", formula: "ประธาน + กรรม + กริยา", desc: "กริยาจะอยู่ท้ายประโยคเสมอในภาษาฮินดี", example: "मैं चाय पीता हूँ (ฉันดื่มชา)" }],
+    sentenceBuilder: {
+      casual: {
+        categories: [
+          { name: "คำถาม", words: [{ text: "यह कितने का है?", sub: "Yeh kitne ka hai?", thai: "อันนี้ราคาเท่าไหร่?" }] }
+        ]
+      },
+      formal: {
+        categories: [
+          { name: "คำขึ้นต้นทางการ", words: [{ text: "आदरणीय महोदय,", sub: "Aadarniya Mahodaya,", thai: "กราบเรียนท่านที่เคารพ" }] },
+          { name: "คำลงท้ายทางการ", words: [{ text: "भवदीय।", sub: "Bhavdiya.", thai: "ด้วยความเคารพอย่างสูง" }] }
+        ]
+      }
+    }
+  },
+
+  // --- 15. PORTUGUESE (โปรตุเกส & บราซิล) ---
+  pt: {
+    id: "pt", region: "europe", name: "โปรตุเกส (Portuguese)", flag: "🇵🇹", speechCode: "pt-PT",
+    alphabetTitle: "Alfabeto Português (อักษรภาษาโปรตุเกส)",
+    alphabetSections: [
+      {
+        title: "🌱 อักษรและเครื่องหมายกำกับเสียง",
+        items: [
+          { char: "Olá", sub: "โอลา", thai: "สวัสดี", toon: "👋", sound: "Olá" },
+          { char: "Obrigado", sub: "โอบริกาดู", thai: "ขอบคุณ (ชายพูด)", toon: "🙏", sound: "Obrigado" },
+          { char: "Obrigada", sub: "โอบริกาเดอะ", thai: "ขอบคุณ (หญิงพูด)", toon: "🙏", sound: "Obrigada" },
+          { char: "Ç ç", sub: "เซเซดีลยา", thai: "ซ", toon: "🍬", sound: "ç" }
+        ]
+      }
+    ],
+    dialogues: [],
+    phrases: [{ cat: "ทักทาย", toon: "👋", target: "Olá! Tudo bem?", sub: "โอลา ตูดู เบง", thai: "สวัสดี สบายดีไหม?" }],
+    grammarNotes: [{ title: "คำขอบคุณแยกลักษณะผู้พูด", formula: "ผู้ชายพูด: Obrigado / ผู้หญิงพูด: Obrigada", desc: "คำขอบคุณในภาษาโปรตุเกสเปลี่ยนรูปตามเพศของผู้พูดเสมอ", example: "Obrigado (ชาย) vs Obrigada (หญิง)" }],
+    sentenceBuilder: {
+      casual: {
+        categories: [
+          { name: "คำขอ", words: [{ text: "Por favor,", sub: "Por favor", thai: "ได้โปรด..." }] },
+          { name: "สิ่งของ", words: [{ text: "uma água.", sub: "uma agua", thai: "ขอน้ำหนึ่งขวด" }] }
+        ]
+      },
+      formal: {
+        categories: [
+          { name: "ทางการ", words: [{ text: "Prezado Senhor,", sub: "Prezado...", thai: "กราบเรียนท่านสุภาพบุรุษ" }] },
+          { name: "ลงท้าย", words: [{ text: "Com os melhores cumprimentos.", sub: "com os melhores...", thai: "ด้วยความนับถืออย่างดียิ่ง" }] }
+        ]
+      }
+    }
   }
 };
 
 // ==================== STATE MANAGEMENT ====================
 let currentLangId = 'zh';
 let currentTab = 'alphabet';
-let currentLevel = 'all';
+let currentRegion = 'all';
+let currentBuilderMode = 'casual'; // 'casual' vs 'formal'
 let userScore = 0;
 
 let builderSelectedTokens = [];
@@ -1083,11 +1295,19 @@ window.addEventListener('DOMContentLoaded', () => {
   loadLanguage(currentLangId);
 });
 
+function filterRegion(reg) {
+  currentRegion = reg;
+  document.querySelectorAll('.region-btn').forEach(b => b.classList.remove('active'));
+  event.currentTarget.classList.add('active');
+  renderLangBar();
+}
+
 function renderLangBar() {
   const bar = document.getElementById('langBar');
   bar.innerHTML = '';
   Object.keys(DB).forEach(key => {
     const l = DB[key];
+    if (currentRegion !== 'all' && l.region !== currentRegion) return;
     const btn = document.createElement('button');
     btn.className = `lang-btn ${key === currentLangId ? 'active' : ''}`;
     btn.innerHTML = `<span>${l.flag}</span> <span>${l.name.split(' ')[0]}</span>`;
@@ -1102,11 +1322,11 @@ function selectLanguage(id) {
   loadLanguage(id);
 }
 
-function setLevel(lvl) {
-  currentLevel = lvl;
-  document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
-  event.currentTarget.classList.add('active');
-  loadLanguage(currentLangId);
+function setBuilderMode(mode) {
+  currentBuilderMode = mode;
+  document.getElementById('modeCasualBtn').classList.toggle('active', mode === 'casual');
+  document.getElementById('modeFormalBtn').classList.toggle('active', mode === 'formal');
+  initSentenceBuilder();
 }
 
 function switchTab(tabId) {
@@ -1136,15 +1356,10 @@ function loadLanguage(id) {
   if (currentTab === 'flashcards') initFlashcards();
 }
 
-// ==================== TAB 1: ALPHABET WITH TOON MNEMONICS ====================
+// ==================== TAB 1: ALPHABET ====================
 function renderAlphabet(data) {
   const container = document.getElementById('alphaContainer');
   container.innerHTML = '';
-
-  if (!data.alphabetSections || data.alphabetSections.length === 0) {
-    container.innerHTML = '<p style="color:var(--text-muted);padding:14px;">ระบบภาพช่วยจำกำลังเรียบเรียงสำหรับภาษานี้...</p>';
-    return;
-  }
 
   data.alphabetSections.forEach(sec => {
     const wrap = document.createElement('div');
@@ -1183,135 +1398,20 @@ function speakFirstSound() {
   speakTarget(sound);
 }
 
-// ==================== TAB 2: DIALOGUES WITH SCENE BANNERS ====================
-function renderDialogues(data) {
-  const container = document.getElementById('dialogueContainer');
-  container.innerHTML = '';
-
-  if (!data.dialogues || data.dialogues.length === 0) {
-    container.innerHTML = '<p style="color:var(--text-muted);padding:14px;">บทสนทนาสถานการณ์จริงกำลังอัปเดตเพิ่มเติมสำหรับภาษานี้...</p>';
-    return;
-  }
-
-  data.dialogues.forEach(dlg => {
-    const card = document.createElement('div');
-    card.className = 'dialogue-card';
-
-    let turnsHtml = '';
-    dlg.turns.forEach(t => {
-      const avatarIcon = t.speaker === 'A' ? (dlg.avatarA || '🧑') : (dlg.avatarB || '👩');
-      turnsHtml += `
-        <div class="dialogue-turn">
-          <div class="avatar">${avatarIcon}</div>
-          <div class="bubble" onclick="speakTarget('${t.text}')">
-            <div class="target">${t.text}</div>
-            <div class="sub">${t.sub}</div>
-            <div class="thai">${t.name}: ${t.thai}</div>
-          </div>
-        </div>
-      `;
-    });
-
-    card.innerHTML = `
-      <div class="scene-banner">
-        <div class="scene-art">${dlg.sceneArt || '🎬'}</div>
-        <div class="scene-info">
-          <h3>${dlg.title}</h3>
-          <p>${dlg.desc || 'แตะที่กล่องคำพูดเพื่อฟังเสียงสนทนา'}</p>
-        </div>
-        <button class="btn btn-secondary" style="margin-left:auto;padding:6px 12px;font-size:0.75rem;" onclick="playFullDialogue(this)">▶ ฟังทั้งบท</button>
-      </div>
-      <div>${turnsHtml}</div>
-    `;
-    container.appendChild(card);
-  });
-}
-
-function playFullDialogue(btn) {
-  const card = btn.closest('.dialogue-card');
-  const texts = Array.from(card.querySelectorAll('.bubble .target')).map(el => el.textContent);
-  playQueue(texts, 0);
-}
-
-function playQueue(texts, idx) {
-  if (idx >= texts.length) return;
-  speakTarget(texts[idx]);
-  setTimeout(() => playQueue(texts, idx + 1), 2300);
-}
-
-// ==================== TAB 3: ILLUSTRATED PHRASES ====================
-function renderPhrases(data) {
-  const list = document.getElementById('phraseList');
-  list.innerHTML = '';
-
-  let filtered = data.phrases;
-  if (currentLevel !== 'all') {
-    filtered = data.phrases.filter(p => p.level === currentLevel);
-  }
-
-  if (filtered.length === 0) {
-    list.innerHTML = '<p style="color:var(--text-muted);padding:14px;">ไม่มีประโยคในระดับที่เลือก ลองสลับระดับด้านบนครับ</p>';
-    return;
-  }
-
-  filtered.forEach(p => {
-    const card = document.createElement('div');
-    card.className = 'phrase-card';
-    card.innerHTML = `
-      <div class="phrase-icon">${p.toon || '💬'}</div>
-      <div class="phrase-info">
-        <div class="phrase-target">
-          ${p.target}
-          <span class="phrase-badge">Lv.${p.level || 1} ${p.cat}</span>
-        </div>
-        <div class="phrase-roman">${p.sub}</div>
-        <div class="phrase-thai">${p.thai}</div>
-      </div>
-      <button class="speak-btn" title="ฟังเสียงอ่าน">🔊</button>
-    `;
-    card.querySelector('.speak-btn').onclick = (e) => {
-      e.stopPropagation();
-      speakTarget(p.target);
-    };
-    list.appendChild(card);
-  });
-}
-
-// ==================== TAB 4: GRAMMAR ====================
-function renderGrammar(data) {
-  const container = document.getElementById('grammarContainer');
-  container.innerHTML = '';
-
-  if (!data.grammarNotes || data.grammarNotes.length === 0) {
-    container.innerHTML = '<p style="color:var(--text-muted);padding:14px;">เนื้อหาไวยากรณ์ขั้นสูงกำลังเรียบเรียงสำหรับภาษานี้...</p>';
-    return;
-  }
-
-  data.grammarNotes.forEach(g => {
-    const card = document.createElement('div');
-    card.className = 'grammar-card';
-    card.innerHTML = `
-      <div class="grammar-title"><span>📘</span> ${g.title}</div>
-      <div class="grammar-formula">${g.formula}</div>
-      <div class="grammar-desc">${g.desc}</div>
-      <div class="grammar-eg">💡 ตัวอย่าง: ${g.example}</div>
-    `;
-    container.appendChild(card);
-  });
-}
-
-// ==================== TAB 5: SENTENCE BUILDER ====================
+// ==================== TAB 2: SENTENCE BUILDER (CASUAL VS FORMAL) ====================
 function initSentenceBuilder() {
   const data = DB[currentLangId];
   const palette = document.getElementById('wordPalette');
   palette.innerHTML = '';
 
-  if (!data.sentenceBuilder) {
-    palette.innerHTML = '<p style="color:var(--text-muted);">ระบบต่อประโยคกำลังอัปเดตสำหรับภาษานี้...</p>';
+  const builderData = data.sentenceBuilder ? data.sentenceBuilder[currentBuilderMode] : null;
+
+  if (!builderData || !builderData.categories) {
+    palette.innerHTML = '<p style="color:var(--text-muted);padding:14px;">ระบบต่อประโยคกำลังอัปเดตเพิ่มเติมสำหรับโหมดนี้...</p>';
     return;
   }
 
-  data.sentenceBuilder.categories.forEach(cat => {
+  builderData.categories.forEach(cat => {
     const title = document.createElement('div');
     title.className = 'palette-title';
     title.textContent = cat.name;
@@ -1354,7 +1454,7 @@ function updateBuilderSlots() {
   const preview = document.getElementById('builderPreview');
 
   if (builderSelectedTokens.length === 0) {
-    slotBox.innerHTML = '<span style="color:#94a3b8;font-size:0.9rem;">ยังไม่ได้เลือกคำ... แตะคำด้านล่างเพื่อเริ่มสร้างประโยค</span>';
+    slotBox.innerHTML = '<span style="color:#94a3b8;font-size:0.9rem;">แตะคำศัพท์ด้านล่างเพื่อต่อประโยค...</span>';
     preview.style.display = 'none';
     return;
   }
@@ -1384,7 +1484,96 @@ function speakFinalSentence() {
   speakTarget(text);
 }
 
-// ==================== TAB 6: QUIZ & TYPING WITH TOON ====================
+// ==================== TAB 3: DIALOGUES ====================
+function renderDialogues(data) {
+  const container = document.getElementById('dialogueContainer');
+  container.innerHTML = '';
+
+  if (!data.dialogues || data.dialogues.length === 0) {
+    container.innerHTML = '<p style="color:var(--text-muted);padding:14px;">บทสนทนาโต้ตอบกำลังเรียบเรียงเพิ่มเติมสำหรับภาษานี้ สามารถดูคลังประโยคและตารางพยัญชนะได้ทันทีครับ</p>';
+    return;
+  }
+
+  data.dialogues.forEach(dlg => {
+    const card = document.createElement('div');
+    card.className = 'dialogue-card';
+
+    let turnsHtml = '';
+    dlg.turns.forEach(t => {
+      const avatarIcon = t.speaker === 'A' ? (dlg.avatarA || '🧑') : (dlg.avatarB || '👩');
+      turnsHtml += `
+        <div class="dialogue-turn">
+          <div class="avatar">${avatarIcon}</div>
+          <div class="bubble" onclick="speakTarget('${t.text}')">
+            <div class="target">${t.text}</div>
+            <div class="sub">${t.sub}</div>
+            <div class="thai">${t.name}: ${t.thai}</div>
+          </div>
+        </div>
+      `;
+    });
+
+    card.innerHTML = `
+      <div class="scene-banner">
+        <div class="scene-art">${dlg.sceneArt || '🎬'}</div>
+        <div class="scene-info">
+          <h3>${dlg.title}</h3>
+          <p>${dlg.desc || 'แตะที่กล่องคำพูดเพื่อฟังเสียงสนทนา'}</p>
+        </div>
+      </div>
+      <div>${turnsHtml}</div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+// ==================== TAB 4: PHRASES ====================
+function renderPhrases(data) {
+  const list = document.getElementById('phraseList');
+  list.innerHTML = '';
+
+  data.phrases.forEach(p => {
+    const card = document.createElement('div');
+    card.className = 'phrase-card';
+    card.innerHTML = `
+      <div class="phrase-icon">${p.toon || '💬'}</div>
+      <div class="phrase-info">
+        <div class="phrase-target">
+          ${p.target}
+          <span class="phrase-badge">${p.cat}</span>
+        </div>
+        <div class="phrase-roman">${p.sub}</div>
+        <div class="phrase-thai">${p.thai}</div>
+      </div>
+      <button class="speak-btn" title="ฟังเสียงอ่าน">🔊</button>
+    `;
+    card.querySelector('.speak-btn').onclick = (e) => {
+      e.stopPropagation();
+      speakTarget(p.target);
+    };
+    list.appendChild(card);
+  });
+}
+
+// ==================== TAB 5: GRAMMAR ====================
+function renderGrammar(data) {
+  const container = document.getElementById('grammarContainer');
+  container.innerHTML = '';
+
+  data.grammarNotes.forEach(g => {
+    const card = document.createElement('div');
+    card.className = 'grammar-card';
+    card.innerHTML = `
+      <div class="grammar-title"><span>📘</span> ${g.title}</div>
+      <div class="grammar-formula">${g.formula}</div>
+      <div class="grammar-desc">${g.desc}</div>
+      <div class="grammar-eg">💡 ตัวอย่าง: ${g.example}</div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+// ==================== TAB 6: QUIZ & TYPING ====================
 function initQuiz() {
   const data = DB[currentLangId];
   quizPool = [...data.phrases];
@@ -1403,7 +1592,6 @@ function loadQuizItem() {
   document.getElementById('quizToon').textContent = currentQuizItem.toon || '🎨';
   document.getElementById('quizTarget').textContent = currentQuizItem.target;
   document.getElementById('quizSub').textContent = `ความหมาย: "${currentQuizItem.thai}"`;
-  document.getElementById('quizPrompt').textContent = `พิมพ์คำอ่านโรมาจิ/พินอิน หรือความหมาย:`;
 
   const input = document.getElementById('quizInput');
   input.value = '';
@@ -1451,7 +1639,7 @@ function skipQuizItem() {
   loadQuizItem();
 }
 
-// ==================== TAB 7: ILLUSTRATED FLASHCARDS ====================
+// ==================== TAB 7: FLASHCARDS ====================
 function initFlashcards() {
   const data = DB[currentLangId];
   flashcardList = [...data.phrases];
@@ -1521,11 +1709,11 @@ function speakTarget(text) {
 function addScore(pts) {
   userScore += pts;
   document.getElementById('userScore').textContent = userScore;
-  localStorage.setItem('global_lingua_score', userScore);
+  localStorage.setItem('world_lingua_omni_score', userScore);
 }
 
 function loadScore() {
-  const saved = localStorage.getItem('global_lingua_score');
+  const saved = localStorage.getItem('world_lingua_omni_score');
   if (saved) {
     userScore = parseInt(saved, 10) || 0;
     document.getElementById('userScore').textContent = userScore;
